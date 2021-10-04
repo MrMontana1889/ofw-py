@@ -80,7 +80,7 @@ class ICollectionElement:
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
 
-class ICollection(Generic[TElementType], IEnumerable[TElementType]):
+class ICollection(Generic[TElementType], Iterator[TElementType]):
 
 	def __init__(self) -> None:
 		"""Creating a new Instance of this class is not allowed
