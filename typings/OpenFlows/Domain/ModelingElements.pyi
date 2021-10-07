@@ -5,7 +5,7 @@ from datetime import datetime
 from array import array
 from OpenFlows.Enumerations import *
 from OpenFlows.Domain.ModelingElements.Support import IFieldManager
-from Haestad.Support.Support.Interfaces import IEditLabeled
+# from Haestad.Support.Support.Interfaces import IEditLabeled
 
 TElementType = TypeVar("TElementType", IElement)
 TElementManagerType = TypeVar("TElementManagerType", IModelingElementsBase)
@@ -14,6 +14,19 @@ TUnitsType = TypeVar("TUnitsType", IElementUnits)
 TScenarioOptionsType = TypeVar("TScenarioOptionsType", IScenarioOptions)
 TScenarioOptionsUnitsType = TypeVar("TScenarioOptionsUnitsType", IElementUnits)
 TNetworkElementType = TypeVar("TNetworkElementType", IElement)
+
+class ILabeled:
+	@property
+	def Label(self) -> str:
+		pass
+
+class IEditLabeled(ILabeled):
+	@property
+	def Label(self) -> str:
+		pass
+	@Label.setter
+	def Label(self, label: str) -> None:
+		pass
 
 class IElementManager:
 
