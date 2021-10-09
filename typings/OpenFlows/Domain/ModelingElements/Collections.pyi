@@ -1,7 +1,7 @@
 from typing import Generic, List, Iterator, TypeVar
 from OpenFlows.Domain.ModelingElements import IElementUnits
+from Haestad.Support.Support import SortContextCollection, FilterContextCollection
 from OpenFlows.Domain.ModelingElements.Support import IFieldManager
-from OpenFlows.Enumerations import *
 
 TCollectionType = TypeVar("TCollectionType", ICollection)
 TElementType = TypeVar("TElementType", ICollectionElement)
@@ -20,7 +20,7 @@ class ICollectionElements(Generic[TCollectionType, TElementType, TUnitsType]):
 		pass
 
 	def Get(self) -> TCollectionType:
-		"""Returns the collection data.
+		"""No Description
 
 		Returns:
 			TCollectionType: 
@@ -39,14 +39,14 @@ class ICollectionElements(Generic[TCollectionType, TElementType, TUnitsType]):
 		pass
 
 	def SelectElements(self, sorts: SortContextCollection, filters: FilterContextCollection) -> List[TElementType]:
-		"""Applies a sort and/or filter against the collection and returns the matching elements.
+		"""No Description
 
 		Args:
-			sorts(SortContextCollection): Sorts on a field in either ascending or descending order
-			filters(FilterContextCollection): Filters the collection on one or more fields
+			sorts(SortContextCollection): sorts
+			filters(FilterContextCollection): filters
 
 		Returns:
-			List[TElementType]:  containing matching elements for the provided criteria.
+			List[TElementType]: 
 		"""
 		pass
 
@@ -80,7 +80,7 @@ class ICollectionElement:
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
 
-class ICollection(Generic[TElementType], Iterator[TElementType]):
+class ICollection(Generic[TElementType], IEnumerable[TElementType]):
 
 	def __init__(self) -> None:
 		"""Creating a new Instance of this class is not allowed
@@ -93,7 +93,7 @@ class ICollection(Generic[TElementType], Iterator[TElementType]):
 		pass
 
 	def Add(self) -> TElementType:
-		"""Creates a new item, adds it to the collection and returns the object.
+		"""No Description
 
 		Returns:
 			TElementType: 
@@ -101,10 +101,10 @@ class ICollection(Generic[TElementType], Iterator[TElementType]):
 		pass
 
 	def RemoveAt(self, index: int) -> None:
-		"""Removes the System.Collections.Generic.IList`1 item at the specified index.
+		"""No Description
 
 		Args:
-			index(int): The zero-based index of the item to remove.
+			index(int): index
 
 		Returns:
 			None: 
@@ -123,7 +123,7 @@ class ICollection(Generic[TElementType], Iterator[TElementType]):
 		pass
 
 	def Clear(self) -> None:
-		"""Removes all items from the collection.
+		"""No Description
 
 		Returns:
 			None: 

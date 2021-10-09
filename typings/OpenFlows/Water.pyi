@@ -1,5 +1,6 @@
 from enum import Enum
 from typing import overload
+from Haestad.LicensingFacade import LicenseRunStatusEnum
 from OpenFlows.Water.Domain import IWaterModel
 from OpenFlows.Water.Support import IOpenFlowsWaterDefaults
 
@@ -111,18 +112,3 @@ class OpenFlowsWater:
 		"""
 		pass
 
-
-
-# from typing import overload
-
-
-# class OpenFlowsWater:
-    
-#     @staticmethod
-#     @overload
-#     def StartSession(license: int) -> None:
-#         pass
-
-#     @staticmethod
-#     def EndSession() -> None:
-#         pass

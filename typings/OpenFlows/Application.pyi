@@ -1,4 +1,107 @@
-from OpenFlows.Enumerations import *
+class ApplicationManager(IApplicationManager):
+
+	def __init__(self) -> None:
+		"""Creating a new Instance of this class is not allowed
+
+
+		Raises:
+			Exception: if this class is instanciated
+		"""
+		raise Exception("Creating a new Instance of this class is not allowed")
+		pass
+
+	@staticmethod
+	def GetInstance() -> IApplicationManager:
+		"""No Description
+
+		Returns:
+			IApplicationManager: 
+		"""
+		pass
+
+	@staticmethod
+	def SetApplicationManager(applicationManager: IApplicationManager) -> None:
+		"""No Description
+
+		Args:
+			applicationManager(IApplicationManager): applicationManager
+
+		Returns:
+			None: 
+		"""
+		pass
+
+	def Start(self) -> None:
+		"""No Description
+
+		Returns:
+			None: 
+		"""
+		pass
+
+	def SetParentFormSurrogateDelegate(self, parentFormSurrogateDelegate: ParentFormSurrogateDelegate) -> None:
+		"""No Description
+
+		Args:
+			parentFormSurrogateDelegate(ParentFormSurrogateDelegate): parentFormSurrogateDelegate
+
+		Returns:
+			None: 
+		"""
+		pass
+
+	def Stop(self) -> None:
+		"""No Description
+
+		Returns:
+			None: 
+		"""
+		pass
+
+	@property
+	def DomainApplicationModel(self) -> IDomainApplicationModel:
+		"""No Description
+
+		Returns:
+			ApplicationManager: 
+		"""
+		pass
+
+	@property
+	def ParentFormModel(self) -> HaestadParentFormModel:
+		"""No Description
+
+		Returns:
+			ApplicationManager: 
+		"""
+		pass
+
+	@property
+	def ParentFormUIModel(self) -> GraphicalParentFormUIModelBase:
+		"""No Description
+
+		Returns:
+			ApplicationManager: 
+		"""
+		pass
+
+	@property
+	def ParentFormSurrogate(self) -> IParentFormSurrogate:
+		"""No Description
+
+		Returns:
+			ApplicationManager: 
+		"""
+		pass
+
+	@property
+	def IsStarted(self) -> bool:
+		"""No Description
+
+		Returns:
+			ApplicationManager: 
+		"""
+		pass
 
 class IParentFormSurrogate(IWin32Window, IUserInterface):
 
@@ -13,7 +116,7 @@ class IParentFormSurrogate(IWin32Window, IUserInterface):
 		pass
 
 	def SetParentWindowHandle(self, handle: int) -> None:
-		"""Sets the handle of the parent window.
+		"""No Description
 
 		Args:
 			handle(int): handle
@@ -36,7 +139,7 @@ class IApplicationManager:
 		pass
 
 	def Start(self) -> None:
-		"""Starts the application
+		"""No Description
 
 		Returns:
 			None: 
@@ -44,8 +147,7 @@ class IApplicationManager:
 		pass
 
 	def SetParentFormSurrogateDelegate(self, parentFormSurrgateDelegate: ParentFormSurrogateDelegate) -> None:
-		"""Provides a custom ParentFormSurrogate to use for the application
-            instead of the default implementation.
+		"""No Description
 
 		Args:
 			parentFormSurrgateDelegate(ParentFormSurrogateDelegate): parentFormSurrgateDelegate
@@ -56,7 +158,7 @@ class IApplicationManager:
 		pass
 
 	def Stop(self) -> None:
-		"""Stops the application
+		"""No Description
 
 		Returns:
 			None: 
