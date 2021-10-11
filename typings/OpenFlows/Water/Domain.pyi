@@ -80,7 +80,7 @@ class IWaterModel(IModel[IWaterNetwork, IWaterModelSupport, IWaterScenarios, IWa
 
 	@property
 	def AnalysisTools(self) -> IAnalysisTools:
-		"""No Description
+		"""Analysis tools available in OpenFlows
 
 		Returns:
 			IWaterModel: 

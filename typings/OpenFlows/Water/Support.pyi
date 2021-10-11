@@ -12,16 +12,11 @@ class IOpenFlowsWaterDefaults:
 
 	@property
 	def DefaultIsActive(self) -> bool:
-		"""No Description
+		"""Set the default value for IsActive when creating new elements
+            Applies to domain elements only.
 
-		Returns:
-			IOpenFlowsWaterDefaults: 
-		"""
-		pass
-
-	@property
-	def UseElementLabeling(self) -> bool:
-		"""No Description
+		Note:
+			Default value is true
 
 		Returns:
 			IOpenFlowsWaterDefaults: 
@@ -30,6 +25,19 @@ class IOpenFlowsWaterDefaults:
 
 	@DefaultIsActive.setter
 	def DefaultIsActive(self, defaultisactive: bool) -> None:
+		pass
+
+	@property
+	def UseElementLabeling(self) -> bool:
+		"""Use the element label generator settings for setting the label
+            of a new element.  Applies to domain elements only.
+
+		Note:
+			Default value is true
+
+		Returns:
+			IOpenFlowsWaterDefaults: 
+		"""
 		pass
 
 	@UseElementLabeling.setter

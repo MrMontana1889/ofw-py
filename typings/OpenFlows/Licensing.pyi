@@ -1,4 +1,4 @@
-from Haestad.LicensingFacade import ILicenseProvider, LicenseRunStatusEnum, ProductId, LicenseStatus
+from Haestad.LicensingFacade import LicenseRunStatusEnum, ProductId, LicenseStatus, ILicenseProvider
 from typing import overload
 
 class ILicenseManager(ILicenseProvider):
@@ -13,9 +13,17 @@ class ILicenseManager(ILicenseProvider):
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
 
+	def IsInitialized(self) -> bool:
+		"""Checks to see if the license is initialized.
+
+		Returns:
+			bool: 
+		"""
+		pass
+
 	@overload
 	def Initialize(self, product: ProductId, parentWindow: IntPtr) -> LicenseRunStatusEnum:
-		"""No Description
+		"""Initializes the license for a given product type.
 
 		Args:
 			product(ProductId): product
@@ -28,7 +36,7 @@ class ILicenseManager(ILicenseProvider):
 
 	@overload
 	def Initialize(self, licensedFeatureSet: ILicensedFeatureSet) -> LicenseRunStatusEnum:
-		"""No Description
+		"""Initializes the LicenseManager using the Framework-managed ILicensedFeatureSet
 
 		Args:
 			licensedFeatureSet(ILicensedFeatureSet): licensedFeatureSet
@@ -38,16 +46,8 @@ class ILicenseManager(ILicenseProvider):
 		"""
 		pass
 
-	def IsInitialized(self) -> bool:
-		"""No Description
-
-		Returns:
-			bool: 
-		"""
-		pass
-
 	def CheckLicenseState(self) -> None:
-		"""No Description
+		"""Checks the state of the license.
 
 		Returns:
 			None: 
@@ -55,7 +55,7 @@ class ILicenseManager(ILicenseProvider):
 		pass
 
 	def IsLicenseValid(self) -> bool:
-		"""No Description
+		"""Checks to see if the license is valid.
 
 		Returns:
 			bool: 
@@ -63,7 +63,7 @@ class ILicenseManager(ILicenseProvider):
 		pass
 
 	def GetLicenseStatus(self) -> LicenseStatus:
-		"""No Description
+		"""Gets the current status of the license.
 
 		Returns:
 			LicenseStatus: 
@@ -72,7 +72,7 @@ class ILicenseManager(ILicenseProvider):
 
 	@property
 	def LicenseRunStatus(self) -> LicenseRunStatusEnum:
-		"""No Description
+		"""Gets the run status at the time it was initialized.
 
 		Returns:
 			ILicenseManager: 

@@ -1,11 +1,10 @@
-from typing import Generic, List, Iterator, TypeVar
-from OpenFlows.Domain.ModelingElements import IElementUnits
+from OpenFlows.Domain.ModelingElements import TUnitsType, IElementUnits
+from typing import List, Generic, Iterator, TypeVar
 from Haestad.Support.Support import SortContextCollection, FilterContextCollection
 from OpenFlows.Domain.ModelingElements.Support import IFieldManager
 
 TCollectionType = TypeVar("TCollectionType", ICollection)
 TElementType = TypeVar("TElementType", ICollectionElement)
-TUnitsType = TypeVar("TUnitsType", IElementUnits)
 
 class ICollectionElements(Generic[TCollectionType, TElementType, TUnitsType]):
 
@@ -20,7 +19,7 @@ class ICollectionElements(Generic[TCollectionType, TElementType, TUnitsType]):
 		pass
 
 	def Get(self) -> TCollectionType:
-		"""No Description
+		"""Returns the collection data.
 
 		Returns:
 			TCollectionType: 
@@ -39,20 +38,20 @@ class ICollectionElements(Generic[TCollectionType, TElementType, TUnitsType]):
 		pass
 
 	def SelectElements(self, sorts: SortContextCollection, filters: FilterContextCollection) -> List[TElementType]:
-		"""No Description
+		"""Applies a sort and/or filter against the collection and returns the matching elements.
 
 		Args:
-			sorts(SortContextCollection): sorts
-			filters(FilterContextCollection): filters
+			sorts(SortContextCollection): Sorts on a field in either ascending or descending order
+			filters(FilterContextCollection): Filters the collection on one or more fields
 
 		Returns:
-			List[TElementType]: 
+			List[TElementType]:  containing matching elements for the provided criteria.
 		"""
 		pass
 
 	@property
 	def Count(self) -> int:
-		"""No Description
+		"""The number of items in the collection stored in the model.
 
 		Returns:
 			ICollectionElements: 
@@ -61,7 +60,7 @@ class ICollectionElements(Generic[TCollectionType, TElementType, TUnitsType]):
 
 	@property
 	def Units(self) -> TUnitsType:
-		"""No Description
+		"""Gets the field units for the collection to modify.
 
 		Returns:
 			ICollectionElements: 
@@ -93,7 +92,7 @@ class ICollection(Generic[TElementType], IEnumerable[TElementType]):
 		pass
 
 	def Add(self) -> TElementType:
-		"""No Description
+		"""Creates a new item, adds it to the collection and returns the object.
 
 		Returns:
 			TElementType: 
@@ -101,10 +100,10 @@ class ICollection(Generic[TElementType], IEnumerable[TElementType]):
 		pass
 
 	def RemoveAt(self, index: int) -> None:
-		"""No Description
+		"""Removes the System.Collections.Generic.IList`1 item at the specified index.
 
 		Args:
-			index(int): index
+			index(int): The zero-based index of the item to remove.
 
 		Returns:
 			None: 
@@ -123,7 +122,7 @@ class ICollection(Generic[TElementType], IEnumerable[TElementType]):
 		pass
 
 	def Clear(self) -> None:
-		"""No Description
+		"""Removes all items from the collection.
 
 		Returns:
 			None: 
@@ -139,9 +138,13 @@ class ICollection(Generic[TElementType], IEnumerable[TElementType]):
 		"""
 		pass
 
+	@Item.setter
+	def Item(self, item: TElementType) -> None:
+		pass
+
 	@property
 	def Count(self) -> int:
-		"""No Description
+		"""Gets the number of elements contained in the System.Collections.Generic.ICollection`1.
 
 		Returns:
 			ICollection: 
@@ -150,14 +153,10 @@ class ICollection(Generic[TElementType], IEnumerable[TElementType]):
 
 	@property
 	def Fields(self) -> IFieldManager:
-		"""No Description
+		"""Gets the fields for this collection
 
 		Returns:
 			ICollection: 
 		"""
-		pass
-
-	@Item.setter
-	def Item(self, item: int) -> None:
 		pass
 

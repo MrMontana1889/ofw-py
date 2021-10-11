@@ -1,3 +1,5 @@
+from typing import overload
+
 class ApplicationManager(IApplicationManager):
 
 	def __init__(self) -> None:
@@ -12,7 +14,7 @@ class ApplicationManager(IApplicationManager):
 
 	@staticmethod
 	def GetInstance() -> IApplicationManager:
-		"""No Description
+		"""Returns the current ApplicationManager.  If not yet set, creates a headless WaterApplicationManager
 
 		Returns:
 			IApplicationManager: 
@@ -21,7 +23,7 @@ class ApplicationManager(IApplicationManager):
 
 	@staticmethod
 	def SetApplicationManager(applicationManager: IApplicationManager) -> None:
-		"""No Description
+		"""Sets a custom implementation of IApplicationManager
 
 		Args:
 			applicationManager(IApplicationManager): applicationManager
@@ -32,15 +34,16 @@ class ApplicationManager(IApplicationManager):
 		pass
 
 	def Start(self) -> None:
-		"""No Description
+		"""Starts the application
 
 		Returns:
 			None: 
 		"""
 		pass
 
+	@overload
 	def SetParentFormSurrogateDelegate(self, parentFormSurrogateDelegate: ParentFormSurrogateDelegate) -> None:
-		"""No Description
+		"""Sets a custom ParentFormSurrogate for the application
 
 		Args:
 			parentFormSurrogateDelegate(ParentFormSurrogateDelegate): parentFormSurrogateDelegate
@@ -51,7 +54,20 @@ class ApplicationManager(IApplicationManager):
 		pass
 
 	def Stop(self) -> None:
-		"""No Description
+		"""Stops the application.  Should be closed when application exits.
+
+		Returns:
+			None: 
+		"""
+		pass
+
+	@overload
+	def SetParentFormSurrogateDelegate(self, parentFormSurrgateDelegate: ParentFormSurrogateDelegate) -> None:
+		"""Provides a custom ParentFormSurrogate to use for the application
+            instead of the default implementation.
+
+		Args:
+			parentFormSurrgateDelegate(ParentFormSurrogateDelegate): parentFormSurrgateDelegate
 
 		Returns:
 			None: 
@@ -103,6 +119,10 @@ class ApplicationManager(IApplicationManager):
 		"""
 		pass
 
+	@IsStarted.setter
+	def IsStarted(self, isstarted: bool) -> None:
+		pass
+
 class IParentFormSurrogate(IWin32Window, IUserInterface):
 
 	def __init__(self) -> None:
@@ -116,7 +136,7 @@ class IParentFormSurrogate(IWin32Window, IUserInterface):
 		pass
 
 	def SetParentWindowHandle(self, handle: int) -> None:
-		"""No Description
+		"""Sets the handle of the parent window.
 
 		Args:
 			handle(int): handle
@@ -139,7 +159,7 @@ class IApplicationManager:
 		pass
 
 	def Start(self) -> None:
-		"""No Description
+		"""Starts the application
 
 		Returns:
 			None: 
@@ -147,7 +167,8 @@ class IApplicationManager:
 		pass
 
 	def SetParentFormSurrogateDelegate(self, parentFormSurrgateDelegate: ParentFormSurrogateDelegate) -> None:
-		"""No Description
+		"""Provides a custom ParentFormSurrogate to use for the application
+            instead of the default implementation.
 
 		Args:
 			parentFormSurrgateDelegate(ParentFormSurrogateDelegate): parentFormSurrgateDelegate
@@ -158,7 +179,7 @@ class IApplicationManager:
 		pass
 
 	def Stop(self) -> None:
-		"""No Description
+		"""Stops the application
 
 		Returns:
 			None: 
@@ -167,7 +188,7 @@ class IApplicationManager:
 
 	@property
 	def DomainApplicationModel(self) -> IDomainApplicationModel:
-		"""No Description
+		"""The application model for the product
 
 		Returns:
 			IApplicationManager: 
@@ -176,7 +197,7 @@ class IApplicationManager:
 
 	@property
 	def ParentFormModel(self) -> HaestadParentFormModel:
-		"""No Description
+		"""The parent form model for primary dialog of the application
 
 		Returns:
 			IApplicationManager: 
@@ -185,7 +206,7 @@ class IApplicationManager:
 
 	@property
 	def ParentFormUIModel(self) -> GraphicalParentFormUIModelBase:
-		"""No Description
+		"""The UI Model which allows for access to virtually all features of the product.
 
 		Returns:
 			IApplicationManager: 
@@ -194,7 +215,7 @@ class IApplicationManager:
 
 	@property
 	def ParentFormSurrogate(self) -> IParentFormSurrogate:
-		"""No Description
+		"""If no parent form is in use, this is what is used in its stead.
 
 		Returns:
 			IApplicationManager: 
@@ -203,7 +224,7 @@ class IApplicationManager:
 
 	@property
 	def IsStarted(self) -> bool:
-		"""No Description
+		"""The flag that determines if the application was started yet.
 
 		Returns:
 			IApplicationManager: 
