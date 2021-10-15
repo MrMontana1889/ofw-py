@@ -1,2 +1,2 @@
-# OpenFlowsAPI-water-stubs
-Python stub definitions for using the OpenFlowsAPI for Water (a.k.a. WaterObjectsLite) in python
+# ofw-py
+Python stubs to use as IntelliSense for Bentley OpenFlowsAPI for Water
