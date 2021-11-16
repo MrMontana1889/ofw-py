@@ -1,5 +1,4 @@
 from enum import Enum
-from System import TypeCode
 from Haestad.LicensingFacade import LicenseRunStatusEnum
 from typing import overload
 from OpenFlows.Water.Domain import IWaterModel
@@ -26,7 +25,7 @@ class OpenFlowsWater:
 	@staticmethod
 	@overload
 	def StartSession(product: WaterProductLicenseType) -> LicenseRunStatusEnum:
-		"""Starts a session of OpenFlows.  Must be called before opening a model.
+		"""No Description
 
 		Args
 		--------
@@ -41,7 +40,7 @@ class OpenFlowsWater:
 	@staticmethod
 	@overload
 	def StartSession(licensedFeatureSet: ILicensedFeatureSet) -> LicenseRunStatusEnum:
-		"""Starts an OpenFlows session using a Framework-managed ILicensedFeatureSet
+		"""No Description
 
 		Args
 		--------
@@ -55,7 +54,7 @@ class OpenFlowsWater:
 
 	@staticmethod
 	def IsValid() -> bool:
-		"""Checks the state of the OpenFlows session.
+		"""No Description
 
 		Returns
 		--------
@@ -65,12 +64,11 @@ class OpenFlowsWater:
 
 	@staticmethod
 	def SetMaxProjects(count: int) -> None:
-		"""Sets the maximum number of projects that can be opened.
-            The default is 1.
+		"""No Description
 
 		Args
 		--------
-			count (``int``) :  A minimum of 1 and a maximum of 5 is allowed.
+			count (``int``) :  count
 
 		Returns
 		--------
@@ -80,12 +78,12 @@ class OpenFlowsWater:
 
 	@staticmethod
 	def Open(filename: str, openInPlace: bool = False) -> IWaterModel:
-		"""Opens a model using the provided filename.
+		"""No Description
 
 		Args
 		--------
-			filename (``str``) :  The file to open.  Can be the project (wtg) file or the sqlite database.
-			openInPlace (``bool``) :  True to open model without a copy.  Otherwise, a copy of the model is made when opened.  Save() has no effect if true.
+			filename (``str``) :  filename
+			openInPlace (``bool``) :  openInPlace
 
 		Returns
 		--------
@@ -95,7 +93,7 @@ class OpenFlowsWater:
 
 	@staticmethod
 	def GetModel(project: IProject) -> IWaterModel:
-		"""Creates an IWaterModel given a Framework-managed project
+		"""No Description
 
 		Args
 		--------
@@ -109,7 +107,7 @@ class OpenFlowsWater:
 
 	@staticmethod
 	def EndSession() -> None:
-		"""If Save() was not previously called, closes the project without saving changes or results.
+		"""No Description
 
 		Returns
 		--------
@@ -120,7 +118,7 @@ class OpenFlowsWater:
 	@staticmethod
 	@property
 	def Options() -> IOpenFlowsWaterDefaults:
-		"""Configure default settings
+		"""No Description
 
 		Returns
 		--------

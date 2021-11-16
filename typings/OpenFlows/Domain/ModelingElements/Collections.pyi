@@ -1,4 +1,4 @@
-from OpenFlows.Domain.ModelingElements import TUnitsType, IElementUnits
+from OpenFlows.Domain.ModelingElements import TUnitsType
 from typing import List, Generic, Iterator, TypeVar
 from Haestad.Support.Support import SortContextCollection, FilterContextCollection
 from OpenFlows.Domain.ModelingElements.Support import IFieldManager

@@ -30,7 +30,7 @@ class IAnalysisTools:
 
 	@property
 	def ScenarioEnergyCostCalculator(self) -> IScenarioEnergyCostCalculator:
-		"""Configures and runs a scenario energy cost calculation.
+		"""No Description
 
 		Returns
 		--------

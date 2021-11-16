@@ -19,7 +19,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def Pump(self) -> IPumpUnits:
-		"""Units for pumps
+		"""No Description
 
 		Returns
 		--------
@@ -29,7 +29,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def VSPBUnits(self) -> IVariableSpeedPumpBatteryUnits:
-		"""Units for VSPBs
+		"""No Description
 
 		Returns
 		--------
@@ -39,7 +39,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def FCV(self) -> IFlowControlValveUnits:
-		"""FCV units
+		"""No Description
 
 		Returns
 		--------
@@ -49,7 +49,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def GPV(self) -> IGeneralPurposeValveUnits:
-		"""GPV units
+		"""No Description
 
 		Returns
 		--------
@@ -59,7 +59,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def PBV(self) -> IPressureBreakingValveUnits:
-		"""PBV units
+		"""No Description
 
 		Returns
 		--------
@@ -69,7 +69,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def PRV(self) -> IPressureReducingValveUnits:
-		"""PRV units
+		"""No Description
 
 		Returns
 		--------
@@ -79,7 +79,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def PSV(self) -> IPressureSustainingValveUnits:
-		"""PSV units
+		"""No Description
 
 		Returns
 		--------
@@ -89,7 +89,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def TCV(self) -> IThrottleControlValveUnits:
-		"""TCV units
+		"""No Description
 
 		Returns
 		--------
@@ -99,7 +99,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def Pipe(self) -> IPipeUnits:
-		"""Pipe units
+		"""No Description
 
 		Returns
 		--------
@@ -109,7 +109,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def Lateral(self) -> IBaseLinkUnits:
-		"""Lateral units
+		"""No Description
 
 		Returns
 		--------
@@ -119,7 +119,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def Junction(self) -> IJunctionUnits:
-		"""Junction units
+		"""No Description
 
 		Returns
 		--------
@@ -129,7 +129,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def Hydrant(self) -> IHydrantUnits:
-		"""Hydrant units
+		"""No Description
 
 		Returns
 		--------
@@ -139,7 +139,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def Tank(self) -> ITankUnits:
-		"""Tank units
+		"""No Description
 
 		Returns
 		--------
@@ -149,7 +149,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def CustomerMeter(self) -> ICustomerMeterUnits:
-		"""Customer meter units
+		"""No Description
 
 		Returns
 		--------
@@ -159,7 +159,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def Reservoir(self) -> IReservoirUnits:
-		"""Reservoir units
+		"""No Description
 
 		Returns
 		--------
@@ -169,7 +169,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def SCADAElement(self) -> IGeometryUnits:
-		"""SCADA element units
+		"""No Description
 
 		Returns
 		--------
@@ -179,7 +179,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def Tap(self) -> IGeometryUnits:
-		"""Tap units
+		"""No Description
 
 		Returns
 		--------
@@ -189,7 +189,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def SpotElevation(self) -> ISpotElevationUnits:
-		"""Units for spot eelvations
+		"""No Description
 
 		Returns
 		--------
@@ -199,7 +199,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def ValveWithLinearAreaChange(self) -> IValveWithLinearAreaChangeUnits:
-		"""Units for valve with linear area change
+		"""No Description
 
 		Returns
 		--------
@@ -209,7 +209,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def PeriodicHeadFlow(self) -> IPeriodicHeadFlowUnits:
-		"""Units for periodic head-flow nodes
+		"""No Description
 
 		Returns
 		--------
@@ -219,7 +219,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def AirValve(self) -> IAirValveUnits:
-		"""Units for air valves
+		"""No Description
 
 		Returns
 		--------
@@ -229,7 +229,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def OrificeBetweenTwoPipes(self) -> IOrificeBetweenTwoPipesUnits:
-		"""Units for orifice between two pipes
+		"""No Description
 
 		Returns
 		--------
@@ -239,7 +239,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def SurgeValve(self) -> ISurgeValveUnits:
-		"""The units for surge valve (Sav/Srv)
+		"""No Description
 
 		Returns
 		--------
@@ -249,7 +249,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def DischargeToAtmosphere(self) -> IDischargeToAtmosphereUnits:
-		"""Units for discharge to atmosphere nodes
+		"""No Description
 
 		Returns
 		--------
@@ -259,7 +259,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def RuptureDisk(self) -> IRuptureDiskUnits:
-		"""Unit information for rupture disk
+		"""No Description
 
 		Returns
 		--------
@@ -269,7 +269,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def Turbine(self) -> ITurbineUnits:
-		"""The unit information for turbines
+		"""No Description
 
 		Returns
 		--------
@@ -279,7 +279,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def SurgeTank(self) -> ISurgeTankUnits:
-		"""Unit information for surge tank
+		"""No Description
 
 		Returns
 		--------
@@ -289,7 +289,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def HydropneumaticTank(self) -> IHydropneumaticTankUnits:
-		"""Unit information for hydropneumatic tank
+		"""No Description
 
 		Returns
 		--------
@@ -299,7 +299,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def IsolationValve(self) -> IIsolationValveUnits:
-		"""Units for isolation valves
+		"""No Description
 
 		Returns
 		--------
@@ -309,7 +309,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def PumpStation(self) -> IPumpStationUnits:
-		"""Units for pump station
+		"""No Description
 
 		Returns
 		--------
@@ -319,7 +319,7 @@ class INetworkElementUnits(INetworkUnits):
 
 	@property
 	def CheckValve(self) -> ICheckValveUnits:
-		"""Units for check valve
+		"""No Description
 
 		Returns
 		--------
@@ -342,7 +342,7 @@ class IComponentElementUnits(IComponentUnits):
 
 	@property
 	def Constituent(self) -> IConstituentUnits:
-		"""Constituent units
+		"""No Description
 
 		Returns
 		--------
@@ -352,7 +352,7 @@ class IComponentElementUnits(IComponentUnits):
 
 	@property
 	def Condition(self) -> IControlConditionUnits:
-		"""Control condition units
+		"""No Description
 
 		Returns
 		--------
@@ -362,7 +362,7 @@ class IComponentElementUnits(IComponentUnits):
 
 	@property
 	def Action(self) -> IControlActionUnits:
-		"""Control action units
+		"""No Description
 
 		Returns
 		--------
@@ -372,7 +372,7 @@ class IComponentElementUnits(IComponentUnits):
 
 	@property
 	def Pattern(self) -> IPatternUnits:
-		"""Pattern units
+		"""No Description
 
 		Returns
 		--------
@@ -382,7 +382,7 @@ class IComponentElementUnits(IComponentUnits):
 
 	@property
 	def PumpDefinition(self) -> IPumpDefinitionUnits:
-		"""Pump definition units
+		"""No Description
 
 		Returns
 		--------
@@ -392,7 +392,7 @@ class IComponentElementUnits(IComponentUnits):
 
 	@property
 	def UnitDemandLoad(self) -> IUnitDemandLoadUnits:
-		"""Unit demand load units
+		"""No Description
 
 		Returns
 		--------
@@ -402,7 +402,7 @@ class IComponentElementUnits(IComponentUnits):
 
 	@property
 	def AirFlowCurve(self) -> IAirFlowCurveUnits:
-		"""Units for air flow curve
+		"""No Description
 
 		Returns
 		--------
@@ -412,7 +412,7 @@ class IComponentElementUnits(IComponentUnits):
 
 	@property
 	def GPVHeadlossCurve(self) -> IGPVHeadlossUnits:
-		"""Unit information for GPV Headloss Curve
+		"""No Description
 
 		Returns
 		--------
@@ -422,7 +422,7 @@ class IComponentElementUnits(IComponentUnits):
 
 	@property
 	def ValveCharacteristic(self) -> IValveCharacteristicUnits:
-		"""Unit information for valve characteristic
+		"""No Description
 
 		Returns
 		--------
@@ -432,7 +432,7 @@ class IComponentElementUnits(IComponentUnits):
 
 	@property
 	def MinorLossCoefficient(self) -> IMinorLossCoefficientUnits:
-		"""Unit information for minor loss
+		"""No Description
 
 		Returns
 		--------

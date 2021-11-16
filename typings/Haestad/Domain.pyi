@@ -105,14 +105,7 @@ class DomainElementType(Enum):
 	IdahoPumpStation = 700
 	LIDElementManager = 701
 	Headwall = 800
-	Grid = 801
-	BoundaryConditionLine2D = 803
-	BoundaryPoint2D = 804
 	PropertyConnectionElementManager = 810
-	BaseSimplePolyline = 999
-	SurfacePoint = 1802
-	SurfacePolygon = 1900
-	SurfacePolyline = 2000
 	ConflictNode = 3000
 	CommunicationNode = 3001
 	ElectricalNode = 3002
@@ -132,18 +125,6 @@ class DomainElementType(Enum):
 	StormWaterNode = 3016
 	StormWaterSegment = 3017
 	ReferenceElement = 3018
-
-class DomainElementSubType(Enum):
-	TwoDPolygon_Building = 901
-	TwoDPolygon_VoidArea = 902
-	TwoDPolygon_AdjustmentArea = 903
-	TwoDPolygon_LandUse = 904
-	TwoDPolygon_RoadArea = 905
-	TwoDPolyline_Breakline = 1001
-	TwoDPolyline_RoadCenterline = 1002
-	TwoDPoint_ReportingPoint = 8020
-	TwoDPoint_SpotElevation = 8021
-	TwoDPoint_VoidPoint = 8022
 
 class AlternativeType(Enum):
 	HmiDataSetGeometryAlternative = 1
@@ -180,7 +161,6 @@ class AlternativeType(Enum):
 	HMIUserDefinedExtensionsAlternative = 100
 	ConflictAlternative = 1000
 	NetworkDataAlternative = 1001
-	SurfaceAlternative = 1003
 
 class SupportElementType(Enum):
 	CatalogPipeElementManager = 1
@@ -271,10 +251,6 @@ class SupportElementType(Enum):
 	DistrictMeterArea = 265
 	GasPipeType = 300
 	GasCustomer = 301
-	TwoDDataSource = 350
-	DigitalTerrainModel = 351
-	DigitalTerrainModelGroup = 352
-	LandCover = 353
 
 class DomainElementShapeType(Enum):
 	Point = 0
@@ -283,7 +259,6 @@ class DomainElementShapeType(Enum):
 	DirectedNode = 3
 	ReferenceNode = 4
 	Lateral = 5
-	SimplePolyline = 6
 
 class wkbByteOrder(Enum):
 	wkbXDR = 0
@@ -5348,32 +5323,6 @@ class IChangeLogDataRowLoader:
 		"""
 		pass
 
-class IChangeLogFieldEntryVerifier:
-
-	def __init__(self) -> None:
-		"""Creating a new Instance of this class is not allowed
-
-
-		Raises
-		--------
-			Exception: if this class is instantiated
-		"""
-		raise Exception("Creating a new Instance of this class is not allowed")
-		pass
-
-	def ShouldLogEntryFor(self, fieldName: str) -> bool:
-		"""No Description
-
-		Args
-		--------
-			fieldName (``str``) :  fieldName
-
-		Returns
-		--------
-			``bool`` : 
-		"""
-		pass
-
 class IChangeLogWriter:
 
 	def __init__(self) -> None:
@@ -7525,46 +7474,6 @@ class IGeometryPolylineAlternativeRecord(IAlternativeRecord):
 		"""
 		pass
 
-class IGeometryPolyline3DAlternativeRecord(IAlternativeRecord):
-
-	def __init__(self) -> None:
-		"""Creating a new Instance of this class is not allowed
-
-
-		Raises
-		--------
-			Exception: if this class is instantiated
-		"""
-		raise Exception("Creating a new Instance of this class is not allowed")
-		pass
-
-	def GetPoints(self, domainElementID: int) -> List[GeometryPoint3D]:
-		"""No Description
-
-		Args
-		--------
-			domainElementID (``int``) :  domainElementID
-
-		Returns
-		--------
-			``List[GeometryPoint3D]`` : 
-		"""
-		pass
-
-	def SetPoints(self, domainElementID: int, points3D: List[GeometryPoint3D]) -> None:
-		"""No Description
-
-		Args
-		--------
-			domainElementID (``int``) :  domainElementID
-			points3D (``List[GeometryPoint3D]``) :  points3D
-
-		Returns
-		--------
-			``None`` : 
-		"""
-		pass
-
 class IGeometryPolygonAlternativeRecord(IAlternativeRecord):
 
 	def __init__(self) -> None:
@@ -9327,33 +9236,6 @@ class ILicensedNumericalEngine(INumericalEngine):
 		"""
 		pass
 
-class IEntitledNumericalEngine(ILicensedNumericalEngine):
-
-	def __init__(self) -> None:
-		"""Creating a new Instance of this class is not allowed
-
-
-		Raises
-		--------
-			Exception: if this class is instantiated
-		"""
-		raise Exception("Creating a new Instance of this class is not allowed")
-		pass
-
-	def SetEntitledLicensingInfo(self, license: License, messageHandler: IMessageHandler) -> None:
-		"""No Description
-
-		Args
-		--------
-			license (``License``) :  license
-			messageHandler (``IMessageHandler``) :  messageHandler
-
-		Returns
-		--------
-			``None`` : 
-		"""
-		pass
-
 class INumericalEngineWithResultDataConnectionFactory:
 
 	def __init__(self) -> None:
@@ -9398,19 +9280,6 @@ class ILicensedNumericalEngineEx(ILicensedNumericalEngine):
 		"""
 		pass
 
-	def SetLicenseKey(self, licenseKey: str) -> None:
-		"""No Description
-
-		Args
-		--------
-			licenseKey (``str``) :  licenseKey
-
-		Returns
-		--------
-			``None`` : 
-		"""
-		pass
-
 	@overload
 	def SetLicensingInfo(self, license: License) -> None:
 		"""No Description
@@ -9422,16 +9291,6 @@ class ILicensedNumericalEngineEx(ILicensedNumericalEngine):
 		Returns
 		--------
 			``None`` : 
-		"""
-		pass
-
-	@property
-	def IgnoreLicensing(self) -> bool:
-		"""No Description
-
-		Returns
-		--------
-			``ILicensedNumericalEngineEx`` : 
 		"""
 		pass
 
@@ -11300,59 +11159,6 @@ class IGeometryPolylineField(IUnitizedField):
 		--------
 			id (``int``) :  id
 			points (``List[GeometryPoint]``) :  points
-
-		Returns
-		--------
-			``None`` : 
-		"""
-		pass
-
-	def RefreshScaledLengths(self, valuesDic: IHmIDToObjectDictionary) -> None:
-		"""No Description
-
-		Args
-		--------
-			valuesDic (``IHmIDToObjectDictionary``) :  valuesDic
-
-		Returns
-		--------
-			``None`` : 
-		"""
-		pass
-
-class IGeometryPolyline3DField(IUnitizedField):
-
-	def __init__(self) -> None:
-		"""Creating a new Instance of this class is not allowed
-
-
-		Raises
-		--------
-			Exception: if this class is instantiated
-		"""
-		raise Exception("Creating a new Instance of this class is not allowed")
-		pass
-
-	def GetPoints(self, id: int) -> List[GeometryPoint3D]:
-		"""No Description
-
-		Args
-		--------
-			id (``int``) :  id
-
-		Returns
-		--------
-			``List[GeometryPoint3D]`` : 
-		"""
-		pass
-
-	def SetPoints(self, id: int, points3D: List[GeometryPoint3D]) -> None:
-		"""No Description
-
-		Args
-		--------
-			id (``int``) :  id
-			points3D (``List[GeometryPoint3D]``) :  points3D
 
 		Returns
 		--------

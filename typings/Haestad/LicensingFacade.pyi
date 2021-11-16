@@ -1,8 +1,6 @@
 from enum import Enum
-from System import TypeCode
 from typing import overload, Dict
 from datetime import datetime
-from Haestad.LicensingFacade import LicenseRunStatusEnum
 
 class LicenseRunStatusEnum(Enum):
 	OK = 1001
@@ -75,11 +73,6 @@ class ProductId(Enum):
 	Bentley_WaterOPS = 2922
 	Bentley_SewerOPS = 2923
 	Bentley_OverHeadLineDesigner = 2963
-	Bentley_OpenRailChina = 3136
-	Bentley_OpenRailUltimateChina = 3210
-	Bentley_OpenRoadsUltimateChina = 3211
-	Bentley_OpenRoadsChina = 3216
-	Bentley_OpenFlows_Entitlement = 3276
 
 class LicensePlatformType(Enum):
 	Unknown = 0

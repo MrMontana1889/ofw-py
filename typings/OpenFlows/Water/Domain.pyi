@@ -1,12 +1,10 @@
 from enum import Enum
-from System import TypeCode
-from OpenFlows.Domain.DataObjects import IModel, IModelElementManager, IModelIOOperations, IModelScenarioManagement, IDomainModel, IModelSelectionSetManagement
+from OpenFlows import IModel
 from OpenFlows.Water.Units import INetworkElementUnits, IComponentElementUnits
-from OpenFlows.Water.Domain.ModelingElements.NetworkElements import IWaterNetwork, IWaterElement
+from OpenFlows.Water.Domain.ModelingElements.NetworkElements import IWaterNetwork, IWaterNetworkElement
 from OpenFlows.Water.Domain.ModelingElements.Components import IWaterModelSupport, IWaterComponent
 from OpenFlows.Water.Domain.ModelingElements import IWaterScenarios, IWaterScenario, IWaterSelectionSets, IWaterSelectionSet
 from OpenFlows.Water.Domain.ModelingElements.CalculationOptions import IWaterScenarioOptions, IWaterScenarioOptionsUnits
-from OpenFlows.Units import IModelUnits
 from OpenFlows.Water.Analysis import IAnalysisTools
 
 class CalculationType(Enum):
@@ -68,7 +66,7 @@ class TankSectionType(Enum):
 	NonCircular = 1
 	VariableArea = 2
 
-class IWaterModel(IModel[IWaterNetwork, IWaterModelSupport, IWaterScenarios, IWaterScenario, IWaterScenarioOptions, IWaterScenarioOptionsUnits, IWaterSelectionSets, IWaterSelectionSet, IWaterElement, IWaterElement, WaterNetworkElementType, IWaterComponent, WaterComponentType, INetworkElementUnits, IComponentElementUnits]):
+class IWaterModel(IModel[IWaterNetwork, IWaterModelSupport, IWaterScenarios, IWaterScenario, IWaterScenarioOptions, IWaterScenarioOptionsUnits, IWaterSelectionSets, IWaterSelectionSet, IWaterNetworkElement, IWaterNetworkElement, WaterNetworkElementType, IWaterComponent, WaterComponentType, INetworkElementUnits, IComponentElementUnits]):
 
 	def __init__(self) -> None:
 		"""Creating a new Instance of this class is not allowed
@@ -83,7 +81,7 @@ class IWaterModel(IModel[IWaterNetwork, IWaterModelSupport, IWaterScenarios, IWa
 
 	@property
 	def AnalysisTools(self) -> IAnalysisTools:
-		"""Analysis tools available in OpenFlows
+		"""No Description
 
 		Returns
 		--------

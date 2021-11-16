@@ -1,9 +1,8 @@
 from enum import Enum
-from System import TypeCode
-from OpenFlows.Domain.ModelingElements import IElement, TElementTypeEnum, TUnitsType, IModelingElementBase, TElementManagerType, TElementType, IElementUnits, IElementInput, IElementResults, IElementsInput, IElementsResults, IModelingElementsBase, IGeometryUnits, IElements, IElementManager
+from OpenFlows.Domain.ModelingElements import TUnitsType, IModelingElementBase, TElementManagerType, TElementType, TElementTypeEnum, IElementUnits, IElementInput, IElementResults, IElementsInput, IElementsResults, IModelingElementsBase, IElement, IGeometryUnits
 from typing import Generic, List, overload, Dict, TypeVar
 from OpenFlows.Domain.ModelingElements.Support import IFieldManager
-from Haestad.Support.Support import GeometryPoint, IEditLabeled, ILabeled
+from Haestad.Support.Support import GeometryPoint
 from OpenFlows.Units import IUnit
 
 TElementInputType = TypeVar("TElementInputType", IElementInput)
@@ -16,33 +15,7 @@ class ElementStateType(Enum):
 	Active = 1
 	Inactive = 2
 
-class IMorphable(Generic[TElementTypeEnum]):
-
-	def __init__(self) -> None:
-		"""Creating a new Instance of this class is not allowed
-
-
-		Raises
-		--------
-			Exception: if this class is instantiated
-		"""
-		raise Exception("Creating a new Instance of this class is not allowed")
-		pass
-
-	def Morph(self, toElementType: TElementTypeEnum) -> IElement:
-		"""No Description
-
-		Args
-		--------
-			toElementType (``TElementTypeEnum``) :  toElementType
-
-		Returns
-		--------
-			``IElement`` : 
-		"""
-		pass
-
-class INetworkElement(Generic[TElementManagerType, TElementType, TUnitsType, TElementTypeEnum, TElementInputType, TElementResultsType, TElementsInputType, TElementsResultsType], IModelingElementBase[TElementManagerType, TElementType, TElementTypeEnum], IMorphable[TElementTypeEnum]):
+class INetworkElement(Generic[TElementManagerType, TElementType, TUnitsType, TElementTypeEnum, TElementInputType, TElementResultsType, TElementsInputType, TElementsResultsType], IModelingElementBase[TElementManagerType, TElementType, TElementTypeEnum]):
 
 	def __init__(self) -> None:
 		"""Creating a new Instance of this class is not allowed

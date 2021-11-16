@@ -1,6 +1,6 @@
 from enum import Enum
 from System import TypeCode
-from typing import List, Dict, Generic, overload, TypeVar
+from typing import List, Generic, overload, TypeVar
 from Haestad.Support.Support import SortContextCollection, FilterContextCollection, IEditLabeled, ILabeled
 from OpenFlows.Domain.ModelingElements.Support import IFieldManager
 from OpenFlows.Units import IUnit
@@ -59,15 +59,6 @@ class IElementManager:
 		Returns
 		--------
 			``bool`` : True if the ID exists, otherwise false.
-		"""
-		pass
-
-	def Labels(self) -> Dict[int,int]:
-		"""Returns all the labels for this element manager keyed by element id.
-
-		Returns
-		--------
-			``Dict[int,int]`` : A dictionary keyed by element id with the value of the element label
 		"""
 		pass
 

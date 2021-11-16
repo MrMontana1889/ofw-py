@@ -1,7 +1,6 @@
-from OpenFlows.Domain.ModelingElements import TElementTypeEnum, IElement, IModelingElementsBase, TElementManagerType, IElementUnits, IModelingElementBase, IElements, IElementManager
+from OpenFlows.Domain.ModelingElements import TElementTypeEnum, IElement, IModelingElementsBase, TElementManagerType, IElementUnits, IModelingElementBase
 from typing import List, Generic, TypeVar
 from enum import Enum
-from Haestad.Support.Support import IEditLabeled, ILabeled
 
 TElementType = TypeVar("TElementType", IElement)
 TUnitsType = TypeVar("TUnitsType", IElementUnits)
