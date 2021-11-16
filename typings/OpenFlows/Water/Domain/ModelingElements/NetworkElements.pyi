@@ -1,13 +1,15 @@
 from OpenFlows.Water.Domain.ModelingElements.Components import IMinorLossCoefficient, IPattern, IPumpDefinition, IValveCharacteristic, IGPVHeadlossCurve, ISCADASignal, TElementManagerType, TElementType, TUnitsType, IZone, IUnitDemandLoad, IAirFlowCurve
 from OpenFlows.Domain.ModelingElements.Collections import ICollectionElement, ICollection, ICollectionElements
-from typing import overload, Dict, List, Generic, Union
-from OpenFlows.Domain.ModelingElements import IElementUnits, IElementsResults, IElementResults, IElement, IGeometryUnits, TElementManagerType, TElementType, TUnitsType
-from array import array
+from typing import overload, Dict, List, Generic, Iterator
+from OpenFlows.Domain.ModelingElements import IElementUnits, IElementsResults, IElementResults, IElement, IGeometryUnits, TElementManagerType, TElementType, TUnitsType, IElementInput, IElementsInput, IModelingElementsBase, IElements, IElementManager, IModelingElementBase
 from OpenFlows.Units import IUnit
+from Haestad.Domain.ModelingObjects.Water.Enumerations import CheckValveFlowDirectionEnum, TurbineOperatingCaseEnum, TurbineStatusEnum, HammerValveType, SurgeTankTypeEnum, GasVesselLevelType, HydroTankType, OperatingRangeTypeEnum, AirFlowCalculationMethod, AirValveTypeEnum, AirValveTransitionType, SAV_SRVTypeEnum, SAVValveTypeEnum, SavClosureTriggerEnum, SRVControlTypeEnum, SRVValveTypeEnum, DischargeToAtmosphereTypeEnum, ValveTypeInitialStatusEnum
 from enum import Enum
+from System import TypeCode
+from Haestad.Calculations.Pressure import VSPBType, TankCalculationModel, IsolationValveInitialSetting
 from OpenFlows.Water.Domain import ValveSettingType, TCVCoefficientType, PressureValvesettingType, ConstituentSourceType, PipeStatusType, TankSectionType
-from Haestad.Support.Support import GeometryPoint
-from OpenFlows.Domain.ModelingElements.NetworkElements import INetworkElements, TElementInputType, TElementResultsType, TElementsInputType, TElementsResultsType, IActiveElementInput, IActiveElementsInput, INetworkElement, IBaseLinksResults, IBaseLinkResults, IBaseLinkInput, IBaseLinksInput, IBaseLinkUnits, IPointNodeInput, IPointNodesInput, IBasePolygonsInput, IBasePolygonsResults, IBasePolygonResults, IBasePolygonInput
+from Haestad.Support.Support import GeometryPoint, IEditLabeled, ILabeled
+from OpenFlows.Domain.ModelingElements.NetworkElements import INetworkElements, TElementInputType, TElementResultsType, TElementsInputType, TElementsResultsType, IActiveElementInput, IActiveElementsInput, INetworkElement, IBaseLinksResults, IBaseLinkResults, IBaseLinkInput, IBaseLinksInput, IBaseLinkUnits, IPointNodeInput, IPointNodesInput, IBasePolygonsInput, IBasePolygonsResults, IBasePolygonResults, IBasePolygonInput, IMorphable
 from OpenFlows.Domain.DataObjects import INetwork
 
 
@@ -80,8 +82,9 @@ class IMinorLoss(ICollectionElement):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -90,8 +93,9 @@ class IMinorLoss(ICollectionElement):
 	def Quantity(self) -> int:
 		"""The multiplier for calculating the composite minor loss
 
-		Returns:
-			IMinorLoss: 
+		Returns
+		--------
+			``IMinorLoss`` : 
 		"""
 		pass
 
@@ -103,8 +107,9 @@ class IMinorLoss(ICollectionElement):
 	def MinorLossCoefficient(self) -> IMinorLossCoefficient:
 		"""The minor loss coefficient to use.
 
-		Returns:
-			IMinorLoss: 
+		Returns
+		--------
+			``IMinorLoss`` : 
 		"""
 		pass
 
@@ -118,8 +123,9 @@ class IMinorLosses(ICollection[IMinorLoss]):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -128,12 +134,14 @@ class IMinorLosses(ICollection[IMinorLoss]):
 	def Add(self, quantity: int, minorLoss: IMinorLossCoefficient) -> IMinorLoss:
 		"""Adds a new row to the collection given the data.
 
-		Args:
-			quantity(int): quantity
-			minorLoss(IMinorLossCoefficient): minorLoss
+		Args
+		--------
+			quantity (``int``) :  quantity
+			minorLoss (``IMinorLossCoefficient``) :  minorLoss
 
-		Returns:
-			IMinorLoss: 
+		Returns
+		--------
+			``IMinorLoss`` : 
 		"""
 		pass
 
@@ -141,8 +149,9 @@ class IMinorLosses(ICollection[IMinorLoss]):
 	def Add(self) -> IMinorLoss:
 		"""No Description
 
-		Returns:
-			IMinorLoss: 
+		Returns
+		--------
+			``IMinorLoss`` : 
 		"""
 		pass
 
@@ -152,8 +161,9 @@ class IMinorLossCoefficientCollection(ICollectionElements[IMinorLosses, IMinorLo
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -164,8 +174,9 @@ class IMinorLossCollectionUnits(IElementUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -176,8 +187,9 @@ class IBaseDirectedNodesResults(IElementsResults, IWaterQualityElementsResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -186,8 +198,9 @@ class IBaseDirectedNodesResults(IElementsResults, IWaterQualityElementsResults):
 	def CannotDeliverFlowsOrHead(self) -> Dict[int,int]:
 		"""Gets 'cannot deliver flow or head' for all directed nodes for the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -195,11 +208,13 @@ class IBaseDirectedNodesResults(IElementsResults, IWaterQualityElementsResults):
 	def CannotDeliverFlowsOrHead(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Gets 'cannot deliver flow or head' for all directed nodes for the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -207,12 +222,14 @@ class IBaseDirectedNodesResults(IElementsResults, IWaterQualityElementsResults):
 	def CannotDeliverFlowsOrHead(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -220,8 +237,9 @@ class IBaseDirectedNodesResults(IElementsResults, IWaterQualityElementsResults):
 	def IsOpen(self) -> Dict[int,int]:
 		"""Set to true for all directed nodes if open during the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -229,11 +247,13 @@ class IBaseDirectedNodesResults(IElementsResults, IWaterQualityElementsResults):
 	def IsOpen(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Set to true for all directed nodes if open during the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -241,12 +261,14 @@ class IBaseDirectedNodesResults(IElementsResults, IWaterQualityElementsResults):
 	def IsOpen(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -256,8 +278,9 @@ class IBaseDirectedNodeResults(IElementResults, IWaterQualityResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -266,8 +289,9 @@ class IBaseDirectedNodeResults(IElementResults, IWaterQualityResults):
 	def CannotDeliverFlowOrHead(self) -> Union[bool, None]:
 		"""If true then the cannot deliver head or cannot deliver flow warning was generated for the element for the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -275,19 +299,22 @@ class IBaseDirectedNodeResults(IElementResults, IWaterQualityResults):
 	def CannotDeliverFlowOrHead(self, timeStepIndex: int) -> Union[bool, None]:
 		"""If true then the cannot deliver head or cannot deliver flow warning was generated for the element for the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def CannotDeliverFlowsOrHeads(self) -> array(Union[bool, None]):
+	def CannotDeliverFlowsOrHeads(self) -> List[Union[bool, None]]:
 		"""If true then the pump cannot deliver head or cannot deliver flow warning was generated for the element across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -295,8 +322,9 @@ class IBaseDirectedNodeResults(IElementResults, IWaterQualityResults):
 	def IsOpen(self) -> Union[bool, None]:
 		"""Set to true if open during the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -304,19 +332,22 @@ class IBaseDirectedNodeResults(IElementResults, IWaterQualityResults):
 	def IsOpen(self, timeStepIndex: int) -> Union[bool, None]:
 		"""Set to true if open during the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def IsOpens(self) -> array(Union[bool, None]):
+	def IsOpens(self) -> List[Union[bool, None]]:
 		"""Set to true if open during across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -326,8 +357,9 @@ class IBaseDirectedNodeInput(IPhysicalNodeElementInput, IWaterZoneableNetworkEle
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -336,8 +368,9 @@ class IBaseDirectedNodeInput(IPhysicalNodeElementInput, IWaterZoneableNetworkEle
 	def DownstreamLink(self) -> IElement:
 		"""The downstream link that establishes the directed node's direction.
 
-		Returns:
-			IBaseDirectedNodeInput: 
+		Returns
+		--------
+			``IBaseDirectedNodeInput`` : 
 		"""
 		pass
 
@@ -349,8 +382,9 @@ class IBaseDirectedNodeInput(IPhysicalNodeElementInput, IWaterZoneableNetworkEle
 	def InstallationYear(self) -> int:
 		"""Specify the install year of the element.  It does not affect the calculations.
 
-		Returns:
-			IBaseDirectedNodeInput: 
+		Returns
+		--------
+			``IBaseDirectedNodeInput`` : 
 		"""
 		pass
 
@@ -364,8 +398,9 @@ class IBaseDirectedNodesInput(IWaterZoneableNetworkElementsInput, IWaterQualityE
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -374,8 +409,9 @@ class IBaseDirectedNodesInput(IWaterZoneableNetworkElementsInput, IWaterQualityE
 	def InstallationYears(self) -> Dict[int,int]:
 		"""Specify the install year of the element.  It does not affect the calculations.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -383,11 +419,13 @@ class IBaseDirectedNodesInput(IWaterZoneableNetworkElementsInput, IWaterQualityE
 	def InstallationYears(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -397,8 +435,9 @@ class IBaseDirectedNodeUnits(IElementResults, IWaterQualityResultsUnits, IGeomet
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -407,8 +446,9 @@ class IBaseDirectedNodeUnits(IElementResults, IWaterQualityResultsUnits, IGeomet
 	def ElevationUnit(self) -> IUnit:
 		"""The formatter information for elevation.
 
-		Returns:
-			IBaseDirectedNodeUnits: 
+		Returns
+		--------
+			``IBaseDirectedNodeUnits`` : 
 		"""
 		pass
 
@@ -418,8 +458,9 @@ class ICheckValveElementInput(IBaseDirectedNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -428,8 +469,9 @@ class ICheckValveElementInput(IBaseDirectedNodeInput):
 	def LocatedAtWye(self) -> bool:
 		"""Specifies whether the check valve is simulated as a simple check valve in a run of pipe, or if it is simulated as a wye connection.
 
-		Returns:
-			ICheckValveElementInput: 
+		Returns
+		--------
+			``ICheckValveElementInput`` : 
 		"""
 		pass
 
@@ -443,8 +485,9 @@ class ICheckValveElementInput(IBaseDirectedNodeInput):
             Please designate one of the pipes as the one connecting to this node via a check valve. When the valve is 
             closed, the pipe connecting to the check valve (at the wye branch) has a dead end.
 
-		Returns:
-			ICheckValveElementInput: 
+		Returns
+		--------
+			``ICheckValveElementInput`` : 
 		"""
 		pass
 
@@ -456,8 +499,9 @@ class ICheckValveElementInput(IBaseDirectedNodeInput):
 	def FlowDirection(self) -> CheckValveFlowDirectionEnum:
 		"""Denotes the allowable flow direction through the valve: - towards the wye branch, - away from the wye branch.
 
-		Returns:
-			ICheckValveElementInput: 
+		Returns
+		--------
+			``ICheckValveElementInput`` : 
 		"""
 		pass
 
@@ -469,8 +513,9 @@ class ICheckValveElementInput(IBaseDirectedNodeInput):
 	def InitialTypicalFlow(self) -> float:
 		"""This value is 0 should the valve be initially closed.
 
-		Returns:
-			ICheckValveElementInput: 
+		Returns
+		--------
+			``ICheckValveElementInput`` : 
 		"""
 		pass
 
@@ -483,8 +528,9 @@ class ICheckValveElementInput(IBaseDirectedNodeInput):
 		"""The pressure difference between upstream and downstream side to (re)open the (closed) valve. If 0 is entered, 
             the valve (re)opens when the upstream pressure exceeds the downstream pressure.
 
-		Returns:
-			ICheckValveElementInput: 
+		Returns
+		--------
+			``ICheckValveElementInput`` : 
 		"""
 		pass
 
@@ -497,8 +543,9 @@ class ICheckValveElementInput(IBaseDirectedNodeInput):
 		"""Time to close the valve, from the fully open position, after reverse flow is sensed. This establishes the rate of 
             closure in case the valve's opening is partial.
 
-		Returns:
-			ICheckValveElementInput: 
+		Returns
+		--------
+			``ICheckValveElementInput`` : 
 		"""
 		pass
 
@@ -511,8 +558,9 @@ class ICheckValveElementInput(IBaseDirectedNodeInput):
 		"""Time to open the valve, from the fully closed position, after specified pressure difference is exceeded. This 
             establishes the rate of opening in case the valve's closure is partial.
 
-		Returns:
-			ICheckValveElementInput: 
+		Returns
+		--------
+			``ICheckValveElementInput`` : 
 		"""
 		pass
 
@@ -524,8 +572,9 @@ class ICheckValveElementInput(IBaseDirectedNodeInput):
 	def AllowDisruptionOfOperation(self) -> bool:
 		"""Determines whether an operation (opening or closing) can be terminated prematurely due to a signal to reverse.
 
-		Returns:
-			ICheckValveElementInput: 
+		Returns
+		--------
+			``ICheckValveElementInput`` : 
 		"""
 		pass
 
@@ -539,8 +588,9 @@ class ICheckValveElementsInput(IBaseDirectedNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -549,8 +599,9 @@ class ICheckValveElementsInput(IBaseDirectedNodesInput):
 	def LocatedAtWyes(self) -> Dict[int,int]:
 		"""Specifies whether the check valve is simulated as a simple check valve in a run of pipe, or if it is simulated as a wye connection.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -558,11 +609,13 @@ class ICheckValveElementsInput(IBaseDirectedNodesInput):
 	def LocatedAtWyes(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -570,8 +623,9 @@ class ICheckValveElementsInput(IBaseDirectedNodesInput):
 	def FlowDirections(self) -> Dict[int,int]:
 		"""Denotes the allowable flow direction through the valve: - towards the wye branch, - away from the wye branch.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -579,11 +633,13 @@ class ICheckValveElementsInput(IBaseDirectedNodesInput):
 	def FlowDirections(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -591,8 +647,9 @@ class ICheckValveElementsInput(IBaseDirectedNodesInput):
 	def InitialTypicalFlows(self) -> Dict[int,int]:
 		"""This value is 0 should the valve be initially closed.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -600,11 +657,13 @@ class ICheckValveElementsInput(IBaseDirectedNodesInput):
 	def InitialTypicalFlows(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -613,8 +672,9 @@ class ICheckValveElementsInput(IBaseDirectedNodesInput):
 		"""The pressure difference between upstream and downstream side to (re)open the (closed) valve. If 0 is entered, 
             the valve (re)opens when the upstream pressure exceeds the downstream pressure.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -622,11 +682,13 @@ class ICheckValveElementsInput(IBaseDirectedNodesInput):
 	def ThresholdPressures(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -635,8 +697,9 @@ class ICheckValveElementsInput(IBaseDirectedNodesInput):
 		"""Time to close the valve, from the fully open position, after reverse flow is sensed. This establishes the rate of 
             closure in case the valve's opening is partial.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -644,11 +707,13 @@ class ICheckValveElementsInput(IBaseDirectedNodesInput):
 	def ClosureTimes(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -657,8 +722,9 @@ class ICheckValveElementsInput(IBaseDirectedNodesInput):
 		"""Time to open the valve, from the fully closed position, after specified pressure difference is exceeded. This 
             establishes the rate of opening in case the valve's closure is partial.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -666,11 +732,13 @@ class ICheckValveElementsInput(IBaseDirectedNodesInput):
 	def OpenTimes(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -678,8 +746,9 @@ class ICheckValveElementsInput(IBaseDirectedNodesInput):
 	def AllowDisruptionOfOperations(self) -> Dict[int,int]:
 		"""Determines whether an operation (opening or closing) can be terminated prematurely due to a signal to reverse.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -687,11 +756,13 @@ class ICheckValveElementsInput(IBaseDirectedNodesInput):
 	def AllowDisruptionOfOperations(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -701,8 +772,9 @@ class ICheckValveElementResults(IBaseDirectedNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -711,8 +783,9 @@ class ICheckValveElementResults(IBaseDirectedNodeResults):
 	def Flow(self) -> Union[float, None]:
 		"""Total flow through the check valve.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -720,19 +793,22 @@ class ICheckValveElementResults(IBaseDirectedNodeResults):
 	def Flow(self, timeStepIndex: int) -> Union[float, None]:
 		"""Total flow through the check valve.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Flows(self) -> array(Union[float, None]):
+	def Flows(self) -> List[Union[float, None]]:
 		"""Total flow through the check valve.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -740,8 +816,9 @@ class ICheckValveElementResults(IBaseDirectedNodeResults):
 	def AbsoluteFlow(self) -> Union[float, None]:
 		"""Magnitude of flow through the selected check valve.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -749,19 +826,22 @@ class ICheckValveElementResults(IBaseDirectedNodeResults):
 	def AbsoluteFlow(self, timeStepIndex: int) -> Union[float, None]:
 		"""Magnitude of flow through the selected check valve.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def AbsoluteFlows(self) -> array(Union[float, None]):
+	def AbsoluteFlows(self) -> List[Union[float, None]]:
 		"""Magnitude of flow through the selected check valve.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -769,8 +849,9 @@ class ICheckValveElementResults(IBaseDirectedNodeResults):
 	def Pressure(self) -> Union[float, None]:
 		"""Calculated pressure at the check valve.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -778,19 +859,22 @@ class ICheckValveElementResults(IBaseDirectedNodeResults):
 	def Pressure(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated pressure at the check valve.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Pressures(self) -> array(Union[float, None]):
+	def Pressures(self) -> List[Union[float, None]]:
 		"""Calculated pressure at the check valve.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -798,8 +882,9 @@ class ICheckValveElementResults(IBaseDirectedNodeResults):
 	def HydraulicGrade(self) -> Union[float, None]:
 		"""Calculated hydraulic grade at the check valve.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -807,19 +892,22 @@ class ICheckValveElementResults(IBaseDirectedNodeResults):
 	def HydraulicGrade(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated hydraulic grade at the check valve.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def HydraulicGrades(self) -> array(Union[float, None]):
+	def HydraulicGrades(self) -> List[Union[float, None]]:
 		"""Calculated hydraulic grade at the check valve.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -829,8 +917,9 @@ class ICheckValveElementsResults(IBaseDirectedNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -839,8 +928,9 @@ class ICheckValveElementsResults(IBaseDirectedNodesResults):
 	def Flows(self) -> Dict[int,int]:
 		"""Total flow through the check valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -848,11 +938,13 @@ class ICheckValveElementsResults(IBaseDirectedNodesResults):
 	def Flows(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Total flow through the check valve.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -860,12 +952,14 @@ class ICheckValveElementsResults(IBaseDirectedNodesResults):
 	def Flows(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -873,8 +967,9 @@ class ICheckValveElementsResults(IBaseDirectedNodesResults):
 	def AbsoluteFlows(self) -> Dict[int,int]:
 		"""Magnitude of flow through the selected check valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -882,11 +977,13 @@ class ICheckValveElementsResults(IBaseDirectedNodesResults):
 	def AbsoluteFlows(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Magnitude of flow through the selected check valve.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -894,12 +991,14 @@ class ICheckValveElementsResults(IBaseDirectedNodesResults):
 	def AbsoluteFlows(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -907,8 +1006,9 @@ class ICheckValveElementsResults(IBaseDirectedNodesResults):
 	def Pressures(self) -> Dict[int,int]:
 		"""Calculated pressure at the check valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -916,11 +1016,13 @@ class ICheckValveElementsResults(IBaseDirectedNodesResults):
 	def Pressures(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated pressure at the check valve.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -928,12 +1030,14 @@ class ICheckValveElementsResults(IBaseDirectedNodesResults):
 	def Pressures(self, ids: List[int], timeSTepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeSTepIndex(int): timeSTepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeSTepIndex (``int``) :  timeSTepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -941,8 +1045,9 @@ class ICheckValveElementsResults(IBaseDirectedNodesResults):
 	def HydraulicGrades(self) -> Dict[int,int]:
 		"""Calculated hydraulic grade at the check valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -950,11 +1055,13 @@ class ICheckValveElementsResults(IBaseDirectedNodesResults):
 	def HydraulicGrades(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated hydraulic grade at the check valve.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -962,12 +1069,14 @@ class ICheckValveElementsResults(IBaseDirectedNodesResults):
 	def HydraulicGrades(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -977,8 +1086,9 @@ class ICheckValveUnits(IBaseDirectedNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -987,8 +1097,9 @@ class ICheckValveUnits(IBaseDirectedNodeUnits):
 	def FlowUnit(self) -> IUnit:
 		"""Units and formatting for flow and absolute flow
 
-		Returns:
-			ICheckValveUnits: 
+		Returns
+		--------
+			``ICheckValveUnits`` : 
 		"""
 		pass
 
@@ -996,8 +1107,9 @@ class ICheckValveUnits(IBaseDirectedNodeUnits):
 	def PressureUnit(self) -> IUnit:
 		"""Units and formatting for pressure
 
-		Returns:
-			ICheckValveUnits: 
+		Returns
+		--------
+			``ICheckValveUnits`` : 
 		"""
 		pass
 
@@ -1005,8 +1117,9 @@ class ICheckValveUnits(IBaseDirectedNodeUnits):
 	def HydraulicGradeUnit(self) -> IUnit:
 		"""Units and formatting for hydraulicg rade
 
-		Returns:
-			ICheckValveUnits: 
+		Returns
+		--------
+			``ICheckValveUnits`` : 
 		"""
 		pass
 
@@ -1016,8 +1129,9 @@ class ICheckValves(IWaterNetworkElements[ICheckValves, ICheckValve, ICheckValveU
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1028,8 +1142,9 @@ class ICheckValve(IWaterNetworkElement[ICheckValves, ICheckValve, ICheckValveUni
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1040,8 +1155,9 @@ class IOrificeBetweenTwoPipesInput(IBaseDirectedNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1050,8 +1166,9 @@ class IOrificeBetweenTwoPipesInput(IBaseDirectedNodeInput):
 	def TypicalPressureDrop(self) -> float:
 		"""Pressure drop corresponding to the typical flow.
 
-		Returns:
-			IOrificeBetweenTwoPipesInput: 
+		Returns
+		--------
+			``IOrificeBetweenTwoPipesInput`` : 
 		"""
 		pass
 
@@ -1063,8 +1180,9 @@ class IOrificeBetweenTwoPipesInput(IBaseDirectedNodeInput):
 	def TypicalFlow(self) -> float:
 		"""This is a typical (positive) flow through the orifice or valve.
 
-		Returns:
-			IOrificeBetweenTwoPipesInput: 
+		Returns
+		--------
+			``IOrificeBetweenTwoPipesInput`` : 
 		"""
 		pass
 
@@ -1078,8 +1196,9 @@ class IOrificesBetweenTwoPipesInput(IBaseDirectedNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1087,16 +1206,18 @@ class IOrificesBetweenTwoPipesInput(IBaseDirectedNodesInput):
 	def TypicalPressureDrops(self) -> Dict[int,int]:
 		"""Pressure drop corresponding to the typical flow.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TypicalFlows(self) -> Dict[int,int]:
 		"""This is a typical (positive) flow through the orifice or valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1106,8 +1227,9 @@ class IOrificeBetweenTwoPipesResults(IBaseDirectedNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1116,8 +1238,9 @@ class IOrificeBetweenTwoPipesResults(IBaseDirectedNodeResults):
 	def Flow(self) -> Union[float, None]:
 		"""Total flow through the orifice.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -1125,19 +1248,22 @@ class IOrificeBetweenTwoPipesResults(IBaseDirectedNodeResults):
 	def Flow(self, timeStepIndex: int) -> Union[float, None]:
 		"""Total flow through the orifice.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Flows(self) -> array(Union[float, None]):
+	def Flows(self) -> List[Union[float, None]]:
 		"""Total flow through the orifice.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -1145,8 +1271,9 @@ class IOrificeBetweenTwoPipesResults(IBaseDirectedNodeResults):
 	def Headloss(self) -> Union[float, None]:
 		"""Change in head across orifice.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -1154,19 +1281,22 @@ class IOrificeBetweenTwoPipesResults(IBaseDirectedNodeResults):
 	def Headloss(self, timeStepIndex: int) -> Union[float, None]:
 		"""Change in head across orifice.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Headlosses(self) -> array(Union[float, None]):
+	def Headlosses(self) -> List[Union[float, None]]:
 		"""Change in head across orifice.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -1174,8 +1304,9 @@ class IOrificeBetweenTwoPipesResults(IBaseDirectedNodeResults):
 	def FromHydraulicGrade(self) -> Union[float, None]:
 		"""Calculated hydraulic grade at the entrance of the orifice.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -1183,19 +1314,22 @@ class IOrificeBetweenTwoPipesResults(IBaseDirectedNodeResults):
 	def FromHydraulicGrade(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated hydraulic grade at the entrance of the orifice.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def FromHydraulicGrades(self) -> array(Union[float, None]):
+	def FromHydraulicGrades(self) -> List[Union[float, None]]:
 		"""Calculated hydraulic grade at the entrance of the orifice.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -1203,8 +1337,9 @@ class IOrificeBetweenTwoPipesResults(IBaseDirectedNodeResults):
 	def ToHydraulicGrade(self) -> Union[float, None]:
 		"""Calculated hydraulic grade at the exit of the orifice.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -1212,19 +1347,22 @@ class IOrificeBetweenTwoPipesResults(IBaseDirectedNodeResults):
 	def ToHydraulicGrade(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated hydraulic grade at the exit of the orifice.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def ToHydraulicGrades(self) -> array(Union[float, None]):
+	def ToHydraulicGrades(self) -> List[Union[float, None]]:
 		"""Calculated hydraulic grade at the exit of the orifice.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -1232,8 +1370,9 @@ class IOrificeBetweenTwoPipesResults(IBaseDirectedNodeResults):
 	def FromPressure(self) -> Union[float, None]:
 		"""Calculated pressure at the entrance of the orifice.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -1241,19 +1380,22 @@ class IOrificeBetweenTwoPipesResults(IBaseDirectedNodeResults):
 	def FromPressure(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated pressure at the entrance of the orifice.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def FromPressures(self) -> array(Union[float, None]):
+	def FromPressures(self) -> List[Union[float, None]]:
 		"""Calculated pressure at the entrance of the orifice.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -1261,8 +1403,9 @@ class IOrificeBetweenTwoPipesResults(IBaseDirectedNodeResults):
 	def ToPressure(self) -> Union[float, None]:
 		"""Calculated pressure at the exit to the orifice.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -1270,19 +1413,22 @@ class IOrificeBetweenTwoPipesResults(IBaseDirectedNodeResults):
 	def ToPressure(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated pressure at the exit to the orifice.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def ToPressures(self) -> array(Union[float, None]):
+	def ToPressures(self) -> List[Union[float, None]]:
 		"""Calculated pressure at the exit to the orifice.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -1290,8 +1436,9 @@ class IOrificeBetweenTwoPipesResults(IBaseDirectedNodeResults):
 	def AbsoluteFlow(self) -> Union[float, None]:
 		"""Magnitude of flow through the selected orifice.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -1299,19 +1446,22 @@ class IOrificeBetweenTwoPipesResults(IBaseDirectedNodeResults):
 	def AbsoluteFlow(self, timeStepIndex: int) -> Union[float, None]:
 		"""Magnitude of flow through the selected orifice.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def AbsoluteFlows(self) -> array(Union[float, None]):
+	def AbsoluteFlows(self) -> List[Union[float, None]]:
 		"""Magnitude of flow through the selected orifice.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -1321,8 +1471,9 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1331,8 +1482,9 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def Flows(self) -> Dict[int,int]:
 		"""Total flow through the orifice.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1340,11 +1492,13 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def Flows(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Total flow through the orifice.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1352,12 +1506,14 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def Flows(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1365,8 +1521,9 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def Headloss(self) -> Dict[int,int]:
 		"""Change in head across orifice.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1374,11 +1531,13 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def Headloss(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Change in head across orifice.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1386,12 +1545,14 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def Headloss(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1399,8 +1560,9 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def FromHydraulicGrade(self) -> Dict[int,int]:
 		"""Calculated hydraulic grade at the entrance of the orifice.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1408,11 +1570,13 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def FromHydraulicGrade(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated hydraulic grade at the entrance of the orifice.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1420,12 +1584,14 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def FromHydraulicGrade(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1433,8 +1599,9 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def ToHydraulicGrade(self) -> Dict[int,int]:
 		"""Calculated hydraulic grade at the exit of the orifice.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1442,11 +1609,13 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def ToHydraulicGrade(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated hydraulic grade at the exit of the orifice.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1454,12 +1623,14 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def ToHydraulicGrade(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1467,8 +1638,9 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def FromPressure(self) -> Dict[int,int]:
 		"""Calculated pressure at the entrance of the orifice.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1476,11 +1648,13 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def FromPressure(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated pressure at the entrance of the orifice.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1488,12 +1662,14 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def FromPressure(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1501,8 +1677,9 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def ToPressure(self) -> Dict[int,int]:
 		"""Calculated pressure at the exit to the orifice.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1510,11 +1687,13 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def ToPressure(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated pressure at the exit to the orifice.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1522,20 +1701,23 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def ToPressure(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def AbsolueFlow(self) -> Dict[int,int]:
 		"""Magnitude of flow through the selected orifice.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1543,11 +1725,13 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def AbsoluteFlow(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Magnitude of flow through the selected orifice.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1555,12 +1739,14 @@ class IOrificesBetweenTwoPipesResults(IBaseDirectedNodesResults):
 	def AbsoluteFlow(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -1570,8 +1756,9 @@ class IOrificeBetweenTwoPipesUnits(IBaseDirectedNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1580,8 +1767,9 @@ class IOrificeBetweenTwoPipesUnits(IBaseDirectedNodeUnits):
 	def FlowUnit(self) -> IUnit:
 		"""Unit information for flow
 
-		Returns:
-			IOrificeBetweenTwoPipesUnits: 
+		Returns
+		--------
+			``IOrificeBetweenTwoPipesUnits`` : 
 		"""
 		pass
 
@@ -1589,8 +1777,9 @@ class IOrificeBetweenTwoPipesUnits(IBaseDirectedNodeUnits):
 	def HeadlossUnit(self) -> IUnit:
 		"""Unit information for headloss
 
-		Returns:
-			IOrificeBetweenTwoPipesUnits: 
+		Returns
+		--------
+			``IOrificeBetweenTwoPipesUnits`` : 
 		"""
 		pass
 
@@ -1598,8 +1787,9 @@ class IOrificeBetweenTwoPipesUnits(IBaseDirectedNodeUnits):
 	def HydraulicGradeUnit(self) -> IUnit:
 		"""Unit information for hydraulic grade
 
-		Returns:
-			IOrificeBetweenTwoPipesUnits: 
+		Returns
+		--------
+			``IOrificeBetweenTwoPipesUnits`` : 
 		"""
 		pass
 
@@ -1607,8 +1797,9 @@ class IOrificeBetweenTwoPipesUnits(IBaseDirectedNodeUnits):
 	def PressureUnit(self) -> IUnit:
 		"""Unit information for pressure
 
-		Returns:
-			IOrificeBetweenTwoPipesUnits: 
+		Returns
+		--------
+			``IOrificeBetweenTwoPipesUnits`` : 
 		"""
 		pass
 
@@ -1618,8 +1809,9 @@ class IOrificeBetweenTwoPipes(IWaterNetworkElement[IOrificesBetweenTwoPipes, IOr
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1630,8 +1822,9 @@ class IOrificesBetweenTwoPipes(IWaterNetworkElements[IOrificesBetweenTwoPipes, I
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1642,8 +1835,9 @@ class ITurbineCurveCollection(ICollectionElements[ITurbineFlowHeads, ITurbineFlo
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1654,8 +1848,9 @@ class ITurbineFlowHeads(ICollection[ITurbineFlowHead]):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1664,12 +1859,14 @@ class ITurbineFlowHeads(ICollection[ITurbineFlowHead]):
 	def Add(self, flow: float, head: float) -> ITurbineFlowHead:
 		"""Adds a new row to the collection with the given data.
 
-		Args:
-			flow(float): flow
-			head(float): head
+		Args
+		--------
+			flow (``float``) :  flow
+			head (``float``) :  head
 
-		Returns:
-			ITurbineFlowHead: 
+		Returns
+		--------
+			``ITurbineFlowHead`` : 
 		"""
 		pass
 
@@ -1677,8 +1874,9 @@ class ITurbineFlowHeads(ICollection[ITurbineFlowHead]):
 	def Add(self) -> ITurbineFlowHead:
 		"""No Description
 
-		Returns:
-			ITurbineFlowHead: 
+		Returns
+		--------
+			``ITurbineFlowHead`` : 
 		"""
 		pass
 
@@ -1688,8 +1886,9 @@ class ITurbineFlowHead(ICollectionElement):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1698,8 +1897,9 @@ class ITurbineFlowHead(ICollectionElement):
 	def Flow(self) -> float:
 		"""No Description
 
-		Returns:
-			ITurbineFlowHead: 
+		Returns
+		--------
+			``ITurbineFlowHead`` : 
 		"""
 		pass
 
@@ -1711,8 +1911,9 @@ class ITurbineFlowHead(ICollectionElement):
 	def Head(self) -> float:
 		"""No Description
 
-		Returns:
-			ITurbineFlowHead: 
+		Returns
+		--------
+			``ITurbineFlowHead`` : 
 		"""
 		pass
 
@@ -1726,8 +1927,9 @@ class ITurbineCurveUnits(IElementUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1736,8 +1938,9 @@ class ITurbineCurveUnits(IElementUnits):
 	def FlowUnit(self) -> IUnit:
 		"""Unit information for flow
 
-		Returns:
-			ITurbineCurveUnits: 
+		Returns
+		--------
+			``ITurbineCurveUnits`` : 
 		"""
 		pass
 
@@ -1745,8 +1948,9 @@ class ITurbineCurveUnits(IElementUnits):
 	def HeadUnit(self) -> IUnit:
 		"""Unit information for head
 
-		Returns:
-			ITurbineCurveUnits: 
+		Returns
+		--------
+			``ITurbineCurveUnits`` : 
 		"""
 		pass
 
@@ -1756,8 +1960,9 @@ class IElectricalTorqueCollection(ICollectionElements[IElectricalTorques, IElect
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1768,8 +1973,9 @@ class IElectricalTorques(ICollection[IElectricalTorque]):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1778,12 +1984,14 @@ class IElectricalTorques(ICollection[IElectricalTorque]):
 	def Add(self, time: float, torque: float) -> IElectricalTorque:
 		"""Adds a new row with the given data.
 
-		Args:
-			time(float): time
-			torque(float): torque
+		Args
+		--------
+			time (``float``) :  time
+			torque (``float``) :  torque
 
-		Returns:
-			IElectricalTorque: 
+		Returns
+		--------
+			``IElectricalTorque`` : 
 		"""
 		pass
 
@@ -1791,8 +1999,9 @@ class IElectricalTorques(ICollection[IElectricalTorque]):
 	def Add(self) -> IElectricalTorque:
 		"""No Description
 
-		Returns:
-			IElectricalTorque: 
+		Returns
+		--------
+			``IElectricalTorque`` : 
 		"""
 		pass
 
@@ -1802,8 +2011,9 @@ class IElectricalTorque(ICollectionElement):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1812,8 +2022,9 @@ class IElectricalTorque(ICollectionElement):
 	def Time(self) -> float:
 		"""The time for this row.
 
-		Returns:
-			IElectricalTorque: 
+		Returns
+		--------
+			``IElectricalTorque`` : 
 		"""
 		pass
 
@@ -1825,8 +2036,9 @@ class IElectricalTorque(ICollectionElement):
 	def Torque(self) -> float:
 		"""The torque for this row
 
-		Returns:
-			IElectricalTorque: 
+		Returns
+		--------
+			``IElectricalTorque`` : 
 		"""
 		pass
 
@@ -1840,8 +2052,9 @@ class IElectricalTorqueUnits(IElementUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1850,8 +2063,9 @@ class IElectricalTorqueUnits(IElementUnits):
 	def TimeUnit(self) -> IUnit:
 		"""Unit information for time (short)
 
-		Returns:
-			IElectricalTorqueUnits: 
+		Returns
+		--------
+			``IElectricalTorqueUnits`` : 
 		"""
 		pass
 
@@ -1859,8 +2073,9 @@ class IElectricalTorqueUnits(IElementUnits):
 	def TorqueUnit(self) -> IUnit:
 		"""Unit information for torque
 
-		Returns:
-			IElectricalTorqueUnits: 
+		Returns
+		--------
+			``IElectricalTorqueUnits`` : 
 		"""
 		pass
 
@@ -1870,8 +2085,9 @@ class ITurbineInput(IBaseDirectedNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -1880,8 +2096,9 @@ class ITurbineInput(IBaseDirectedNodeInput):
 	def TimeDelayUntilValveOperates(self) -> float:
 		"""The time delay prior to operating the spherical valve.
 
-		Returns:
-			ITurbineInput: 
+		Returns
+		--------
+			``ITurbineInput`` : 
 		"""
 		pass
 
@@ -1893,8 +2110,9 @@ class ITurbineInput(IBaseDirectedNodeInput):
 	def TimeForValveToOperate(self) -> float:
 		"""Time required to operate the spherical valve. By default, it is set equal to one time step.
 
-		Returns:
-			ITurbineInput: 
+		Returns
+		--------
+			``ITurbineInput`` : 
 		"""
 		pass
 
@@ -1906,8 +2124,9 @@ class ITurbineInput(IBaseDirectedNodeInput):
 	def SphericalValveDiameter(self) -> float:
 		"""The diameter of the spherical valve.
 
-		Returns:
-			ITurbineInput: 
+		Returns
+		--------
+			``ITurbineInput`` : 
 		"""
 		pass
 
@@ -1919,8 +2138,9 @@ class ITurbineInput(IBaseDirectedNodeInput):
 	def TurbineEfficiency(self) -> float:
 		"""The overall efficiency of the turbine and the generator. A typical value is 80.
 
-		Returns:
-			ITurbineInput: 
+		Returns
+		--------
+			``ITurbineInput`` : 
 		"""
 		pass
 
@@ -1932,8 +2152,9 @@ class ITurbineInput(IBaseDirectedNodeInput):
 	def MomentOfInertia(self) -> float:
 		"""The (weight) moment of inertia accounts for the turbine, generator, and entrained water.
 
-		Returns:
-			ITurbineInput: 
+		Returns
+		--------
+			``ITurbineInput`` : 
 		"""
 		pass
 
@@ -1945,8 +2166,9 @@ class ITurbineInput(IBaseDirectedNodeInput):
 	def RotationalSpeed(self) -> float:
 		"""Also known as synchronous speed for a turbine. The power it generates depends on it.
 
-		Returns:
-			ITurbineInput: 
+		Returns
+		--------
+			``ITurbineInput`` : 
 		"""
 		pass
 
@@ -1958,8 +2180,9 @@ class ITurbineInput(IBaseDirectedNodeInput):
 	def GateOpeningPattern(self) -> IPattern:
 		"""Operating Rule describes the percent wicket gate opening vs time.
 
-		Returns:
-			ITurbineInput: 
+		Returns
+		--------
+			``ITurbineInput`` : 
 		"""
 		pass
 
@@ -1971,8 +2194,9 @@ class ITurbineInput(IBaseDirectedNodeInput):
 	def SpecificSpeed(self) -> float:
 		"""This represents the type of turbine. HAMMER ships with 4-quadrant curves for: 30, 45, or 60 (US units), 115, 170, or 230 (metric units). You can add your own curves to this library.
 
-		Returns:
-			ITurbineInput: 
+		Returns
+		--------
+			``ITurbineInput`` : 
 		"""
 		pass
 
@@ -1984,8 +2208,9 @@ class ITurbineInput(IBaseDirectedNodeInput):
 	def TurbineInitialFlow(self) -> float:
 		"""Nominal or rated flow of the turbine.
 
-		Returns:
-			ITurbineInput: 
+		Returns
+		--------
+			``ITurbineInput`` : 
 		"""
 		pass
 
@@ -1997,8 +2222,9 @@ class ITurbineInput(IBaseDirectedNodeInput):
 	def TurbineInitialHead(self) -> float:
 		"""Nominal or rated head of the turbine.
 
-		Returns:
-			ITurbineInput: 
+		Returns
+		--------
+			``ITurbineInput`` : 
 		"""
 		pass
 
@@ -2010,8 +2236,9 @@ class ITurbineInput(IBaseDirectedNodeInput):
 	def OperatingCase(self) -> TurbineOperatingCaseEnum:
 		"""Selects the type of transient event to be modeled.
 
-		Returns:
-			ITurbineInput: 
+		Returns
+		--------
+			``ITurbineInput`` : 
 		"""
 		pass
 
@@ -2023,8 +2250,9 @@ class ITurbineInput(IBaseDirectedNodeInput):
 	def ReportPeriod(self) -> int:
 		"""Number of time steps between successive printouts of operation. By default, this printout is suppressed.
 
-		Returns:
-			ITurbineInput: 
+		Returns
+		--------
+			``ITurbineInput`` : 
 		"""
 		pass
 
@@ -2036,8 +2264,9 @@ class ITurbineInput(IBaseDirectedNodeInput):
 	def TurbineInitialStatus(self) -> TurbineStatusEnum:
 		"""Specify if the turbine is initially open or closed.
 
-		Returns:
-			ITurbineInput: 
+		Returns
+		--------
+			``ITurbineInput`` : 
 		"""
 		pass
 
@@ -2049,8 +2278,9 @@ class ITurbineInput(IBaseDirectedNodeInput):
 	def TurbineCurveCollection(self) -> ITurbineCurveCollection:
 		"""Turbine Curve is only required for a steady run. For a transient run, HAMMER uses a 4-quadrant curve based on Specific Speed, Rated Head and Rated Flow.
 
-		Returns:
-			ITurbineInput: 
+		Returns
+		--------
+			``ITurbineInput`` : 
 		"""
 		pass
 
@@ -2058,8 +2288,9 @@ class ITurbineInput(IBaseDirectedNodeInput):
 	def ElectricalTorqueCollection(self) -> IElectricalTorqueCollection:
 		"""Defines the time vs torque response for the turbine. Only applies to the Load Rejection operating case.
 
-		Returns:
-			ITurbineInput: 
+		Returns
+		--------
+			``ITurbineInput`` : 
 		"""
 		pass
 
@@ -2069,8 +2300,9 @@ class ITurbinesInput(IBaseDirectedNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -2078,104 +2310,117 @@ class ITurbinesInput(IBaseDirectedNodesInput):
 	def TimeDelayUntilValveOperates(self) -> Dict[int,int]:
 		"""The time delay prior to operating the spherical valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TimeForValveToOperate(self) -> Dict[int,int]:
 		"""Time required to operate the spherical valve. By default, it is set equal to one time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SphericalValveDiameter(self) -> Dict[int,int]:
 		"""The diameter of the spherical valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TurbineEfficiency(self) -> Dict[int,int]:
 		"""The overall efficiency of the turbine and the generator. A typical value is 80.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def MomentOfInertia(self) -> Dict[int,int]:
 		"""The (weight) moment of inertia accounts for the turbine, generator, and entrained water.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def RotationalSpeed(self) -> Dict[int,int]:
 		"""Also known as synchronous speed for a turbine. The power it generates depends on it.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def GateOpeningPattern(self) -> Dict[int,int]:
 		"""Operating Rule describes the percent wicket gate opening vs time.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SpecificSpeed(self) -> Dict[int,int]:
 		"""This represents the type of turbine. HAMMER ships with 4-quadrant curves for: 30, 45, or 60 (US units), 115, 170, or 230 (metric units). You can add your own curves to this library.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TurbineInitialFlow(self) -> Dict[int,int]:
 		"""Nominal or rated flow of the turbine.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TurbineInitialHead(self) -> Dict[int,int]:
 		"""Nominal or rated head of the turbine.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def OperatingCase(self) -> Dict[int,int]:
 		"""Selects the type of transient event to be modeled.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def ReportPeriod(self) -> Dict[int,int]:
 		"""Number of time steps between successive printouts of operation. By default, this printout is suppressed.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TurbineInitialStatus(self) -> Dict[int,int]:
 		"""Specify if the turbine is initially open or closed.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2185,8 +2430,9 @@ class ITurbineResults(IBaseDirectedNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -2195,8 +2441,9 @@ class ITurbineResults(IBaseDirectedNodeResults):
 	def Flow(self) -> Union[float, None]:
 		"""Total flow through the turbine.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -2204,19 +2451,22 @@ class ITurbineResults(IBaseDirectedNodeResults):
 	def Flow(self, timeStepIndex: int) -> Union[float, None]:
 		"""Total flow through the turbine.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Flows(self) -> array(Union[float, None]):
+	def Flows(self) -> List[Union[float, None]]:
 		"""Total flow through the turbine.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -2224,8 +2474,9 @@ class ITurbineResults(IBaseDirectedNodeResults):
 	def Headloss(self) -> Union[float, None]:
 		"""Change in head across turbine.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -2233,19 +2484,22 @@ class ITurbineResults(IBaseDirectedNodeResults):
 	def Headloss(self, timeStepIndex: int) -> Union[float, None]:
 		"""Change in head across turbine.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Headlosses(self) -> array(Union[float, None]):
+	def Headlosses(self) -> List[Union[float, None]]:
 		"""Change in head across turbine.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -2253,8 +2507,9 @@ class ITurbineResults(IBaseDirectedNodeResults):
 	def FromHydraulicGrade(self) -> Union[float, None]:
 		"""Calculated hydraulic grade at the entrance of the turbine.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -2262,19 +2517,22 @@ class ITurbineResults(IBaseDirectedNodeResults):
 	def FromHydraulicGrade(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated hydraulic grade at the entrance of the turbine.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def FromHydraulicGrades(self) -> array(Union[float, None]):
+	def FromHydraulicGrades(self) -> List[Union[float, None]]:
 		"""Calculated hydraulic grade at the entrance of the turbine.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -2282,8 +2540,9 @@ class ITurbineResults(IBaseDirectedNodeResults):
 	def ToHydraulicGrade(self) -> Union[float, None]:
 		"""Calculated hydraulic grade at the exit of the turbine.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -2291,19 +2550,22 @@ class ITurbineResults(IBaseDirectedNodeResults):
 	def ToHydraulicGrade(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated hydraulic grade at the exit of the turbine.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def ToHydraulicGrades(self) -> array(Union[float, None]):
+	def ToHydraulicGrades(self) -> List[Union[float, None]]:
 		"""Calculated hydraulic grade at the exit of the turbine.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -2311,8 +2573,9 @@ class ITurbineResults(IBaseDirectedNodeResults):
 	def FromPressure(self) -> Union[float, None]:
 		"""Calculated pressure at the entrance of the turbine.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -2320,19 +2583,22 @@ class ITurbineResults(IBaseDirectedNodeResults):
 	def FromPressure(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated pressure at the entrance of the turbine.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def FromPressures(self) -> array(Union[float, None]):
+	def FromPressures(self) -> List[Union[float, None]]:
 		"""Calculated pressure at the entrance of the turbine.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -2340,8 +2606,9 @@ class ITurbineResults(IBaseDirectedNodeResults):
 	def ToPressure(self) -> Union[float, None]:
 		"""Calculated pressure at the exit to the turbine.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -2349,19 +2616,22 @@ class ITurbineResults(IBaseDirectedNodeResults):
 	def ToPressure(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated pressure at the exit to the turbine.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def ToPressures(self) -> array(Union[float, None]):
+	def ToPressures(self) -> List[Union[float, None]]:
 		"""Calculated pressure at the exit to the turbine.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -2369,8 +2639,9 @@ class ITurbineResults(IBaseDirectedNodeResults):
 	def AbsoluteFlow(self) -> Union[float, None]:
 		"""Magnitude of flow through the selected turbine.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -2378,35 +2649,40 @@ class ITurbineResults(IBaseDirectedNodeResults):
 	def AbsoluteFlow(self, timeStepIndex: int) -> Union[float, None]:
 		"""Magnitude of flow through the selected turbine.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def AbsoluteFlows(self) -> array(Union[float, None]):
+	def AbsoluteFlows(self) -> List[Union[float, None]]:
 		"""Magnitude of flow through the selected turbine.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
 	def MaximumTransientSpeed(self) -> Union[float, None]:
 		"""Maximum speed at turbine over the course of the transient simulation.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
 	def MinimumTransientSpeed(self) -> Union[float, None]:
 		"""Minimum speed at turbine over the course of the transient simulation.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -2416,8 +2692,9 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -2426,8 +2703,9 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def Flows(self) -> Dict[int,int]:
 		"""Total flow through the turbine.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2435,11 +2713,13 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def Flows(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Total flow through the turbine.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2447,12 +2727,14 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def Flows(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2460,8 +2742,9 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def Headlosses(self) -> Dict[int,int]:
 		"""Change in head across turbine.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2469,11 +2752,13 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def Headlosses(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Change in head across turbine.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2481,12 +2766,14 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def Headlosses(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2494,8 +2781,9 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def FromHydraulicGrades(self) -> Dict[int,int]:
 		"""Calculated hydraulic grade at the entrance of the turbine.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2503,11 +2791,13 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def FromHydraulicGrades(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated hydraulic grade at the entrance of the turbine.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2515,12 +2805,14 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def FromHydraulicGrades(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2528,8 +2820,9 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def ToHydraulicGrades(self) -> Dict[int,int]:
 		"""Calculated hydraulic grade at the exit of the turbine.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2537,11 +2830,13 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def ToHydraulicGrades(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated hydraulic grade at the exit of the turbine.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2549,12 +2844,14 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def ToHydraulicGrades(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2562,8 +2859,9 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def FromPressures(self) -> Dict[int,int]:
 		"""Calculated pressure at the entrance of the turbine.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2571,11 +2869,13 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def FromPressures(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated pressure at the entrance of the turbine.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2583,12 +2883,14 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def FromPressures(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2596,8 +2898,9 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def ToPressures(self) -> Dict[int,int]:
 		"""Calculated pressure at the exit to the turbine.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2605,11 +2908,13 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def ToPressures(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated pressure at the exit to the turbine.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2617,12 +2922,14 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def ToPressures(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2630,8 +2937,9 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def AbsoluteFlows(self) -> Dict[int,int]:
 		"""Magnitude of flow through the selected turbine.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2639,11 +2947,13 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def AbsoluteFlows(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Magnitude of flow through the selected turbine.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2651,28 +2961,32 @@ class ITurbinesResults(IBaseDirectedNodesResults):
 	def AbsoluteFlows(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def MaximumTransientSpeeds(self) -> Dict[int,int]:
 		"""Maximum speed at turbine over the course of the transient simulation.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def MinimumTransientSpeeds(self) -> Dict[int,int]:
 		"""Minimum speed at turbine over the course of the transient simulation.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2682,8 +2996,9 @@ class ITurbineUnits(IBaseDirectedNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -2692,8 +3007,9 @@ class ITurbineUnits(IBaseDirectedNodeUnits):
 	def TimeUnit(self) -> IUnit:
 		"""Unit information for valve open time
 
-		Returns:
-			ITurbineUnits: 
+		Returns
+		--------
+			``ITurbineUnits`` : 
 		"""
 		pass
 
@@ -2701,8 +3017,9 @@ class ITurbineUnits(IBaseDirectedNodeUnits):
 	def DiameterUnit(self) -> IUnit:
 		"""Unit information for valve diameter
 
-		Returns:
-			ITurbineUnits: 
+		Returns
+		--------
+			``ITurbineUnits`` : 
 		"""
 		pass
 
@@ -2710,8 +3027,9 @@ class ITurbineUnits(IBaseDirectedNodeUnits):
 	def EfficiencyUnit(self) -> IUnit:
 		"""Unit information for efficiency
 
-		Returns:
-			ITurbineUnits: 
+		Returns
+		--------
+			``ITurbineUnits`` : 
 		"""
 		pass
 
@@ -2719,8 +3037,9 @@ class ITurbineUnits(IBaseDirectedNodeUnits):
 	def InertiaUnit(self) -> IUnit:
 		"""Unit information for inertia
 
-		Returns:
-			ITurbineUnits: 
+		Returns
+		--------
+			``ITurbineUnits`` : 
 		"""
 		pass
 
@@ -2728,8 +3047,9 @@ class ITurbineUnits(IBaseDirectedNodeUnits):
 	def RotationUnit(self) -> IUnit:
 		"""Unit information for rotation
 
-		Returns:
-			ITurbineUnits: 
+		Returns
+		--------
+			``ITurbineUnits`` : 
 		"""
 		pass
 
@@ -2737,8 +3057,9 @@ class ITurbineUnits(IBaseDirectedNodeUnits):
 	def FlowUnit(self) -> IUnit:
 		"""Unit information for flow
 
-		Returns:
-			ITurbineUnits: 
+		Returns
+		--------
+			``ITurbineUnits`` : 
 		"""
 		pass
 
@@ -2746,8 +3067,9 @@ class ITurbineUnits(IBaseDirectedNodeUnits):
 	def PressureUnit(self) -> IUnit:
 		"""Unit information for pressure
 
-		Returns:
-			ITurbineUnits: 
+		Returns
+		--------
+			``ITurbineUnits`` : 
 		"""
 		pass
 
@@ -2755,8 +3077,9 @@ class ITurbineUnits(IBaseDirectedNodeUnits):
 	def HeadlossUnit(self) -> IUnit:
 		"""Unit information for headloss
 
-		Returns:
-			ITurbineUnits: 
+		Returns
+		--------
+			``ITurbineUnits`` : 
 		"""
 		pass
 
@@ -2766,8 +3089,9 @@ class ITurbine(IWaterNetworkElement[ITurbines, ITurbine, ITurbineUnits, ITurbine
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -2778,8 +3102,9 @@ class ITurbines(IWaterNetworkElements[ITurbines, ITurbine, ITurbineUnits, ITurbi
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -2790,8 +3115,9 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -2800,8 +3126,9 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def CalculatedRelativeSpeedFactors(self) -> Dict[int,int]:
 		"""Current relative speed factor of pump at current time step for all pumps.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2809,11 +3136,13 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def CalculatedRelativeSpeedFactors(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Current relative speed factor of pump at given time step for all pumps.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2821,12 +3150,14 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def CalculatedRelativeSpeedFactors(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2834,8 +3165,9 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def SuctionHydraulicGrades(self) -> Dict[int,int]:
 		"""Current hydraulic grade at suction side of the pump at current time step for all pumps.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2843,11 +3175,13 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def SuctionHydraulicGrades(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Current hydraulic grade at suction side of the pump at given time step for all pumps.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2855,12 +3189,14 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def SuctionHydraulicGrades(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2868,8 +3204,9 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def DischargeHydraulicGrades(self) -> Dict[int,int]:
 		"""Current hydraulic grade at discharge side of the pump at current time step for all pumps.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2877,11 +3214,13 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def DischargeHydraulicGrades(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Current hydraulic grade at discharge side of the pump at given time step for all pumps.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2889,12 +3228,14 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def DischargeHydraulicGrades(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2902,8 +3243,9 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def SuctionPressures(self) -> Dict[int,int]:
 		"""Current pressure at suction side of the pump at current time step for all pumps.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2911,11 +3253,13 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def SuctionPressures(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Current pressure at suction side of the pump at given time step for all pumps.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2923,12 +3267,14 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def SuctionPressures(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2936,8 +3282,9 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def DischargePressures(self) -> Dict[int,int]:
 		"""Current pressure at discharge side of the pump at current time step for all pumps.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2945,11 +3292,13 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def DischargePressures(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Current pressure at discharge side of the pump at given time step for all pumps.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2957,12 +3306,14 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def DischargePressures(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2970,8 +3321,9 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def Flows(self) -> Dict[int,int]:
 		"""Current flow pumped by standard pump or the pump battery at current time step for all pumps.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2979,11 +3331,13 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def Flows(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Current flow pumped by standard pump or the pump battery at given time step for all pumps.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -2991,12 +3345,14 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def Flows(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3004,8 +3360,9 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def PumpHeads(self) -> Dict[int,int]:
 		"""Current head gain between suction and discharge side of the pump at current time step for all pumps.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3013,11 +3370,13 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def PumpHeads(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Current head gain between suction and discharge side of the pump at given time step for all pumps.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3025,12 +3384,14 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def PumpHeads(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3038,8 +3399,9 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def AvailableNPSHs(self) -> Dict[int,int]:
 		"""Current margin of actual (available) pressure head over vapor pressure at the suction side of the pump (at the impeller) at current time step for all pumps.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3047,11 +3409,13 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def AvailableNPSHs(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Current margin of actual (available) pressure head over vapor pressure at the suction side of the pump (at the impeller) at given time step for all pumps.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3059,12 +3423,14 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def AvailableNPSHs(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3072,8 +3438,9 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def RequiredNPSHs(self) -> Dict[int,int]:
 		"""Current required (manufacturer specified) pressure head over vapor pressure at the suction side of the pump (at the impeller) that is required in order to avoid pump cavitation at current time step for all pumps.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3081,11 +3448,13 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def RequiredNPSHs(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Current required (manufacturer specified) pressure head over vapor pressure at the suction side of the pump (at the impeller) that is required in order to avoid pump cavitation at given time step for all pumps.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3093,12 +3462,14 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def RequiredNPSHs(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3106,8 +3477,9 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def PumpExceedsOperatingRanges(self) -> Dict[int,int]:
 		"""Is true if the system demands on the pump exceeds its capabilities at current time step for all pumps.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3115,11 +3487,13 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def PumpExceedsOperatingRanges(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Is true if the system demands on the pump exceeds its capabilities at given time step for all pumps.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3127,12 +3501,14 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def PumpExceedsOperatingRanges(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3140,8 +3516,9 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def PumpStatuses(self) -> Dict[int,int]:
 		"""Displays whether the selected pump is 'On' or 'Off' during current time step at current time step for all pumps.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3149,11 +3526,13 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def PumpStatuses(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Displays whether the selected pump is 'On' or 'Off' during current time step at given time step for all pumps.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3161,12 +3540,14 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def PumpStatuses(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3174,8 +3555,9 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def WirePower(self) -> Dict[int,int]:
 		"""The amount of energy delivered to the pump motor for all pumps at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3183,11 +3565,13 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def WirePower(self, timeStepIndex: int) -> Dict[int,int]:
 		"""The amount of energy delivered to the pump motor for all pumps at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3195,12 +3579,14 @@ class IBasePumpsResults(IBaseDirectedNodesResults):
 	def WirePower(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3210,8 +3596,9 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -3220,8 +3607,9 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def CalculatedRelativeSpeedFactor(self) -> Union[float, None]:
 		"""Current relative speed factor of pump at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -3229,19 +3617,22 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def CalculatedRelativeSpeedFactor(self, timeStepIndex: int) -> Union[float, None]:
 		"""Current relative speed factor of pump at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def CalculatedRelativeSpeedFactors(self) -> array(Union[float, None]):
+	def CalculatedRelativeSpeedFactors(self) -> List[Union[float, None]]:
 		"""Current relative speed factor of pump across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -3249,8 +3640,9 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def SuctionHydraulicGrade(self) -> Union[float, None]:
 		"""Calculated hydraulic grade at suction side of the pump at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -3258,19 +3650,22 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def SuctionHydraulicGrade(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated hydraulic grade at suction side of the pump at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def SuctionHyraulicGrades(self) -> array(Union[float, None]):
+	def SuctionHyraulicGrades(self) -> List[Union[float, None]]:
 		"""Calculated hydraulic grade at suction side of the pump across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -3278,8 +3673,9 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def DischargeHydraulicGrade(self) -> Union[float, None]:
 		"""Calculated hydraulic grade at discharge side of the pump at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -3287,19 +3683,22 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def DischargeHydraulicGrade(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated hydraulic grade at discharge side of the pump at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def DischargeHydraulicGrades(self) -> array(Union[float, None]):
+	def DischargeHydraulicGrades(self) -> List[Union[float, None]]:
 		"""Calculated hydraulic grade at discharge side of the pump across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -3307,8 +3706,9 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def SuctionPressure(self) -> Union[float, None]:
 		"""Calculated pressure at suction side of the pump at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -3316,19 +3716,22 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def SuctionPressure(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated pressure at suction side of the pump at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def SuctionPressures(self) -> array(Union[float, None]):
+	def SuctionPressures(self) -> List[Union[float, None]]:
 		"""Calculated pressure at suction side of the pump across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -3336,8 +3739,9 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def DischargePressure(self) -> Union[float, None]:
 		"""Calculated pressure at discharge side of the pump at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -3345,19 +3749,22 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def DischargePressure(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated pressure at discharge side of the pump at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def DischargePressures(self) -> array(Union[float, None]):
+	def DischargePressures(self) -> List[Union[float, None]]:
 		"""Calculated pressure at discharge side of the pump across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -3365,8 +3772,9 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def Flow(self) -> Union[float, None]:
 		"""Total flow pumped by standard pump or the pump battery at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -3374,19 +3782,22 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def Flow(self, timeStepIndex: int) -> Union[float, None]:
 		"""Total flow pumped by standard pump or the pump battery at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Flows(self) -> array(Union[float, None]):
+	def Flows(self) -> List[Union[float, None]]:
 		"""Total flow pumped by standard pump or the pump battery across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -3394,8 +3805,9 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def PumpHead(self) -> Union[float, None]:
 		"""Head gain between suction and discharge side of the pump at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -3403,19 +3815,22 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def PumpHead(self, timeStepIndex: int) -> Union[float, None]:
 		"""Head gain between suction and discharge side of the pump at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def PumpHeads(self) -> array(Union[float, None]):
+	def PumpHeads(self) -> List[Union[float, None]]:
 		"""Head gain between suction and discharge side of the pump across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -3423,8 +3838,9 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def AvailableNPSH(self) -> Union[float, None]:
 		"""The margin of actual (available) pressure head over vapor pressure at the suction side of the pump (at the impeller) at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -3432,19 +3848,22 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def AvailableNPSH(self, timeStepIndex: int) -> Union[float, None]:
 		"""The margin of actual (available) pressure head over vapor pressure at the suction side of the pump (at the impeller) at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def AvailableNPSHs(self) -> array(Union[float, None]):
+	def AvailableNPSHs(self) -> List[Union[float, None]]:
 		"""The margin of actual (available) pressure head over vapor pressure at the suction side of the pump (at the impeller) across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -3452,8 +3871,9 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def RequiredNPSH(self) -> Union[float, None]:
 		"""The required (manufacturer specified) pressure head over vapor pressure at the suction side of the pump (at the impeller) that is required in order to avoid pump cavitation at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -3461,19 +3881,22 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def RequiredNPSH(self, timeStepIndex: int) -> Union[float, None]:
 		"""The required (manufacturer specified) pressure head over vapor pressure at the suction side of the pump (at the impeller) that is required in order to avoid pump cavitation at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def RequiredNPSHs(self) -> array(Union[float, None]):
+	def RequiredNPSHs(self) -> List[Union[float, None]]:
 		"""The required (manufacturer specified) pressure head over vapor pressure at the suction side of the pump (at the impeller) that is required in order to avoid pump cavitation across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -3481,8 +3904,9 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def PumpExceedsOperatingRange(self) -> Union[bool, None]:
 		"""Is true if the system demands on the pump exceeds its capabilities at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -3490,19 +3914,22 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def PumpExceedsOperatingRange(self, timeStepIndex: int) -> Union[bool, None]:
 		"""Is true if the system demands on the pump exceeds its capabilities at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def PumpExceedsOperatingRanges(self) -> array(Union[bool, None]):
+	def PumpExceedsOperatingRanges(self) -> List[Union[bool, None]]:
 		"""Is true if the system demands on the pump exceeds its capabilities across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -3510,8 +3937,9 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def CalculatedPumpStatus(self) -> Union[PumpStatusEnum, None]:
 		"""Displays whether the selected pump is 'On' or 'Off' during current time step at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -3519,19 +3947,22 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def CalculatedPumpStatus(self, timeStepIndex: int) -> Union[PumpStatusEnum, None]:
 		"""Displays whether the selected pump is 'On' or 'Off' during current time step at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def CalculatedPumpStatuses(self) -> array(Union[PumpStatusEnum, None]):
+	def CalculatedPumpStatuses(self) -> List[Union[PumpStatusEnum, None]]:
 		"""Displays whether the selected pump is 'On' or 'Off' during current time step across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -3539,8 +3970,9 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def WirePower(self) -> Union[float, None]:
 		"""The amount of energy delivered to the pump motor at the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -3548,19 +3980,22 @@ class IBasePumpResults(IBaseDirectedNodeResults):
 	def WirePower(self, timeStepIndex: int) -> Union[float, None]:
 		"""The amount of energy delivered to the pump motor at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def WirePowers(self) -> array(Union[float, None]):
+	def WirePowers(self) -> List[Union[float, None]]:
 		"""The amount of energy delivered to the pump motor for all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -3570,8 +4005,9 @@ class IBasePumpInput(IBaseDirectedNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -3580,8 +4016,9 @@ class IBasePumpInput(IBaseDirectedNodeInput):
 	def InitialRelativeSpeedFactor(self) -> float:
 		"""Determines the initial speed of the pump impeller relative to the speed at which the pump curve is defined.
 
-		Returns:
-			IBasePumpInput: 
+		Returns
+		--------
+			``IBasePumpInput`` : 
 		"""
 		pass
 
@@ -3593,8 +4030,9 @@ class IBasePumpInput(IBaseDirectedNodeInput):
 	def InitialStatus(self) -> int:
 		"""Sets the initial status of the pump to on or off.
 
-		Returns:
-			IBasePumpInput: 
+		Returns
+		--------
+			``IBasePumpInput`` : 
 		"""
 		pass
 
@@ -3608,8 +4046,9 @@ class IBasePumpsInput(IBaseDirectedNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -3618,8 +4057,9 @@ class IBasePumpsInput(IBaseDirectedNodesInput):
 	def InitialRelativeSpeedFactors(self) -> Dict[int,int]:
 		"""Determines the initial speed of the pump impeller relative to the speed at which the pump curve is defined.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3627,11 +4067,13 @@ class IBasePumpsInput(IBaseDirectedNodesInput):
 	def InitialRelativeSpeedFactors(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3639,8 +4081,9 @@ class IBasePumpsInput(IBaseDirectedNodesInput):
 	def InitialStatus(self) -> Dict[int,int]:
 		"""Sets the initial status of the pump to on or off.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3648,11 +4091,13 @@ class IBasePumpsInput(IBaseDirectedNodesInput):
 	def InitialStatus(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3662,8 +4107,9 @@ class IBasePumpUnits(IBaseDirectedNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -3672,8 +4118,9 @@ class IBasePumpUnits(IBaseDirectedNodeUnits):
 	def RelativeSpeedFactorUnit(self) -> IUnit:
 		"""The formatter information for relative speed factor.
 
-		Returns:
-			IBasePumpUnits: 
+		Returns
+		--------
+			``IBasePumpUnits`` : 
 		"""
 		pass
 
@@ -3681,8 +4128,9 @@ class IBasePumpUnits(IBaseDirectedNodeUnits):
 	def HydraulicGradeUnit(self) -> IUnit:
 		"""The formatter information for hydraulic grade results.
 
-		Returns:
-			IBasePumpUnits: 
+		Returns
+		--------
+			``IBasePumpUnits`` : 
 		"""
 		pass
 
@@ -3690,8 +4138,9 @@ class IBasePumpUnits(IBaseDirectedNodeUnits):
 	def PressureUnit(self) -> IUnit:
 		"""The formatter information for pressure results.
 
-		Returns:
-			IBasePumpUnits: 
+		Returns
+		--------
+			``IBasePumpUnits`` : 
 		"""
 		pass
 
@@ -3699,8 +4148,9 @@ class IBasePumpUnits(IBaseDirectedNodeUnits):
 	def FlowUnit(self) -> IUnit:
 		"""The formatter information for flow results.
 
-		Returns:
-			IBasePumpUnits: 
+		Returns
+		--------
+			``IBasePumpUnits`` : 
 		"""
 		pass
 
@@ -3708,8 +4158,9 @@ class IBasePumpUnits(IBaseDirectedNodeUnits):
 	def HeadUnit(self) -> IUnit:
 		"""The formatter information for head results.
 
-		Returns:
-			IBasePumpUnits: 
+		Returns
+		--------
+			``IBasePumpUnits`` : 
 		"""
 		pass
 
@@ -3717,8 +4168,9 @@ class IBasePumpUnits(IBaseDirectedNodeUnits):
 	def NPSHUnit(self) -> IUnit:
 		"""The formatter information for NPSH results.
 
-		Returns:
-			IBasePumpUnits: 
+		Returns
+		--------
+			``IBasePumpUnits`` : 
 		"""
 		pass
 
@@ -3726,8 +4178,9 @@ class IBasePumpUnits(IBaseDirectedNodeUnits):
 	def PowerUnit(self) -> IUnit:
 		"""Unit for energy result fields
 
-		Returns:
-			IBasePumpUnits: 
+		Returns
+		--------
+			``IBasePumpUnits`` : 
 		"""
 		pass
 
@@ -3737,8 +4190,9 @@ class IPumps(IWaterNetworkElements[IPumps, IPump, IPumpUnits, IPumpInput, IPumpR
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -3749,8 +4203,9 @@ class IPump(IWaterNetworkElement[IPumps, IPump, IPumpUnits, IPumpInput, IPumpRes
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -3761,8 +4216,9 @@ class IPumpsInput(IBasePumpsInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -3773,8 +4229,9 @@ class IPumpsResults(IBasePumpsResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -3785,8 +4242,9 @@ class IPumpResults(IBasePumpResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -3797,8 +4255,9 @@ class IPumpInput(IBasePumpInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -3807,8 +4266,9 @@ class IPumpInput(IBasePumpInput):
 	def PumpDefinition(self) -> IPumpDefinition:
 		"""Select the pump definition to apply to the selected pump.
 
-		Returns:
-			IPumpInput: 
+		Returns
+		--------
+			``IPumpInput`` : 
 		"""
 		pass
 
@@ -3822,8 +4282,9 @@ class IPumpUnits(IBasePumpUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -3834,8 +4295,9 @@ class IVariableSpeedPumpBatterys(IWaterNetworkElements[IVariableSpeedPumpBattery
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -3846,8 +4308,9 @@ class IVariableSpeedPumpBattery(IWaterNetworkElement[IVariableSpeedPumpBatterys,
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -3858,8 +4321,9 @@ class IVSPBsInput(IBasePumpsInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -3867,80 +4331,90 @@ class IVSPBsInput(IBasePumpsInput):
 	def PumpDefinitions(self) -> Dict[int,int]:
 		"""Select pump definition for the lead and lag pumps in the battery.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def ControlNodes(self) -> Dict[int,int]:
 		"""The node that the battery checks to determine whether to increase, maintain, or decrease its relative speed factor.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TargetHydraulicGrades(self) -> Dict[int,int]:
 		"""The Head that the battery will attempt to maintain for the Control Node.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def MaximumRelativeSpeedFactors(self) -> Dict[int,int]:
 		"""The highest relative speed factor that the pump can be set at to meet the target head at the control node. If the target head cannot be met when the pump is set at the maximum relative speed factor, the maximum will be used.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def NumberOfLagPumps(self) -> Dict[int,int]:
 		"""Number of lag pumps (identical to the lead pump) whose relative speed factor is adjusted to maintain the target head for a fixed head VSPB. (Lag pumps are not used for constant flow VSPBs).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def ControlNodeOnSuctionSide(self) -> Dict[int,int]:
 		"""Specifies if the VSPB has a suction side control node.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TargetFlows(self) -> Dict[int,int]:
 		"""The relative speed of the lead pump will be adjusted to meet the Flow (Target). (Lag pumps are not used for constant flow VSPBs).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TargetPressures(self) -> Dict[int,int]:
 		"""The Pressure that the battery will attempt to maintain for the Control Node.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def VSPBTypes(self) -> Dict[int,int]:
 		"""Specify how the variable speed pump battery is controlled.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def VSPBFixedHeadTypes(self) -> Dict[int,int]:
 		"""Establish if the battery should be regulated by pressure or hydraulic grade.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -3950,8 +4424,9 @@ class IVSPBInput(IBasePumpInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -3960,8 +4435,9 @@ class IVSPBInput(IBasePumpInput):
 	def PumpDefinition(self) -> IPumpDefinition:
 		"""Select pump definition for the lead and lag pumps in the battery.
 
-		Returns:
-			IVSPBInput: 
+		Returns
+		--------
+			``IVSPBInput`` : 
 		"""
 		pass
 
@@ -3973,8 +4449,9 @@ class IVSPBInput(IBasePumpInput):
 	def ControlNode(self) -> IWaterElement:
 		"""The node that the battery checks to determine whether to increase, maintain, or decrease its relative speed factor.
 
-		Returns:
-			IVSPBInput: 
+		Returns
+		--------
+			``IVSPBInput`` : 
 		"""
 		pass
 
@@ -3986,8 +4463,9 @@ class IVSPBInput(IBasePumpInput):
 	def TargetHydraulicGrade(self) -> float:
 		"""The Head that the battery will attempt to maintain for the Control Node.
 
-		Returns:
-			IVSPBInput: 
+		Returns
+		--------
+			``IVSPBInput`` : 
 		"""
 		pass
 
@@ -3999,8 +4477,9 @@ class IVSPBInput(IBasePumpInput):
 	def MaximumRelativeSpeedFactor(self) -> float:
 		"""The highest relative speed factor that the pump can be set at to meet the target head at the control node. If the target head cannot be met when the pump is set at the maximum relative speed factor, the maximum will be used.
 
-		Returns:
-			IVSPBInput: 
+		Returns
+		--------
+			``IVSPBInput`` : 
 		"""
 		pass
 
@@ -4012,8 +4491,9 @@ class IVSPBInput(IBasePumpInput):
 	def NumberOfLagPumps(self) -> int:
 		"""Number of lag pumps (identical to the lead pump) whose relative speed factor is adjusted to maintain the target head for a fixed head VSPB. (Lag pumps are not used for constant flow VSPBs).
 
-		Returns:
-			IVSPBInput: 
+		Returns
+		--------
+			``IVSPBInput`` : 
 		"""
 		pass
 
@@ -4025,8 +4505,9 @@ class IVSPBInput(IBasePumpInput):
 	def ControlNodeOnSuctionSide(self) -> bool:
 		"""Specifies if the VSPB has a suction side control node.
 
-		Returns:
-			IVSPBInput: 
+		Returns
+		--------
+			``IVSPBInput`` : 
 		"""
 		pass
 
@@ -4038,8 +4519,9 @@ class IVSPBInput(IBasePumpInput):
 	def TargetFlow(self) -> float:
 		"""The relative speed of the lead pump will be adjusted to meet the Flow (Target). (Lag pumps are not used for constant flow VSPBs).
 
-		Returns:
-			IVSPBInput: 
+		Returns
+		--------
+			``IVSPBInput`` : 
 		"""
 		pass
 
@@ -4051,8 +4533,9 @@ class IVSPBInput(IBasePumpInput):
 	def TargetPressure(self) -> float:
 		"""The Pressure that the battery will attempt to maintain for the Control Node.
 
-		Returns:
-			IVSPBInput: 
+		Returns
+		--------
+			``IVSPBInput`` : 
 		"""
 		pass
 
@@ -4064,8 +4547,9 @@ class IVSPBInput(IBasePumpInput):
 	def VSPBType(self) -> VSPBType:
 		"""Specify how the variable speed pump battery is controlled.
 
-		Returns:
-			IVSPBInput: 
+		Returns
+		--------
+			``IVSPBInput`` : 
 		"""
 		pass
 
@@ -4077,8 +4561,9 @@ class IVSPBInput(IBasePumpInput):
 	def VSPBFixedHeadType(self) -> VSPBFixedHeadType:
 		"""Establish if the battery should be regulated by pressure or hydraulic grade.
 
-		Returns:
-			IVSPBInput: 
+		Returns
+		--------
+			``IVSPBInput`` : 
 		"""
 		pass
 
@@ -4092,8 +4577,9 @@ class IVSPBsResults(IBasePumpsResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -4102,8 +4588,9 @@ class IVSPBsResults(IBasePumpsResults):
 	def LeadPumpFlows(self) -> Dict[int,int]:
 		"""Flow contributed by the lead pump in the pump battery.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4111,11 +4598,13 @@ class IVSPBsResults(IBasePumpsResults):
 	def LeadPumpFlows(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Flow contributed by the lead pump in the pump battery.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4123,12 +4612,14 @@ class IVSPBsResults(IBasePumpsResults):
 	def LeadPumpFlows(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4136,8 +4627,9 @@ class IVSPBsResults(IBasePumpsResults):
 	def NumberOfRunningLagPumps(self) -> Dict[int,int]:
 		"""Number of pump battery lag pumps running duing the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4145,11 +4637,13 @@ class IVSPBsResults(IBasePumpsResults):
 	def NumberOfRunningLagPumps(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Number of pump battery lag pumps running duing the current time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4157,12 +4651,14 @@ class IVSPBsResults(IBasePumpsResults):
 	def NumberOfRunningLagPumps(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4172,8 +4668,9 @@ class IVSPBResults(IBasePumpResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -4182,8 +4679,9 @@ class IVSPBResults(IBasePumpResults):
 	def LeadPumpFlow(self) -> Union[float, None]:
 		"""Flow contributed by the lead pump in the pump battery.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -4191,19 +4689,22 @@ class IVSPBResults(IBasePumpResults):
 	def LeadPumpFlow(self, timeStepIndex: int) -> Union[float, None]:
 		"""Flow contributed by the lead pump in the pump battery.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def LoadPumpFlows(self) -> array(Union[float, None]):
+	def LoadPumpFlows(self) -> List[Union[float, None]]:
 		"""Flow contributed by the lead pump in the pump battery.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -4211,8 +4712,9 @@ class IVSPBResults(IBasePumpResults):
 	def NumberOfRunningLagPumps(self) -> Union[float, None]:
 		"""Number of pump battery lag pumps running duing the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -4220,19 +4722,22 @@ class IVSPBResults(IBasePumpResults):
 	def NumberOfRunningLagPumps(self, timeStepIndex: int) -> Union[float, None]:
 		"""Number of pump battery lag pumps running duing the current time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def NumberRunningLagPumps(self) -> array(Union[float, None]):
+	def NumberRunningLagPumps(self) -> List[Union[float, None]]:
 		"""Number of pump battery lag pumps running duing the current time step.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -4242,8 +4747,9 @@ class IVariableSpeedPumpBatteryUnits(IBasePumpUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -4254,8 +4760,9 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -4264,8 +4771,9 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def Flows(self) -> Dict[int,int]:
 		"""Total flow through at all valve at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4273,11 +4781,13 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def Flows(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Total flow through at all valve at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4285,12 +4795,14 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def Flows(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4298,8 +4810,9 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def Velocities(self) -> Dict[int,int]:
 		"""Velocity of flow traveling through the valve at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4307,11 +4820,13 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def Velocities(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Velocity of flow traveling through the valves at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4319,12 +4834,14 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def Velocities(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4332,8 +4849,9 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def Headlosses(self) -> Dict[int,int]:
 		"""Change in head across all valves at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4341,11 +4859,13 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def Headlosses(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Change in head across all valves at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4353,12 +4873,14 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def Headlosses(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4366,8 +4888,9 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def PressureLosses(self) -> Dict[int,int]:
 		"""Change in pressure across all valves at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4375,11 +4898,13 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def PressureLosses(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Change in pressure across all valves at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4387,12 +4912,14 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def PressureLosses(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4400,8 +4927,9 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def FromHydraulicGrades(self) -> Dict[int,int]:
 		"""Calculated hydraulic grade at the entrance of all valves at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4409,11 +4937,13 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def FromHydraulicGrades(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated hydraulic grade at the entrance of all valves at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4421,12 +4951,14 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def FromHydraulicGrades(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4434,8 +4966,9 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def ToHydraulicGrades(self) -> Dict[int,int]:
 		"""Calculated hydraulic grade at the exit of all valves at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4443,11 +4976,13 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def ToHydraulicGrades(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated hydraulic grade at the exit of all valves at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4455,12 +4990,14 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def ToHydraulicGrades(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4468,8 +5005,9 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def FromPressures(self) -> Dict[int,int]:
 		"""Calculated pressure at the entrance of all valves at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4477,11 +5015,13 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def FromPressures(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated pressure at the entrance of all valves at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4489,12 +5029,14 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def FromPressures(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4502,8 +5044,9 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def ToPressures(self) -> Dict[int,int]:
 		"""Calculated pressure at the exit to all valves at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4511,11 +5054,13 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def ToPressures(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated pressure at the exit to all valves at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4523,12 +5068,14 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def ToPressures(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4536,8 +5083,9 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def Status(self) -> Dict[int,int]:
 		"""Displays the current calculated status (Open, Closed etc...) of all valves at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4545,11 +5093,13 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def Status(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Di plays the current calculated status (Open, Closed etc...) of all valves at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4557,12 +5107,14 @@ class IBaseValvesResults(IBaseDirectedNodesResults):
 	def Status(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4572,8 +5124,9 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -4582,8 +5135,9 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def Flow(self) -> Union[float, None]:
 		"""Total flow through the valve at the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -4591,19 +5145,22 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def Flow(self, timeStepIndex: int) -> Union[float, None]:
 		"""Total flow through the valve at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Flows(self) -> array(Union[float, None]):
+	def Flows(self) -> List[Union[float, None]]:
 		"""Total flow through the valve across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -4611,8 +5168,9 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def Velocity(self) -> Union[float, None]:
 		"""Velocity of flow traveling through the valve at the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -4620,19 +5178,22 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def Velocity(self, timeStepIndex: int) -> Union[float, None]:
 		"""Velocity of flow traveling through the valve at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Velocities(self) -> array(Union[float, None]):
+	def Velocities(self) -> List[Union[float, None]]:
 		"""Velocity of flow traveling through the valve across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -4640,8 +5201,9 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def Headloss(self) -> Union[float, None]:
 		"""Change in head across the valve at the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -4649,19 +5211,22 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def Headloss(self, timeStepIndex: int) -> Union[float, None]:
 		"""Change in head across the valve at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Headlosses(self) -> array(Union[float, None]):
+	def Headlosses(self) -> List[Union[float, None]]:
 		"""Change in head across the valve across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -4669,8 +5234,9 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def PressureLoss(self) -> Union[float, None]:
 		"""Change in pressure across the valve at the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -4678,19 +5244,22 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def PressureLoss(self, timeStepIndex: int) -> Union[float, None]:
 		"""Change in pressure across the valve at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def PressureLosses(self) -> array(Union[float, None]):
+	def PressureLosses(self) -> List[Union[float, None]]:
 		"""Change in pressure across the valve across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -4698,8 +5267,9 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def FromHydraulicGrade(self) -> Union[float, None]:
 		"""Calculated hydraulic grade at the entrance of the valve at the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -4707,19 +5277,22 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def FromHydraulicGrade(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated hydraulic grade at the entrance of the valve at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def FromHydraulicGrades(self) -> array(Union[float, None]):
+	def FromHydraulicGrades(self) -> List[Union[float, None]]:
 		"""Calculated hydraulic grade at the entrance of the valve across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -4727,8 +5300,9 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def ToHydraulicGrade(self) -> Union[float, None]:
 		"""Calculated hydraulic grade at the exit of the valve at the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -4736,19 +5310,22 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def ToHydraulicGrade(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated hydraulic grade at the exit of the valve at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def ToHydraulicGrades(self) -> array(Union[float, None]):
+	def ToHydraulicGrades(self) -> List[Union[float, None]]:
 		"""Calculated hydraulic grade at the exit of the valve across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -4756,8 +5333,9 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def FromPressure(self) -> Union[float, None]:
 		"""Calculated pressure at the entrance of the valve at the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -4765,19 +5343,22 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def FromPressure(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated pressure at the entrance of the valve at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def FromPressures(self) -> array(Union[float, None]):
+	def FromPressures(self) -> List[Union[float, None]]:
 		"""Calculated pressure at the entrance of the valve across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -4785,8 +5366,9 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def ToPressure(self) -> Union[float, None]:
 		"""Calculated pressure at the exit to the valve at the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -4794,19 +5376,22 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def ToPressure(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated pressure at the exit to the valve at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def ToPressures(self) -> array(Union[float, None]):
+	def ToPressures(self) -> List[Union[float, None]]:
 		"""Calculated pressure at the exit to the valve across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -4814,8 +5399,9 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def CalculatedStatus(self) -> Union[int, None]:
 		"""Di plays the current calculated status (Open, Closed etc...) of the selected valve at the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -4823,19 +5409,22 @@ class IBaseValveResults(IBaseDirectedNodeResults):
 	def CalculatedStatus(self, timeStepIndex: int) -> Union[int, None]:
 		"""Di plays the current calculated status (Open, Closed etc...) of the selected valve at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def CalculatedStatuses(self) -> array(Union[int, None]):
+	def CalculatedStatuses(self) -> List[Union[int, None]]:
 		"""Di plays the current calculated status (Open, Closed etc...) of the selected valve across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -4845,8 +5434,9 @@ class IBaseValveInput(IBaseDirectedNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -4855,8 +5445,9 @@ class IBaseValveInput(IBaseDirectedNodeInput):
 	def InitialStatus(self) -> ValveSettingType:
 		"""Set the initial status for the valve.
 
-		Returns:
-			IBaseValveInput: 
+		Returns
+		--------
+			``IBaseValveInput`` : 
 		"""
 		pass
 
@@ -4868,8 +5459,9 @@ class IBaseValveInput(IBaseDirectedNodeInput):
 	def ValveDiameter(self) -> float:
 		"""Inside diameter of the valve. Used to calculate the velocity through the valve and a corresponding minor loss when a minor loss coefficient is entered.
 
-		Returns:
-			IBaseValveInput: 
+		Returns
+		--------
+			``IBaseValveInput`` : 
 		"""
 		pass
 
@@ -4881,8 +5473,9 @@ class IBaseValveInput(IBaseDirectedNodeInput):
 	def MinorLossCoefficientCollection(self) -> IMinorLossCoefficientCollection:
 		"""List of all associated minor losses associated with the element, and can be used to generate the composite minor loss coefficient.
 
-		Returns:
-			IBaseValveInput: 
+		Returns
+		--------
+			``IBaseValveInput`` : 
 		"""
 		pass
 
@@ -4890,8 +5483,9 @@ class IBaseValveInput(IBaseDirectedNodeInput):
 	def LocalMinorLossCoefficient(self) -> float:
 		"""User input minor loss coefficent.  You can either type in the value directly or select the value from the Minor Loss Library. The minor loss is applied to the valve when it is fully open (inactive). Note that minor losses do not apply to the following valve types: General Purpose Valve and Valve With Linear Area Change. These two valve types do not support a (fully) open status and always apply the head/flow relationship defined by their headloss curve and discharge coefficient respectively.
 
-		Returns:
-			IBaseValveInput: 
+		Returns
+		--------
+			``IBaseValveInput`` : 
 		"""
 		pass
 
@@ -4903,8 +5497,9 @@ class IBaseValveInput(IBaseDirectedNodeInput):
 	def SpecifyLocalMinorLoss(self) -> bool:
 		"""If true then the minor coefficent for the element is manually set, otherwise the value is derived from the minor loss library.
 
-		Returns:
-			IBaseValveInput: 
+		Returns
+		--------
+			``IBaseValveInput`` : 
 		"""
 		pass
 
@@ -4916,8 +5511,9 @@ class IBaseValveInput(IBaseDirectedNodeInput):
 	def DerivedMinorLossCoefficient(self) -> float:
 		"""Displays the composite value calculated from the data in the minor loss collection. The composite minor loss is applied to the valve when it is fully open (inactive). Note that minor losses do not apply to the following valve types: General Purpose Valve and Valve With Linear Area Change. These two valve types do not support a (fully) open status and always apply the head/flow relationship defined by their headloss curve and discharge coefficient respectively.
 
-		Returns:
-			IBaseValveInput: 
+		Returns
+		--------
+			``IBaseValveInput`` : 
 		"""
 		pass
 
@@ -4927,8 +5523,9 @@ class IBaseValvesInput(IBaseDirectedNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -4937,8 +5534,9 @@ class IBaseValvesInput(IBaseDirectedNodesInput):
 	def InitialStatus(self) -> Dict[int,int]:
 		"""Set the initial status for the valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4946,11 +5544,13 @@ class IBaseValvesInput(IBaseDirectedNodesInput):
 	def InitialStatus(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4958,8 +5558,9 @@ class IBaseValvesInput(IBaseDirectedNodesInput):
 	def Diameters(self) -> Dict[int,int]:
 		"""Inside diameter of the valve. Used to calculate the velocity through the valve and a corresponding minor loss when a minor loss coefficient is entered.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -4967,35 +5568,40 @@ class IBaseValvesInput(IBaseDirectedNodesInput):
 	def Diameters(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def LocalMinorLossCoefficient(self) -> Dict[int,int]:
 		"""User input minor loss coefficent.  You can either type in the value directly or select the value from the Minor Loss Library. The minor loss is applied to the valve when it is fully open (inactive). Note that minor losses do not apply to the following valve types: General Purpose Valve and Valve With Linear Area Change. These two valve types do not support a (fully) open status and always apply the head/flow relationship defined by their headloss curve and discharge coefficient respectively.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SpecifyLocalMinorLoss(self) -> Dict[int,int]:
 		"""If true then the minor coefficent for the element is manually set, otherwise the value is derived from the minor loss library.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def DerivedMinorLossCoefficient(self) -> Dict[int,int]:
 		"""Displays the composite value calculated from the data in the minor loss collection. The composite minor loss is applied to the valve when it is fully open (inactive). Note that minor losses do not apply to the following valve types: General Purpose Valve and Valve With Linear Area Change. These two valve types do not support a (fully) open status and always apply the head/flow relationship defined by their headloss curve and discharge coefficient respectively.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5005,8 +5611,9 @@ class IBaseValveUnits(IBaseDirectedNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5015,8 +5622,9 @@ class IBaseValveUnits(IBaseDirectedNodeUnits):
 	def ValveDiameterUnit(self) -> IUnit:
 		"""The formatter information for valve diameter.
 
-		Returns:
-			IBaseValveUnits: 
+		Returns
+		--------
+			``IBaseValveUnits`` : 
 		"""
 		pass
 
@@ -5024,8 +5632,9 @@ class IBaseValveUnits(IBaseDirectedNodeUnits):
 	def FlowUnit(self) -> IUnit:
 		"""The formatter information for flow.
 
-		Returns:
-			IBaseValveUnits: 
+		Returns
+		--------
+			``IBaseValveUnits`` : 
 		"""
 		pass
 
@@ -5033,8 +5642,9 @@ class IBaseValveUnits(IBaseDirectedNodeUnits):
 	def VelocityUnit(self) -> IUnit:
 		"""The formatter information for velocity.
 
-		Returns:
-			IBaseValveUnits: 
+		Returns
+		--------
+			``IBaseValveUnits`` : 
 		"""
 		pass
 
@@ -5042,8 +5652,9 @@ class IBaseValveUnits(IBaseDirectedNodeUnits):
 	def HeadlossUnit(self) -> IUnit:
 		"""The formatter information for headloss.
 
-		Returns:
-			IBaseValveUnits: 
+		Returns
+		--------
+			``IBaseValveUnits`` : 
 		"""
 		pass
 
@@ -5051,8 +5662,9 @@ class IBaseValveUnits(IBaseDirectedNodeUnits):
 	def PressureLossUnit(self) -> IUnit:
 		"""The formatter information for pressure loss.
 
-		Returns:
-			IBaseValveUnits: 
+		Returns
+		--------
+			``IBaseValveUnits`` : 
 		"""
 		pass
 
@@ -5060,8 +5672,9 @@ class IBaseValveUnits(IBaseDirectedNodeUnits):
 	def HydraulicGradeUnit(self) -> IUnit:
 		"""The formatter information for hydraulic grade.
 
-		Returns:
-			IBaseValveUnits: 
+		Returns
+		--------
+			``IBaseValveUnits`` : 
 		"""
 		pass
 
@@ -5069,8 +5682,9 @@ class IBaseValveUnits(IBaseDirectedNodeUnits):
 	def PressureUnit(self) -> IUnit:
 		"""The formatter information for pressure.
 
-		Returns:
-			IBaseValveUnits: 
+		Returns
+		--------
+			``IBaseValveUnits`` : 
 		"""
 		pass
 
@@ -5080,8 +5694,9 @@ class IFlowControlValves(IWaterNetworkElements[IFlowControlValves, IFlowControlV
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5092,8 +5707,9 @@ class IFlowControlValve(IWaterNetworkElement[IFlowControlValves, IFlowControlVal
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5104,8 +5720,9 @@ class IFlowControlValvesResults(IBaseValvesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5114,8 +5731,9 @@ class IFlowControlValvesResults(IBaseValvesResults):
 	def CalculatedFlowSettings(self) -> Dict[int,int]:
 		"""Flow setting for current time step at all FCVs.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5123,11 +5741,13 @@ class IFlowControlValvesResults(IBaseValvesResults):
 	def CalculatedFlowSettings(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Flow setting for given time step at all FCVs.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5135,12 +5755,14 @@ class IFlowControlValvesResults(IBaseValvesResults):
 	def CalculatedFlowSettings(self, ids: List[int], timeStepInde: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepInde(int): timeStepInde
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepInde (``int``) :  timeStepInde
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5150,8 +5772,9 @@ class IFlowControlValveResults(IBaseValveResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5160,8 +5783,9 @@ class IFlowControlValveResults(IBaseValveResults):
 	def CalculatedFlowSetting(self) -> Union[float, None]:
 		"""Flow setting at selected valve for current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -5169,19 +5793,22 @@ class IFlowControlValveResults(IBaseValveResults):
 	def CalculatedFlowSetting(self, timeStepIndex: int) -> Union[float, None]:
 		"""Flow setting at selected valve for given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def CalculatedFlowSettings(self) -> array(Union[float, None]):
+	def CalculatedFlowSettings(self) -> List[Union[float, None]]:
 		"""Flow setting at selected valve across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -5191,8 +5818,9 @@ class IFlowControlValvesInput(IBaseValvesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5201,8 +5829,9 @@ class IFlowControlValvesInput(IBaseValvesInput):
 	def InitialFlowSettings(self) -> Dict[int,int]:
 		"""Initial flow setting for all flow control valves.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5210,27 +5839,31 @@ class IFlowControlValvesInput(IBaseValvesInput):
 	def InitialFlowSettings(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def ValveCharacteristics(self) -> Dict[int,int]:
 		"""Specifies the valve characteristics definition to be used for this valve. If the Valve Characteristic Curve is not defined then a default curve will be used. The default curve will have (Relative Closure, Relative Area) points of (0,1) and (1,0).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def ValveTypes(self) -> Dict[int,int]:
 		"""Specifies the type of valve. Choices are Butterfly, Needle, Circular Gate, Globe, Ball and User Defined.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5240,8 +5873,9 @@ class IFlowControlValveInput(IBaseValveInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5250,8 +5884,9 @@ class IFlowControlValveInput(IBaseValveInput):
 	def InitialFlowSetting(self) -> float:
 		"""Initial flow setting for the flow control valve.
 
-		Returns:
-			IFlowControlValveInput: 
+		Returns
+		--------
+			``IFlowControlValveInput`` : 
 		"""
 		pass
 
@@ -5263,8 +5898,9 @@ class IFlowControlValveInput(IBaseValveInput):
 	def ValveCharacteristics(self) -> IValveCharacteristic:
 		"""Specifies the valve characteristics definition to be used for this valve. If the Valve Characteristic Curve is not defined then a default curve will be used. The default curve will have (Relative Closure, Relative Area) points of (0,1) and (1,0).
 
-		Returns:
-			IFlowControlValveInput: 
+		Returns
+		--------
+			``IFlowControlValveInput`` : 
 		"""
 		pass
 
@@ -5276,8 +5912,9 @@ class IFlowControlValveInput(IBaseValveInput):
 	def ValveType(self) -> HammerValveType:
 		"""Specifies the type of valve. Choices are Butterfly, Needle, Circular Gate, Globe, Ball and User Defined.
 
-		Returns:
-			IFlowControlValveInput: 
+		Returns
+		--------
+			``IFlowControlValveInput`` : 
 		"""
 		pass
 
@@ -5291,8 +5928,9 @@ class IFlowControlValveUnits(IBaseValveUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5301,8 +5939,9 @@ class IFlowControlValveUnits(IBaseValveUnits):
 	def InitialFlowSettingUnit(self) -> IUnit:
 		"""The formatter information for initial flow setting.
 
-		Returns:
-			IFlowControlValveUnits: 
+		Returns
+		--------
+			``IFlowControlValveUnits`` : 
 		"""
 		pass
 
@@ -5312,8 +5951,9 @@ class IThrottleControlValves(IWaterNetworkElements[IThrottleControlValves, IThro
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5324,8 +5964,9 @@ class IThrottleControlValve(IWaterNetworkElement[IThrottleControlValves, IThrott
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5336,8 +5977,9 @@ class IThrottleControlValvesResults(IBaseValvesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5346,8 +5988,9 @@ class IThrottleControlValvesResults(IBaseValvesResults):
 	def Settings(self) -> Dict[int,int]:
 		"""Discharge Coefficient:  Discharge coefficient setting (Cv) at the current time step across all TCVs.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5355,11 +5998,13 @@ class IThrottleControlValvesResults(IBaseValvesResults):
 	def Settings(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Discharge Coefficient:  Discharge coefficient setting (Cv) at the given time step across all TCVs.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5367,12 +6012,14 @@ class IThrottleControlValvesResults(IBaseValvesResults):
 	def Settings(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5382,8 +6029,9 @@ class IThrottleControlValveResults(IBaseValveResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5392,8 +6040,9 @@ class IThrottleControlValveResults(IBaseValveResults):
 	def CalculatedSetting(self) -> Union[float, None]:
 		"""Discharge Coefficient:  TCV discharge coefficient setting (Cv) at the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -5401,19 +6050,22 @@ class IThrottleControlValveResults(IBaseValveResults):
 	def CalculatedSetting(self, timeStepIndex: int) -> Union[float, None]:
 		"""Discharge Coefficient:  TCV discharge coefficient setting (Cv) at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def CalculatedSettings(self) -> array(Union[float, None]):
+	def CalculatedSettings(self) -> List[Union[float, None]]:
 		"""Discharge Coefficient:  TCV discharge coefficient setting (Cv) at all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -5423,8 +6075,9 @@ class IThrottleControlValveInput(IBaseValveInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5433,8 +6086,9 @@ class IThrottleControlValveInput(IBaseValveInput):
 	def TCVCoefficientType(self) -> TCVCoefficientType:
 		"""Specifies which type of coefficient to enter for the TCV. If entering discharge coefficient, the value is internally converted into an equivalent headloss coefficient.
 
-		Returns:
-			IThrottleControlValveInput: 
+		Returns
+		--------
+			``IThrottleControlValveInput`` : 
 		"""
 		pass
 
@@ -5446,8 +6100,9 @@ class IThrottleControlValveInput(IBaseValveInput):
 	def InitialCoefficient(self) -> float:
 		"""(A relative closure of 0%% means the valve is 0%% closed, or 100%% open. Conversely, a relative closure of 100%% means the valve is 100%% closed, or 0%% open).
 
-		Returns:
-			IThrottleControlValveInput: 
+		Returns
+		--------
+			``IThrottleControlValveInput`` : 
 		"""
 		pass
 
@@ -5459,8 +6114,9 @@ class IThrottleControlValveInput(IBaseValveInput):
 	def ValveCharacteristics(self) -> IValveCharacteristic:
 		"""Specifies the valve characteristics definition to be used for this valve. If the Valve Characteristic Curve is not defined then a default curve will be used. The default curve will have (Relative Closure, Relative Area) points of (0,1) and (1,0).
 
-		Returns:
-			IThrottleControlValveInput: 
+		Returns
+		--------
+			``IThrottleControlValveInput`` : 
 		"""
 		pass
 
@@ -5472,8 +6128,9 @@ class IThrottleControlValveInput(IBaseValveInput):
 	def ValveType(self) -> HammerValveType:
 		"""Specifies the type of valve. Choices are Butterfly, Needle, Circular Gate, Globe, Ball and User Defined.
 
-		Returns:
-			IThrottleControlValveInput: 
+		Returns
+		--------
+			``IThrottleControlValveInput`` : 
 		"""
 		pass
 
@@ -5487,8 +6144,9 @@ class IThrottleControlValvesInput(IBaseValvesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5497,8 +6155,9 @@ class IThrottleControlValvesInput(IBaseValvesInput):
 	def TCVCoefficientTypes(self) -> Dict[int,int]:
 		"""Specifies which type of coefficient to enter for the TCV. If entering discharge coefficient, the value is internally converted into an equivalent headloss coefficient.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5506,11 +6165,13 @@ class IThrottleControlValvesInput(IBaseValvesInput):
 	def TCVCoefficientTypes(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5518,8 +6179,9 @@ class IThrottleControlValvesInput(IBaseValvesInput):
 	def InitialCoefficients(self) -> Dict[int,int]:
 		"""(A relative closure of 0%% means the valve is 0%% closed, or 100%% open. Conversely, a relative closure of 100%% means the valve is 100%% closed, or 0%% open).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5527,27 +6189,31 @@ class IThrottleControlValvesInput(IBaseValvesInput):
 	def InitialCoefficients(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def ValveCharacteristics(self) -> Dict[int,int]:
 		"""Specifies the valve characteristics definition to be used for this valve. If the Valve Characteristic Curve is not defined then a default curve will be used. The default curve will have (Relative Closure, Relative Area) points of (0,1) and (1,0).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def ValveTypes(self) -> Dict[int,int]:
 		"""Specifies the type of valve. Choices are Butterfly, Needle, Circular Gate, Globe, Ball and User Defined.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5557,8 +6223,9 @@ class IThrottleControlValveUnits(IBaseValveUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5567,8 +6234,9 @@ class IThrottleControlValveUnits(IBaseValveUnits):
 	def CoefficientUnit(self) -> IUnit:
 		"""The formatter information depending on the setting of TCVCoefficientType.
 
-		Returns:
-			IThrottleControlValveUnits: 
+		Returns
+		--------
+			``IThrottleControlValveUnits`` : 
 		"""
 		pass
 
@@ -5578,8 +6246,9 @@ class IGeneralPurposeValves(IWaterNetworkElements[IGeneralPurposeValves, IGenera
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5590,8 +6259,9 @@ class IGeneralPurposeValve(IWaterNetworkElement[IGeneralPurposeValves, IGeneralP
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5602,8 +6272,9 @@ class IGeneralPurposeValvesInput(IBaseValvesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5611,24 +6282,27 @@ class IGeneralPurposeValvesInput(IBaseValvesInput):
 	def GPVHeadlossCurves(self) -> Dict[int,int]:
 		"""Select the GPV headloss curve to apply to the selected valve. The General Purpose Valve is a fictitious element allowing simulation of unique headloss/flow relationships, therefore, the headloss curve relationship is always applied. Minor losses are never applied for this valve type and as such the valve does not support a (fully) open status.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def ValveCharacteristics(self) -> Dict[int,int]:
 		"""Specifies the valve characteristics definition to be used for this valve. If the Valve Characteristic Curve is not defined then a default curve will be used. The default curve will have (Relative Closure, Relative Area) points of (0,1) and (1,0).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def ValveTypes(self) -> Dict[int,int]:
 		"""Specifies the type of valve. Choices are Butterfly, Needle, Circular Gate, Globe, Ball and User Defined.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5638,8 +6312,9 @@ class IGeneralPurposeValvesResults(IBaseValvesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5650,8 +6325,9 @@ class IGeneralPurposeValveResults(IBaseValveResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5662,8 +6338,9 @@ class IGeneralPurposeValveInput(IBaseValveInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5672,8 +6349,9 @@ class IGeneralPurposeValveInput(IBaseValveInput):
 	def GPVHeadlossCurve(self) -> IGPVHeadlossCurve:
 		"""Select the GPV headloss curve to apply to the selected valve. The General Purpose Valve is a fictitious element allowing simulation of unique headloss/flow relationships, therefore, the headloss curve relationship is always applied. Minor losses are never applied for this valve type and as such the valve does not support a (fully) open status.
 
-		Returns:
-			IGeneralPurposeValveInput: 
+		Returns
+		--------
+			``IGeneralPurposeValveInput`` : 
 		"""
 		pass
 
@@ -5685,8 +6363,9 @@ class IGeneralPurposeValveInput(IBaseValveInput):
 	def ValveCharacteristics(self) -> IValveCharacteristic:
 		"""Specifies the valve characteristics definition to be used for this valve. If the Valve Characteristic Curve is not defined then a default curve will be used. The default curve will have (Relative Closure, Relative Area) points of (0,1) and (1,0).
 
-		Returns:
-			IGeneralPurposeValveInput: 
+		Returns
+		--------
+			``IGeneralPurposeValveInput`` : 
 		"""
 		pass
 
@@ -5698,8 +6377,9 @@ class IGeneralPurposeValveInput(IBaseValveInput):
 	def ValveType(self) -> HammerValveType:
 		"""Specifies the type of valve. Choices are Butterfly, Needle, Circular Gate, Globe, Ball and User Defined.
 
-		Returns:
-			IGeneralPurposeValveInput: 
+		Returns
+		--------
+			``IGeneralPurposeValveInput`` : 
 		"""
 		pass
 
@@ -5713,8 +6393,9 @@ class IGeneralPurposeValveUnits(IBaseValveUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5725,8 +6406,9 @@ class IPressureValvesResults(IBaseValvesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5735,8 +6417,9 @@ class IPressureValvesResults(IBaseValvesResults):
 	def CalculatedSettings(self) -> Dict[int,int]:
 		"""Pressure:  Pressure setting for all pressure valves at current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5744,11 +6427,13 @@ class IPressureValvesResults(IBaseValvesResults):
 	def CalculatedSettings(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Pressure:  Pressure setting for all pressure valves at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5756,12 +6441,14 @@ class IPressureValvesResults(IBaseValvesResults):
 	def CalculatedSettings(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5771,8 +6458,9 @@ class IPressureValveResults(IBaseValveResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5781,8 +6469,9 @@ class IPressureValveResults(IBaseValveResults):
 	def CalculatedSetting(self) -> Union[float, None]:
 		"""Pressure:  Pressure setting for valve at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -5790,19 +6479,22 @@ class IPressureValveResults(IBaseValveResults):
 	def CalculatedSetting(self, timeStepIndex: int) -> Union[float, None]:
 		"""Pressure:  Pressure setting for valve at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def CalculatedSettings(self) -> array(Union[float, None]):
+	def CalculatedSettings(self) -> List[Union[float, None]]:
 		"""Pressure:  Pressure setting for valve across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -5812,8 +6504,9 @@ class IPressureValveInput(IBaseValveInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5822,8 +6515,9 @@ class IPressureValveInput(IBaseValveInput):
 	def PressureValveSetting(self) -> PressureValvesettingType:
 		"""Establish if the valve should be regulated by pressure or hydraulic grade.
 
-		Returns:
-			IPressureValveInput: 
+		Returns
+		--------
+			``IPressureValveInput`` : 
 		"""
 		pass
 
@@ -5835,8 +6529,9 @@ class IPressureValveInput(IBaseValveInput):
 	def InitialSetting(self) -> float:
 		"""Hydraulic Grade Setting (Initial) - Specify the initial hydraulic grade setting for the valve.
 
-		Returns:
-			IPressureValveInput: 
+		Returns
+		--------
+			``IPressureValveInput`` : 
 		"""
 		pass
 
@@ -5850,8 +6545,9 @@ class IPressureValvesInput(IBaseValvesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5860,8 +6556,9 @@ class IPressureValvesInput(IBaseValvesInput):
 	def PressureValveSettings(self) -> Dict[int,int]:
 		"""Establish if the valve should be regulated by pressure or hydraulic grade.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5869,11 +6566,13 @@ class IPressureValvesInput(IBaseValvesInput):
 	def PressureValveSettings(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5881,8 +6580,9 @@ class IPressureValvesInput(IBaseValvesInput):
 	def InitialSettings(self) -> Dict[int,int]:
 		"""Hydraulic Grade Setting (Initial) - Specify the initial hydraulic grade setting for the valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5890,11 +6590,13 @@ class IPressureValvesInput(IBaseValvesInput):
 	def InitialSettings(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -5904,8 +6606,9 @@ class IPressureValveUnits(IBaseValveUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5914,8 +6617,9 @@ class IPressureValveUnits(IBaseValveUnits):
 	def SettingUnit(self) -> IUnit:
 		"""The formatter information for setting depending on the setting of PressureValveSetting.
 
-		Returns:
-			IPressureValveUnits: 
+		Returns
+		--------
+			``IPressureValveUnits`` : 
 		"""
 		pass
 
@@ -5925,8 +6629,9 @@ class IPressureBreakingValves(IWaterNetworkElements[IPressureBreakingValves, IPr
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5937,8 +6642,9 @@ class IPressureBreakingValve(IWaterNetworkElement[IPressureBreakingValves, IPres
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5949,8 +6655,9 @@ class IPressureBreakingValvesInput(IPressureValvesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5961,8 +6668,9 @@ class IPressureBreakingValvesResults(IPressureValvesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5973,8 +6681,9 @@ class IPressureBreakingValveResults(IPressureValveResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5985,8 +6694,9 @@ class IPressureBreakingValveInput(IPressureValveInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -5997,8 +6707,9 @@ class IPressureBreakingValveUnits(IPressureValveUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6009,8 +6720,9 @@ class IPressureSustainingValves(IWaterNetworkElements[IPressureSustainingValves,
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6021,8 +6733,9 @@ class IPressureSustainingValve(IWaterNetworkElement[IPressureSustainingValves, I
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6033,8 +6746,9 @@ class IPressureSustainingValvesInput(IPressureValvesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6042,16 +6756,18 @@ class IPressureSustainingValvesInput(IPressureValvesInput):
 	def ValveCharacteristics(self) -> Dict[int,int]:
 		"""Specifies the valve characteristics definition to be used for this valve. If the Valve Characteristic Curve is not defined then a default curve will be used. The default curve will have (Relative Closure, Relative Area) points of (0,1) and (1,0).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def ValveTypes(self) -> Dict[int,int]:
 		"""Specifies the type of valve. Choices are Butterfly, Needle, Circular Gate, Globe, Ball and User Defined.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -6061,8 +6777,9 @@ class IPressureSustainingValvesResults(IPressureValvesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6073,8 +6790,9 @@ class IPressureSustainingValveResults(IPressureValveResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6085,8 +6803,9 @@ class IPressureSustainingValveInput(IPressureValveInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6095,8 +6814,9 @@ class IPressureSustainingValveInput(IPressureValveInput):
 	def ValveCharacteristics(self) -> IValveCharacteristic:
 		"""Specifies the valve characteristics definition to be used for this valve. If the Valve Characteristic Curve is not defined then a default curve will be used. The default curve will have (Relative Closure, Relative Area) points of (0,1) and (1,0).
 
-		Returns:
-			IPressureSustainingValveInput: 
+		Returns
+		--------
+			``IPressureSustainingValveInput`` : 
 		"""
 		pass
 
@@ -6108,8 +6828,9 @@ class IPressureSustainingValveInput(IPressureValveInput):
 	def ValveType(self) -> HammerValveType:
 		"""Specifies the type of valve. Choices are Butterfly, Needle, Circular Gate, Globe, Ball and User Defined.
 
-		Returns:
-			IPressureSustainingValveInput: 
+		Returns
+		--------
+			``IPressureSustainingValveInput`` : 
 		"""
 		pass
 
@@ -6123,8 +6844,9 @@ class IPressureSustainingValveUnits(IPressureValveUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6135,8 +6857,9 @@ class IPressureReducingValves(IWaterNetworkElements[IPressureReducingValves, IPr
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6147,8 +6870,9 @@ class IPressureReducingValve(IWaterNetworkElement[IPressureReducingValves, IPres
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6159,8 +6883,9 @@ class IPressureReducingValvesInput(IPressureValvesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6168,16 +6893,18 @@ class IPressureReducingValvesInput(IPressureValvesInput):
 	def ValveCharacteristics(self) -> Dict[int,int]:
 		"""Specifies the valve characteristics definition to be used for this valve. If the Valve Characteristic Curve is not defined then a default curve will be used. The default curve will have (Relative Closure, Relative Area) points of (0,1) and (1,0).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def ValveTypes(self) -> Dict[int,int]:
 		"""Specifies the type of valve. Choices are Butterfly, Needle, Circular Gate, Globe, Ball and User Defined.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -6187,8 +6914,9 @@ class IPressureReducingValvesResults(IPressureValvesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6199,8 +6927,9 @@ class IPressureReducingValveResults(IPressureValveResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6211,8 +6940,9 @@ class IPressureReducingValveInput(IPressureValveInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6221,8 +6951,9 @@ class IPressureReducingValveInput(IPressureValveInput):
 	def ValveCharacteristics(self) -> IValveCharacteristic:
 		"""Specifies the valve characteristics definition to be used for this valve. If the Valve Characteristic Curve is not defined then a default curve will be used. The default curve will have (Relative Closure, Relative Area) points of (0,1) and (1,0).
 
-		Returns:
-			IPressureReducingValveInput: 
+		Returns
+		--------
+			``IPressureReducingValveInput`` : 
 		"""
 		pass
 
@@ -6234,8 +6965,9 @@ class IPressureReducingValveInput(IPressureValveInput):
 	def ValveType(self) -> HammerValveType:
 		"""Specifies the type of valve. Choices are Butterfly, Needle, Circular Gate, Globe, Ball and User Defined.
 
-		Returns:
-			IPressureReducingValveInput: 
+		Returns
+		--------
+			``IPressureReducingValveInput`` : 
 		"""
 		pass
 
@@ -6249,8 +6981,9 @@ class IPressureReducingValveUnits(IPressureValveUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6261,8 +6994,9 @@ class IValveLinearAreaChangeResults(IBaseValveResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6273,8 +7007,9 @@ class IValvesLinearAreaChangeResults(IBaseValvesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6285,8 +7020,9 @@ class IValveLinearAreaChangeInput(IBaseValveInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6295,8 +7031,9 @@ class IValveLinearAreaChangeInput(IBaseValveInput):
 	def TimeToClose(self) -> float:
 		"""For a slow-closing air valve, the valve starts to close linearly with respect to area once air begins to exit the pipe. If air subsequently re-enters, then the air valve opens fully again. For a valve with linear area change, the valve will close linearly over this time, starting at the beginning of the simulation if this value is greater than zero. If this value equals zero a valve with linear area change will close when reverse flow is first sensed and will remain closed for the remainder of the simulation. For an air valve, adiabatic compression (i.e., gas law exponent = 1.4) is assumed.
 
-		Returns:
-			IValveLinearAreaChangeInput: 
+		Returns
+		--------
+			``IValveLinearAreaChangeInput`` : 
 		"""
 		pass
 
@@ -6308,8 +7045,9 @@ class IValveLinearAreaChangeInput(IBaseValveInput):
 	def DischargeCoefficient(self) -> float:
 		"""The discharge coefficient for the valve. This is used to determine the flow/headloss relationship of the valve for the steady state / EPS analysis. Minor losses are never applied for this valve type and as such the valve does not support a (fully) open status.
 
-		Returns:
-			IValveLinearAreaChangeInput: 
+		Returns
+		--------
+			``IValveLinearAreaChangeInput`` : 
 		"""
 		pass
 
@@ -6323,8 +7061,9 @@ class IValvesLinearAreaChangeInput(IBaseValvesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6333,8 +7072,9 @@ class IValvesLinearAreaChangeInput(IBaseValvesInput):
 	def TimeToClose(self) -> Dict[int,int]:
 		"""For a slow-closing air valve, the valve starts to close linearly with respect to area once air begins to exit the pipe. If air subsequently re-enters, then the air valve opens fully again. For a valve with linear area change, the valve will close linearly over this time, starting at the beginning of the simulation if this value is greater than zero. If this value equals zero a valve with linear area change will close when reverse flow is first sensed and will remain closed for the remainder of the simulation. For an air valve, adiabatic compression (i.e., gas law exponent = 1.4) is assumed.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -6342,11 +7082,13 @@ class IValvesLinearAreaChangeInput(IBaseValvesInput):
 	def TimeToClose(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -6354,8 +7096,9 @@ class IValvesLinearAreaChangeInput(IBaseValvesInput):
 	def DischargeCoefficients(self) -> Dict[int,int]:
 		"""The discharge coefficient for the valve. This is used to determine the flow/headloss relationship of the valve for the steady state / EPS analysis. Minor losses are never applied for this valve type and as such the valve does not support a (fully) open status.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -6363,11 +7106,13 @@ class IValvesLinearAreaChangeInput(IBaseValvesInput):
 	def DischargeCoefficients(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -6377,8 +7122,9 @@ class IValveWithLinearAreaChange(IWaterNetworkElement[IValvesWithLinearAreaChang
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6389,8 +7135,9 @@ class IValvesWithLinearAreaChange(IWaterNetworkElements[IValvesWithLinearAreaCha
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6401,8 +7148,9 @@ class IValveWithLinearAreaChangeUnits(IBaseValveUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6411,8 +7159,9 @@ class IValveWithLinearAreaChangeUnits(IBaseValveUnits):
 	def DischargeCoefficientUnit(self) -> IUnit:
 		"""Unit information for the discharge coefficient
 
-		Returns:
-			IValveWithLinearAreaChangeUnits: 
+		Returns
+		--------
+			``IValveWithLinearAreaChangeUnits`` : 
 		"""
 		pass
 
@@ -6420,8 +7169,9 @@ class IValveWithLinearAreaChangeUnits(IBaseValveUnits):
 	def TimeToCloseUnit(self) -> IUnit:
 		"""Unit information about time to close.
 
-		Returns:
-			IValveWithLinearAreaChangeUnits: 
+		Returns
+		--------
+			``IValveWithLinearAreaChangeUnits`` : 
 		"""
 		pass
 
@@ -6431,8 +7181,9 @@ class DomainElementExtensions:
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6442,15 +7193,17 @@ class DomainElementExtensions:
 	def Create(pipes: IPipes, label: str, startNode: IElement, stopNode: IElement, points: List[GeometryPoint]) -> IPipe:
 		"""No Description
 
-		Args:
-			pipes(IPipes): pipes
-			label(str): label
-			startNode(IElement): startNode
-			stopNode(IElement): stopNode
-			points(List[GeometryPoint]): points
+		Args
+		--------
+			pipes (``IPipes``) :  pipes
+			label (``str``) :  label
+			startNode (``IElement``) :  startNode
+			stopNode (``IElement``) :  stopNode
+			points (``List[GeometryPoint]``) :  points
 
-		Returns:
-			IPipe: 
+		Returns
+		--------
+			``IPipe`` : 
 		"""
 		pass
 
@@ -6459,15 +7212,17 @@ class DomainElementExtensions:
 	def Create(laterals: ILaterals, label: str, startNode: IElement, stopNode: IElement, points: List[GeometryPoint]) -> ILateral:
 		"""No Description
 
-		Args:
-			laterals(ILaterals): laterals
-			label(str): label
-			startNode(IElement): startNode
-			stopNode(IElement): stopNode
-			points(List[GeometryPoint]): points
+		Args
+		--------
+			laterals (``ILaterals``) :  laterals
+			label (``str``) :  label
+			startNode (``IElement``) :  startNode
+			stopNode (``IElement``) :  stopNode
+			points (``List[GeometryPoint]``) :  points
 
-		Returns:
-			ILateral: 
+		Returns
+		--------
+			``ILateral`` : 
 		"""
 		pass
 
@@ -6476,13 +7231,15 @@ class DomainElementExtensions:
 	def Create(junctions: IJunctions, label: str, point: GeometryPoint) -> IJunction:
 		"""Creates a new junction given the label and geometry.
 
-		Args:
-			junctions(IJunctions): The junction manager
-			label(str): The label of the new junction
-			point(GeometryPoint): The geometry of the new junction
+		Args
+		--------
+			junctions (``IJunctions``) :  The junction manager
+			label (``str``) :  The label of the new junction
+			point (``GeometryPoint``) :  The geometry of the new junction
 
-		Returns:
-			IJunction: An IJunction instance
+		Returns
+		--------
+			``IJunction`` : An IJunction instance
 		"""
 		pass
 
@@ -6491,13 +7248,15 @@ class DomainElementExtensions:
 	def Create(hydrants: IHydrants, label: str, point: GeometryPoint) -> IHydrant:
 		"""Creates a new hydrant given the label and geometry.
 
-		Args:
-			hydrants(IHydrants): The hydrant manager
-			label(str): The label of the new hydrant
-			point(GeometryPoint): The geometry of the new hydrant
+		Args
+		--------
+			hydrants (``IHydrants``) :  The hydrant manager
+			label (``str``) :  The label of the new hydrant
+			point (``GeometryPoint``) :  The geometry of the new hydrant
 
-		Returns:
-			IHydrant: 
+		Returns
+		--------
+			``IHydrant`` : 
 		"""
 		pass
 
@@ -6506,13 +7265,15 @@ class DomainElementExtensions:
 	def Create(tanks: ITanks, label: str, point: GeometryPoint) -> ITank:
 		"""Creates a new tank given the label and geometry.
 
-		Args:
-			tanks(ITanks): tanks
-			label(str): label
-			point(GeometryPoint): point
+		Args
+		--------
+			tanks (``ITanks``) :  tanks
+			label (``str``) :  label
+			point (``GeometryPoint``) :  point
 
-		Returns:
-			ITank: 
+		Returns
+		--------
+			``ITank`` : 
 		"""
 		pass
 
@@ -6521,13 +7282,15 @@ class DomainElementExtensions:
 	def Create(reservoirs: IReservoirs, label: str, point: GeometryPoint) -> IReservoir:
 		"""Creates a new reservoir given the label and geometry
 
-		Args:
-			reservoirs(IReservoirs): The reservoir manager
-			label(str): The label of the new reservoir
-			point(GeometryPoint): The geometry of the new reservoir
+		Args
+		--------
+			reservoirs (``IReservoirs``) :  The reservoir manager
+			label (``str``) :  The label of the new reservoir
+			point (``GeometryPoint``) :  The geometry of the new reservoir
 
-		Returns:
-			IReservoir: 
+		Returns
+		--------
+			``IReservoir`` : 
 		"""
 		pass
 
@@ -6536,14 +7299,16 @@ class DomainElementExtensions:
 	def Create(taps: ITaps, label: str, point: GeometryPoint, associatedElement: IPipe) -> ITap:
 		"""Creates a new top associated with the provided pipe.
 
-		Args:
-			taps(ITaps): The taps manager
-			label(str): The label of the new tap
-			point(GeometryPoint): The geometry location of the new tap
-			associatedElement(IPipe): The associated pipe for the new tap
+		Args
+		--------
+			taps (``ITaps``) :  The taps manager
+			label (``str``) :  The label of the new tap
+			point (``GeometryPoint``) :  The geometry location of the new tap
+			associatedElement (``IPipe``) :  The associated pipe for the new tap
 
-		Returns:
-			ITap: 
+		Returns
+		--------
+			``ITap`` : 
 		"""
 		pass
 
@@ -6552,29 +7317,33 @@ class DomainElementExtensions:
 	def Create(pumps: IPumps, label: str, point: GeometryPoint, downstreamLink: IElement) -> IPump:
 		"""No Description
 
-		Args:
-			pumps(IPumps): pumps
-			label(str): label
-			point(GeometryPoint): point
-			downstreamLink(IElement): downstreamLink
+		Args
+		--------
+			pumps (``IPumps``) :  pumps
+			label (``str``) :  label
+			point (``GeometryPoint``) :  point
+			downstreamLink (``IElement``) :  downstreamLink
 
-		Returns:
-			IPump: 
+		Returns
+		--------
+			``IPump`` : 
 		"""
 		pass
 
 	@staticmethod
 	@overload
-	def Create(pumpStations: IPumpStations, label: str, rings: array(array(GeometryPoint))) -> IPumpStation:
+	def Create(pumpStations: IPumpStations, label: str, rings: List[List[GeometryPoint]]) -> IPumpStation:
 		"""Creates a new pump station given the label and ring geometry
 
-		Args:
-			pumpStations(IPumpStations): The pump station manager
-			label(str): The label of the new pump station
-			rings(array(array(GeometryPoint))): The geometry of the pump station rings
+		Args
+		--------
+			pumpStations (``IPumpStations``) :  The pump station manager
+			label (``str``) :  The label of the new pump station
+			rings (``List[List[GeometryPoint]]``) :  The geometry of the pump station rings
 
-		Returns:
-			IPumpStation: 
+		Returns
+		--------
+			``IPumpStation`` : 
 		"""
 		pass
 
@@ -6583,14 +7352,16 @@ class DomainElementExtensions:
 	def Create(valves: IFlowControlValves, label: str, point: GeometryPoint, downstreamLink: IElement) -> IFlowControlValve:
 		"""Creates a new valve with the given data.
 
-		Args:
-			valves(IFlowControlValves): valves
-			label(str): The label of the new valve
-			point(GeometryPoint): The geometry of the new valve
-			downstreamLink(IElement): The downstream link of the valve determining its direction
+		Args
+		--------
+			valves (``IFlowControlValves``) :  valves
+			label (``str``) :  The label of the new valve
+			point (``GeometryPoint``) :  The geometry of the new valve
+			downstreamLink (``IElement``) :  The downstream link of the valve determining its direction
 
-		Returns:
-			IFlowControlValve: A new valve
+		Returns
+		--------
+			``IFlowControlValve`` : A new valve
 		"""
 		pass
 
@@ -6599,14 +7370,16 @@ class DomainElementExtensions:
 	def Create(valves: IGeneralPurposeValves, label: str, point: GeometryPoint, downstreamLink: IElement) -> IGeneralPurposeValve:
 		"""Creates a new valve with the given data.
 
-		Args:
-			valves(IGeneralPurposeValves): valves
-			label(str): The label of the new valve
-			point(GeometryPoint): The geometry of the new valve
-			downstreamLink(IElement): The downstream link of the valve determining its direction
+		Args
+		--------
+			valves (``IGeneralPurposeValves``) :  valves
+			label (``str``) :  The label of the new valve
+			point (``GeometryPoint``) :  The geometry of the new valve
+			downstreamLink (``IElement``) :  The downstream link of the valve determining its direction
 
-		Returns:
-			IGeneralPurposeValve: A new valve
+		Returns
+		--------
+			``IGeneralPurposeValve`` : A new valve
 		"""
 		pass
 
@@ -6615,14 +7388,16 @@ class DomainElementExtensions:
 	def Create(valves: IPressureBreakingValves, label: str, point: GeometryPoint, downstreamLink: IElement) -> IPressureBreakingValve:
 		"""Creates a new valve with the given data.
 
-		Args:
-			valves(IPressureBreakingValves): valves
-			label(str): The label of the new valve
-			point(GeometryPoint): The geometry of the new valve
-			downstreamLink(IElement): The downstream link of the valve determining its direction
+		Args
+		--------
+			valves (``IPressureBreakingValves``) :  valves
+			label (``str``) :  The label of the new valve
+			point (``GeometryPoint``) :  The geometry of the new valve
+			downstreamLink (``IElement``) :  The downstream link of the valve determining its direction
 
-		Returns:
-			IPressureBreakingValve: A new valve
+		Returns
+		--------
+			``IPressureBreakingValve`` : A new valve
 		"""
 		pass
 
@@ -6631,14 +7406,16 @@ class DomainElementExtensions:
 	def Create(valves: IPressureReducingValves, label: str, point: GeometryPoint, downstreamLink: IElement) -> IPressureReducingValve:
 		"""Creates a new valve with the given data.
 
-		Args:
-			valves(IPressureReducingValves): valves
-			label(str): The label of the new valve
-			point(GeometryPoint): The geometry of the new valve
-			downstreamLink(IElement): The downstream link of the valve determining its direction
+		Args
+		--------
+			valves (``IPressureReducingValves``) :  valves
+			label (``str``) :  The label of the new valve
+			point (``GeometryPoint``) :  The geometry of the new valve
+			downstreamLink (``IElement``) :  The downstream link of the valve determining its direction
 
-		Returns:
-			IPressureReducingValve: A new valve
+		Returns
+		--------
+			``IPressureReducingValve`` : A new valve
 		"""
 		pass
 
@@ -6647,14 +7424,16 @@ class DomainElementExtensions:
 	def Create(valves: IPressureSustainingValves, label: str, point: GeometryPoint, downstreamLink: IElement) -> IPressureSustainingValve:
 		"""Creates a new valve with the given data.
 
-		Args:
-			valves(IPressureSustainingValves): valves
-			label(str): The label of the new valve
-			point(GeometryPoint): The geometry of the new valve
-			downstreamLink(IElement): The downstream link of the valve determining its direction
+		Args
+		--------
+			valves (``IPressureSustainingValves``) :  valves
+			label (``str``) :  The label of the new valve
+			point (``GeometryPoint``) :  The geometry of the new valve
+			downstreamLink (``IElement``) :  The downstream link of the valve determining its direction
 
-		Returns:
-			IPressureSustainingValve: A new valve
+		Returns
+		--------
+			``IPressureSustainingValve`` : A new valve
 		"""
 		pass
 
@@ -6663,14 +7442,16 @@ class DomainElementExtensions:
 	def Create(valves: IThrottleControlValves, label: str, point: GeometryPoint, downstreamLink: IElement) -> IThrottleControlValve:
 		"""Creates a new valve with the given data.
 
-		Args:
-			valves(IThrottleControlValves): valves
-			label(str): The label of the new valve
-			point(GeometryPoint): The geometry of the new valve
-			downstreamLink(IElement): The downstream link of the valve determining its direction
+		Args
+		--------
+			valves (``IThrottleControlValves``) :  valves
+			label (``str``) :  The label of the new valve
+			point (``GeometryPoint``) :  The geometry of the new valve
+			downstreamLink (``IElement``) :  The downstream link of the valve determining its direction
 
-		Returns:
-			IThrottleControlValve: A new valve
+		Returns
+		--------
+			``IThrottleControlValve`` : A new valve
 		"""
 		pass
 
@@ -6679,17 +7460,19 @@ class DomainElementExtensions:
 	def Create(scadaElements: ISCADAElements, label: str, point: GeometryPoint, targetElement: IWaterElement = None, scadaTargetAttribute: SCADATargetAttribute = SCADATargetAttribute.UnAssigned, realTimeSignal: ISCADASignal = None, historicalSignal: ISCADASignal = None) -> ISCADAElement:
 		"""Creates a new SCADA Element
 
-		Args:
-			scadaElements(ISCADAElements): The SCADA element manager
-			label(str): The label of the new SCADA element
-			point(GeometryPoint): The geometry point of the SCADA element
-			targetElement(IWaterElement): The target element the SCADA element points to.  Default is null.
-			scadaTargetAttribute(SCADATargetAttribute): The attribute to use with this SCADA element.  The default is unassigned.
-			realTimeSignal(ISCADASignal): The real-time signal to use with this SCADA element.  The default is null.
-			historicalSignal(ISCADASignal): The historical signal to use with this SCADA element.  The default is null.
+		Args
+		--------
+			scadaElements (``ISCADAElements``) :  The SCADA element manager
+			label (``str``) :  The label of the new SCADA element
+			point (``GeometryPoint``) :  The geometry point of the SCADA element
+			targetElement (``IWaterElement``) :  The target element the SCADA element points to.  Default is null.
+			scadaTargetAttribute (``SCADATargetAttribute``) :  The attribute to use with this SCADA element.  The default is unassigned.
+			realTimeSignal (``ISCADASignal``) :  The real-time signal to use with this SCADA element.  The default is null.
+			historicalSignal (``ISCADASignal``) :  The historical signal to use with this SCADA element.  The default is null.
 
-		Returns:
-			ISCADAElement: A new SCADA element with the provided settings.
+		Returns
+		--------
+			``ISCADAElement`` : A new SCADA element with the provided settings.
 		"""
 		pass
 
@@ -6698,14 +7481,16 @@ class DomainElementExtensions:
 	def Create(valves: IIsolationValves, label: str, point: GeometryPoint, pipe: IPipe) -> IIsolationValve:
 		"""Creates an isolation valve providing the label, location and referenced pipe.
 
-		Args:
-			valves(IIsolationValves): valves
-			label(str): label
-			point(GeometryPoint): point
-			pipe(IPipe): pipe
+		Args
+		--------
+			valves (``IIsolationValves``) :  valves
+			label (``str``) :  label
+			point (``GeometryPoint``) :  point
+			pipe (``IPipe``) :  pipe
 
-		Returns:
-			IIsolationValve: 
+		Returns
+		--------
+			``IIsolationValve`` : 
 		"""
 		pass
 
@@ -6715,8 +7500,9 @@ class IWaterElement(IElement):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6725,8 +7511,9 @@ class IWaterElement(IElement):
 	def WaterElementType(self) -> WaterNetworkElementType:
 		"""The type of domain element this object represents
 
-		Returns:
-			IWaterElement: 
+		Returns
+		--------
+			``IWaterElement`` : 
 		"""
 		pass
 
@@ -6736,8 +7523,9 @@ class IWaterNetworkElements(Generic[TElementManagerType, TElementType, TUnitsTyp
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6748,8 +7536,9 @@ class IWaterNetworkElement(Generic[TElementManagerType, TElementType, TUnitsType
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6760,8 +7549,9 @@ class IWaterZoneableNetworkElementInput(IActiveElementInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6770,8 +7560,9 @@ class IWaterZoneableNetworkElementInput(IActiveElementInput):
 	def Zone(self) -> IZone:
 		"""Returns null if no zone is assigned.
 
-		Returns:
-			IWaterZoneableNetworkElementInput: 
+		Returns
+		--------
+			``IWaterZoneableNetworkElementInput`` : 
 		"""
 		pass
 
@@ -6785,8 +7576,9 @@ class IWaterZoneableNetworkElementsInput(IActiveElementsInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6795,8 +7587,9 @@ class IWaterZoneableNetworkElementsInput(IActiveElementsInput):
 	def Zones(self) -> Dict[int,int]:
 		"""Gets assigned zones across all elements of this type.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -6804,11 +7597,13 @@ class IWaterZoneableNetworkElementsInput(IActiveElementsInput):
 	def Zones(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -6818,8 +7613,9 @@ class IWaterTraceableInput:
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6827,8 +7623,9 @@ class IWaterTraceableInput:
 	def MakeActiveTraceElement(self) -> None:
 		"""Makes the current element the trace element in the active scenario's trace alternative.
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
@@ -6838,8 +7635,9 @@ class IWaterQualityResults:
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6848,8 +7646,9 @@ class IWaterQualityResults:
 	def Age(self) -> Union[float, None]:
 		"""Age at selected element for current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -6857,19 +7656,22 @@ class IWaterQualityResults:
 	def Age(self, timeStepIndex: int) -> Union[float, None]:
 		"""Age at selected element for the time step.
 
-		Args:
-			timeStepIndex(int): The time step index to use to retrieve the result.
+		Args
+		--------
+			timeStepIndex (``int``) :  The time step index to use to retrieve the result.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Ages(self) -> array(Union[float, None]):
+	def Ages(self) -> List[Union[float, None]]:
 		"""Age across all time steps for element.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -6877,8 +7679,9 @@ class IWaterQualityResults:
 	def Trace(self) -> Union[float, None]:
 		"""Trace at selected element for current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -6886,19 +7689,22 @@ class IWaterQualityResults:
 	def Trace(self, timeStepIndex: int) -> Union[float, None]:
 		"""Trace at selected element for the time step.
 
-		Args:
-			timeStepIndex(int): The time step index to use to retrieve the result.
+		Args
+		--------
+			timeStepIndex (``int``) :  The time step index to use to retrieve the result.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Traces(self) -> array(Union[float, None]):
+	def Traces(self) -> List[Union[float, None]]:
 		"""Trace across all time steps for element.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -6906,8 +7712,9 @@ class IWaterQualityResults:
 	def Concentration(self) -> Union[float, None]:
 		"""Concentration at selected element for current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -6915,19 +7722,22 @@ class IWaterQualityResults:
 	def Concentration(self, timeStepIndex: int) -> Union[float, None]:
 		"""Concentration at selected element for the time step.
 
-		Args:
-			timeStepIndex(int): The time step index to use to retrieve the result.
+		Args
+		--------
+			timeStepIndex (``int``) :  The time step index to use to retrieve the result.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Concentrations(self) -> array(Union[float, None]):
+	def Concentrations(self) -> List[Union[float, None]]:
 		"""Concentration across all time steps for element.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -6937,8 +7747,9 @@ class IWaterQualityElementsInput:
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -6947,8 +7758,9 @@ class IWaterQualityElementsInput:
 	def InitialAge(self) -> Dict[int,int]:
 		"""Gets the initial age for all elements of this type.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -6956,11 +7768,13 @@ class IWaterQualityElementsInput:
 	def InitialAge(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -6968,8 +7782,9 @@ class IWaterQualityElementsInput:
 	def InitialTrace(self) -> Dict[int,int]:
 		"""Gets the initial trace for all elements of this type.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -6977,11 +7792,13 @@ class IWaterQualityElementsInput:
 	def InitialTrace(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -6989,8 +7806,9 @@ class IWaterQualityElementsInput:
 	def InitialConcentration(self) -> Dict[int,int]:
 		"""Gets the initial concentration for all elements of this type.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -6998,11 +7816,13 @@ class IWaterQualityElementsInput:
 	def InitialConcentration(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7012,8 +7832,9 @@ class IWaterQualityElementInput:
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -7022,8 +7843,9 @@ class IWaterQualityElementInput:
 	def InitialAge(self) -> float:
 		"""The fluid age at this element at the start of the age analysis. This value is also used to initialize the age in downstream pipes.
 
-		Returns:
-			IWaterQualityElementInput: 
+		Returns
+		--------
+			``IWaterQualityElementInput`` : 
 		"""
 		pass
 
@@ -7035,8 +7857,9 @@ class IWaterQualityElementInput:
 	def InitialConcentration(self) -> float:
 		"""The initial concentration in display units.
 
-		Returns:
-			IWaterQualityElementInput: 
+		Returns
+		--------
+			``IWaterQualityElementInput`` : 
 		"""
 		pass
 
@@ -7049,8 +7872,9 @@ class IWaterQualityElementInput:
 		"""The percentage of water attributable to the trace source node at the start of the trace analysis. 
             This value is also used to initialize the trace value in downstream pipes.
 
-		Returns:
-			IWaterQualityElementInput: 
+		Returns
+		--------
+			``IWaterQualityElementInput`` : 
 		"""
 		pass
 
@@ -7064,8 +7888,9 @@ class IWaterQualityNodeInput:
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -7074,8 +7899,9 @@ class IWaterQualityNodeInput:
 	def IsConstituentSource(self) -> bool:
 		"""If true then the selected node can inject a set concentration of the global constituent into the system.
 
-		Returns:
-			IWaterQualityNodeInput: 
+		Returns
+		--------
+			``IWaterQualityNodeInput`` : 
 		"""
 		pass
 
@@ -7087,8 +7913,9 @@ class IWaterQualityNodeInput:
 	def ConstituentSourceType(self) -> ConstituentSourceType:
 		"""Specify how a constituent is injected into the system.
 
-		Returns:
-			IWaterQualityNodeInput: 
+		Returns
+		--------
+			``IWaterQualityNodeInput`` : 
 		"""
 		pass
 
@@ -7100,8 +7927,9 @@ class IWaterQualityNodeInput:
 	def BaseConstituent(self) -> float:
 		"""If the Source Type is Mass Booster, represents base mass rate in display units.
 
-		Returns:
-			IWaterQualityNodeInput: 
+		Returns
+		--------
+			``IWaterQualityNodeInput`` : 
 		"""
 		pass
 
@@ -7115,8 +7943,9 @@ class IWaterQualityNodesInput:
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -7127,8 +7956,9 @@ class IWaterQualityElementsResults:
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -7137,8 +7967,9 @@ class IWaterQualityElementsResults:
 	def Ages(self) -> Dict[int,int]:
 		"""Gets the calculated age results across all elements at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7146,11 +7977,13 @@ class IWaterQualityElementsResults:
 	def Ages(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Gets the calculated age results across all elements at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7158,12 +7991,14 @@ class IWaterQualityElementsResults:
 	def Ages(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7171,8 +8006,9 @@ class IWaterQualityElementsResults:
 	def Traces(self) -> Dict[int,int]:
 		"""Gets the calculated tract results across all elements at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7180,11 +8016,13 @@ class IWaterQualityElementsResults:
 	def Traces(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Gets the calculated tract results across all elements at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7192,12 +8030,14 @@ class IWaterQualityElementsResults:
 	def Traces(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7205,8 +8045,9 @@ class IWaterQualityElementsResults:
 	def Concentrations(self) -> Dict[int,int]:
 		"""Gets the calculated concentration results across all elements at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7214,11 +8055,13 @@ class IWaterQualityElementsResults:
 	def Concentrations(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Gets the calculated concentration results across all elements at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7226,12 +8069,14 @@ class IWaterQualityElementsResults:
 	def Concentrations(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7241,8 +8086,9 @@ class IWaterQualityResultsUnits(IElementUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -7251,8 +8097,9 @@ class IWaterQualityResultsUnits(IElementUnits):
 	def AgeUnit(self) -> IUnit:
 		"""The name of the numeric formatter for the age result.
 
-		Returns:
-			IWaterQualityResultsUnits: 
+		Returns
+		--------
+			``IWaterQualityResultsUnits`` : 
 		"""
 		pass
 
@@ -7260,8 +8107,9 @@ class IWaterQualityResultsUnits(IElementUnits):
 	def TraceUnit(self) -> IUnit:
 		"""The name of the numeric formatter for the trace result.
 
-		Returns:
-			IWaterQualityResultsUnits: 
+		Returns
+		--------
+			``IWaterQualityResultsUnits`` : 
 		"""
 		pass
 
@@ -7269,8 +8117,9 @@ class IWaterQualityResultsUnits(IElementUnits):
 	def ConcentrationUnit(self) -> IUnit:
 		"""The name of the numeric formatter for the concentration result.
 
-		Returns:
-			IWaterQualityResultsUnits: 
+		Returns
+		--------
+			``IWaterQualityResultsUnits`` : 
 		"""
 		pass
 
@@ -7280,8 +8129,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -7290,8 +8140,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def Pipes(self) -> IPipes:
 		"""The pipes in the model.
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7299,8 +8150,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def Laterals(self) -> ILaterals:
 		"""The laterals in the model.
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7308,8 +8160,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def Junctions(self) -> IJunctions:
 		"""The junctions in the model.
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7317,8 +8170,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def Hydrants(self) -> IHydrants:
 		"""The hydrants in the model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7326,8 +8180,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def Tanks(self) -> ITanks:
 		"""The tanks in the model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7335,8 +8190,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def Reservoirs(self) -> IReservoirs:
 		"""The reservoirs in the model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7344,8 +8200,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def Taps(self) -> ITaps:
 		"""The taps in the model.
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7353,8 +8210,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def CustomerMeters(self) -> ICustomerMeters:
 		"""The customer meters in the model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7362,8 +8220,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def Pumps(self) -> IPumps:
 		"""The pumps in the model.
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7371,8 +8230,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def VSPBs(self) -> IVariableSpeedPumpBatterys:
 		"""The VSPBs in the model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7380,8 +8240,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def PumpStations(self) -> IPumpStations:
 		"""The pump stations in the model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7389,8 +8250,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def SCADAElements(self) -> ISCADAElements:
 		"""The SCADA elements in the model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7398,8 +8260,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def PRVs(self) -> IPressureReducingValves:
 		"""The PRVs in the model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7407,8 +8270,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def PBVs(self) -> IPressureBreakingValves:
 		"""The PBVs in the model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7416,8 +8280,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def PSVs(self) -> IPressureSustainingValves:
 		"""The PSVs in the model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7425,8 +8290,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def TCVs(self) -> IThrottleControlValves:
 		"""The TCVs in the model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7434,8 +8300,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def FCVs(self) -> IFlowControlValves:
 		"""The FCVs in the model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7443,8 +8310,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def GPVs(self) -> IGeneralPurposeValves:
 		"""The GPVs in the model.
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7452,8 +8320,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def IsolationValves(self) -> IIsolationValves:
 		"""The ISO valves in the model.
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7461,8 +8330,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def CheckValves(self) -> ICheckValves:
 		"""The check valves in the model.
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7470,8 +8340,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def SpotElevations(self) -> ISpotElevations:
 		"""The spot elevations in the model.
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7479,8 +8350,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def ValvesWithLinearAreaChange(self) -> IValvesWithLinearAreaChange:
 		"""The valves with linear area change in the model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7488,8 +8360,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def PeriodicHeadFlows(self) -> IPeriodicHeadFlows:
 		"""The period head-flow nodes in the model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7497,8 +8370,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def AirValves(self) -> IAirValves:
 		"""The air valves in the model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7506,8 +8380,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def OrificesBetweenTwoPipes(self) -> IOrificesBetweenTwoPipes:
 		"""Orifices between two pipes in the model.
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7515,8 +8390,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def SurgeValves(self) -> ISurgeValves:
 		"""The surge valves (Sav/Srv) nodes in the model.
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7524,8 +8400,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def DischargeToAtmospheres(self) -> IDischargeToAtmospheres:
 		"""Discharge to atmosphere nodes in model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7533,8 +8410,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def RuptureDisks(self) -> IRuptureDisks:
 		"""The rupture disks in the model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7542,8 +8420,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def Turbines(self) -> ITurbines:
 		"""The turbines in the model.
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7551,8 +8430,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def SurgeTanks(self) -> ISurgeTanks:
 		"""The surge tanks in the model.
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7560,8 +8440,9 @@ class IWaterNetwork(INetwork[IWaterElement, WaterNetworkElementType]):
 	def HydropneumaticTanks(self) -> IHydropneumaticTanks:
 		"""The hydropneumatic tanks in the model
 
-		Returns:
-			IWaterNetwork: 
+		Returns
+		--------
+			``IWaterNetwork`` : 
 		"""
 		pass
 
@@ -7571,8 +8452,9 @@ class IPipes(IWaterNetworkElements[IPipes, IPipe, IPipeUnits, IPipeInput, IPipeR
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -7583,8 +8465,9 @@ class IPipe(IWaterNetworkElement[IPipes, IPipe, IPipeUnits, IPipeInput, IPipeRes
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -7595,8 +8478,9 @@ class IHammerPipesResults:
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -7605,8 +8489,9 @@ class IHammerPipesResults:
 	def MaximumHeads(self) -> Dict[int,int]:
 		"""Maximum head at any point along the pipe over the course of the transient simulation.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7614,11 +8499,13 @@ class IHammerPipesResults:
 	def MaximumHeads(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7628,8 +8515,9 @@ class IPipesResults(IBaseLinksResults, IWaterQualityElementsResults, IHammerPipe
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -7638,8 +8526,9 @@ class IPipesResults(IBaseLinksResults, IWaterQualityElementsResults, IHammerPipe
 	def Flows(self) -> Dict[int,int]:
 		"""Gets flows for all pipes for the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7647,11 +8536,13 @@ class IPipesResults(IBaseLinksResults, IWaterQualityElementsResults, IHammerPipe
 	def Flows(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Gets flows for all pipes at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7659,12 +8550,14 @@ class IPipesResults(IBaseLinksResults, IWaterQualityElementsResults, IHammerPipe
 	def Flows(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7672,8 +8565,9 @@ class IPipesResults(IBaseLinksResults, IWaterQualityElementsResults, IHammerPipe
 	def Velocities(self) -> Dict[int,int]:
 		"""Gets the velocities for all pipes at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7681,11 +8575,13 @@ class IPipesResults(IBaseLinksResults, IWaterQualityElementsResults, IHammerPipe
 	def Velocities(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Gets the velocities for all pipes at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7693,12 +8589,14 @@ class IPipesResults(IBaseLinksResults, IWaterQualityElementsResults, IHammerPipe
 	def Velocities(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7706,8 +8604,9 @@ class IPipesResults(IBaseLinksResults, IWaterQualityElementsResults, IHammerPipe
 	def Headlosses(self) -> Dict[int,int]:
 		"""Gets the headlosses for all pipes at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7715,11 +8614,13 @@ class IPipesResults(IBaseLinksResults, IWaterQualityElementsResults, IHammerPipe
 	def Headlosses(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Gets the headlosses for all pipes at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7727,12 +8628,14 @@ class IPipesResults(IBaseLinksResults, IWaterQualityElementsResults, IHammerPipe
 	def Headlosses(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7740,8 +8643,9 @@ class IPipesResults(IBaseLinksResults, IWaterQualityElementsResults, IHammerPipe
 	def HeadlossGradients(self) -> Dict[int,int]:
 		"""Gets the headloss gradients for all pipes at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7749,11 +8653,13 @@ class IPipesResults(IBaseLinksResults, IWaterQualityElementsResults, IHammerPipe
 	def HeadlossGradients(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Gets the headloss gradients for all pipes at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7761,12 +8667,14 @@ class IPipesResults(IBaseLinksResults, IWaterQualityElementsResults, IHammerPipe
 	def HeadlossGradients(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7774,8 +8682,9 @@ class IPipesResults(IBaseLinksResults, IWaterQualityElementsResults, IHammerPipe
 	def Statuses(self) -> Dict[int,int]:
 		"""Gets the status for all pipes at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7783,11 +8692,13 @@ class IPipesResults(IBaseLinksResults, IWaterQualityElementsResults, IHammerPipe
 	def Statuses(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Gets the status for all pipes at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7795,12 +8706,14 @@ class IPipesResults(IBaseLinksResults, IWaterQualityElementsResults, IHammerPipe
 	def Statuses(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -7810,8 +8723,9 @@ class IHammerPipeResults:
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -7819,8 +8733,9 @@ class IHammerPipeResults:
 	def MaximumHead(self) -> Union[float, None]:
 		"""Maximum head at any point along the pipe over the course of the transient simulation.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -7830,8 +8745,9 @@ class IPipeResults(IBaseLinkResults, IWaterQualityResults, IHammerPipeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -7840,8 +8756,9 @@ class IPipeResults(IBaseLinkResults, IWaterQualityResults, IHammerPipeResults):
 	def Flow(self) -> Union[float, None]:
 		"""Total flow through the pipe.  If the value is negative the flow is traveling from the stop node to the start node, and vice versa if positive at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -7849,19 +8766,22 @@ class IPipeResults(IBaseLinkResults, IWaterQualityResults, IHammerPipeResults):
 	def Flow(self, timeStepIndex: int) -> Union[float, None]:
 		"""Total flow through the pipe.  If the value is negative the flow is traveling from the stop node to the start node, and vice versa if positive at given time step.
 
-		Args:
-			timeStepIndex(int): The time step index to use to retrieve the result.
+		Args
+		--------
+			timeStepIndex (``int``) :  The time step index to use to retrieve the result.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Flows(self) -> array(Union[float, None]):
+	def Flows(self) -> List[Union[float, None]]:
 		"""Total flow through the pipe.  If the value is negative the flow is traveling from the stop node to the start node, and vice versa if positive across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -7869,8 +8789,9 @@ class IPipeResults(IBaseLinkResults, IWaterQualityResults, IHammerPipeResults):
 	def Velocity(self) -> Union[float, None]:
 		"""Velocity of fluid through the pipe at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -7878,19 +8799,22 @@ class IPipeResults(IBaseLinkResults, IWaterQualityResults, IHammerPipeResults):
 	def Velocity(self, timeStepIndex: int) -> Union[float, None]:
 		"""Velocity of fluid through the pipe at given time step.
 
-		Args:
-			timeStepIndex(int): The time step index to use to retrieve the result.
+		Args
+		--------
+			timeStepIndex (``int``) :  The time step index to use to retrieve the result.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Velocities(self) -> array(Union[float, None]):
+	def Velocities(self) -> List[Union[float, None]]:
 		"""Velocity of fluid through the pipe across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -7898,8 +8822,9 @@ class IPipeResults(IBaseLinkResults, IWaterQualityResults, IHammerPipeResults):
 	def Headloss(self) -> Union[float, None]:
 		"""Total headloss occurring in the pipe, including both friction and minor headlosses and any minor losses from isolation valves at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -7907,19 +8832,22 @@ class IPipeResults(IBaseLinkResults, IWaterQualityResults, IHammerPipeResults):
 	def Headloss(self, timeStepIndex: int) -> Union[float, None]:
 		"""Total headloss occurring in the pipe, including both friction and minor headlosses and any minor losses from isolation valves at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Headlosses(self) -> array(Union[float, None]):
+	def Headlosses(self) -> List[Union[float, None]]:
 		"""Total headloss occurring in the pipe, including both friction and minor headlosses and any minor losses from isolation valves across all time steps.
 
-		Returns:
-			array(Nullable): A non-null double array in display units.  An empty array if no results available.
+		Returns
+		--------
+			``List[Nullable]`` : A non-null double array in display units.  An empty array if no results available.
 		"""
 		pass
 
@@ -7927,8 +8855,9 @@ class IPipeResults(IBaseLinkResults, IWaterQualityResults, IHammerPipeResults):
 	def HeadlossGradient(self) -> Union[float, None]:
 		"""The headloss per unit length in the pipe at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -7936,19 +8865,22 @@ class IPipeResults(IBaseLinkResults, IWaterQualityResults, IHammerPipeResults):
 	def HeadlossGradient(self, timeStepIndex: int) -> Union[float, None]:
 		"""The headloss per unit length in the pipe at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def HeadlossGradients(self) -> array(Union[float, None]):
+	def HeadlossGradients(self) -> List[Union[float, None]]:
 		"""The headloss per unit length in the pipe across all time steps.
 
-		Returns:
-			array(Nullable): A non-null double array in display units. An empty array if no results available.
+		Returns
+		--------
+			``List[Nullable]`` : A non-null double array in display units. An empty array if no results available.
 		"""
 		pass
 
@@ -7956,8 +8888,9 @@ class IPipeResults(IBaseLinkResults, IWaterQualityResults, IHammerPipeResults):
 	def CalculatedStatus(self) -> Union[int, None]:
 		"""Whether or not the pipe is open or closed during current time step at current time step.
 
-		Returns:
-			Nullable: The status of the pipe.  Null if no results available.
+		Returns
+		--------
+			``Nullable`` : The status of the pipe.  Null if no results available.
 		"""
 		pass
 
@@ -7965,19 +8898,22 @@ class IPipeResults(IBaseLinkResults, IWaterQualityResults, IHammerPipeResults):
 	def CalculatedStatus(self, timeStepIndex: int) -> Union[int, None]:
 		"""Whether or not the pipe is open or closed during current time step at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def CalculatedStatuses(self) -> array(Union[int, None]):
+	def CalculatedStatuses(self) -> List[Union[int, None]]:
 		"""Whether or not the pipe is open or closed during current time step across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -7987,8 +8923,9 @@ class IPipeInput(IBaseLinkInput, IWaterZoneableNetworkElementInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -7997,8 +8934,9 @@ class IPipeInput(IBaseLinkInput, IWaterZoneableNetworkElementInput):
 	def InstallationYear(self) -> int:
 		"""Specify the install year of the element.  It does not affect the calculations.
 
-		Returns:
-			IPipeInput: 
+		Returns
+		--------
+			``IPipeInput`` : 
 		"""
 		pass
 
@@ -8010,8 +8948,9 @@ class IPipeInput(IBaseLinkInput, IWaterZoneableNetworkElementInput):
 	def InitialStatus(self) -> PipeStatusType:
 		"""Specify if the pipe is initially open or closed.
 
-		Returns:
-			IPipeInput: 
+		Returns
+		--------
+			``IPipeInput`` : 
 		"""
 		pass
 
@@ -8023,8 +8962,9 @@ class IPipeInput(IBaseLinkInput, IWaterZoneableNetworkElementInput):
 	def Diameter(self) -> float:
 		"""Value represents the internal diameter of a circular pipe or four times the hydraulic radius for non-circular cross-sections.
 
-		Returns:
-			IPipeInput: 
+		Returns
+		--------
+			``IPipeInput`` : 
 		"""
 		pass
 
@@ -8036,8 +8976,9 @@ class IPipeInput(IBaseLinkInput, IWaterZoneableNetworkElementInput):
 	def Material(self) -> str:
 		"""The pipe's material type.
 
-		Returns:
-			IPipeInput: 
+		Returns
+		--------
+			``IPipeInput`` : 
 		"""
 		pass
 
@@ -8049,8 +8990,9 @@ class IPipeInput(IBaseLinkInput, IWaterZoneableNetworkElementInput):
 	def FrictionCoefficient(self) -> float:
 		"""Manning's - Roughness coefficient used in Manning's formula.
 
-		Returns:
-			IPipeInput: 
+		Returns
+		--------
+			``IPipeInput`` : 
 		"""
 		pass
 
@@ -8062,8 +9004,9 @@ class IPipeInput(IBaseLinkInput, IWaterZoneableNetworkElementInput):
 	def MinorLossCoefficientCollection(self) -> IMinorLossCoefficientCollection:
 		"""List of all associated minor losses associated with the element, and can be used to generate the composite minor loss coefficient.
 
-		Returns:
-			IPipeInput: 
+		Returns
+		--------
+			``IPipeInput`` : 
 		"""
 		pass
 
@@ -8071,8 +9014,9 @@ class IPipeInput(IBaseLinkInput, IWaterZoneableNetworkElementInput):
 	def LocalMinorLossCoefficient(self) -> float:
 		"""User input minor loss coefficent.  You can either type in the value directly or select the value from the Minor Loss Library. The minor loss is applied to the valve when it is fully open (inactive). Note that minor losses do not apply to the following valve types: General Purpose Valve and Valve With Linear Area Change. These two valve types do not support a (fully) open status and always apply the head/flow relationship defined by their headloss curve and discharge coefficient respectively.
 
-		Returns:
-			IPipeInput: 
+		Returns
+		--------
+			``IPipeInput`` : 
 		"""
 		pass
 
@@ -8084,8 +9028,9 @@ class IPipeInput(IBaseLinkInput, IWaterZoneableNetworkElementInput):
 	def SpecifyLocalMinorLoss(self) -> bool:
 		"""If true then the minor coefficent for the element is manually set, otherwise the value is derived from the minor loss library.
 
-		Returns:
-			IPipeInput: 
+		Returns
+		--------
+			``IPipeInput`` : 
 		"""
 		pass
 
@@ -8097,8 +9042,9 @@ class IPipeInput(IBaseLinkInput, IWaterZoneableNetworkElementInput):
 	def DerivedMinorLossCoefficient(self) -> float:
 		"""Displays the composite value calculated from the data in the minor loss collection. The composite minor loss is applied to the valve when it is fully open (inactive). Note that minor losses do not apply to the following valve types: General Purpose Valve and Valve With Linear Area Change. These two valve types do not support a (fully) open status and always apply the head/flow relationship defined by their headloss curve and discharge coefficient respectively.
 
-		Returns:
-			IPipeInput: 
+		Returns
+		--------
+			``IPipeInput`` : 
 		"""
 		pass
 
@@ -8108,8 +9054,9 @@ class IPipesInput(IBaseLinksInput, IWaterZoneableNetworkElementsInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8118,8 +9065,9 @@ class IPipesInput(IBaseLinksInput, IWaterZoneableNetworkElementsInput):
 	def InstallationYears(self) -> Dict[int,int]:
 		"""Specify the install year of the element.  It does not affect the calculations.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -8127,11 +9075,13 @@ class IPipesInput(IBaseLinksInput, IWaterZoneableNetworkElementsInput):
 	def InstallationYears(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -8139,8 +9089,9 @@ class IPipesInput(IBaseLinksInput, IWaterZoneableNetworkElementsInput):
 	def PipeStatuses(self) -> Dict[int,int]:
 		"""Specify if the pipe is initially open or closed.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -8148,11 +9099,13 @@ class IPipesInput(IBaseLinksInput, IWaterZoneableNetworkElementsInput):
 	def PipeStatuses(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -8160,8 +9113,9 @@ class IPipesInput(IBaseLinksInput, IWaterZoneableNetworkElementsInput):
 	def Diameters(self) -> Dict[int,int]:
 		"""Value represents the internal diameter of a circular pipe or four times the hydraulic radius for non-circular cross-sections.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -8169,11 +9123,13 @@ class IPipesInput(IBaseLinksInput, IWaterZoneableNetworkElementsInput):
 	def Diameters(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -8181,8 +9137,9 @@ class IPipesInput(IBaseLinksInput, IWaterZoneableNetworkElementsInput):
 	def Materials(self) -> Dict[int,int]:
 		"""The pipe's material type.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -8190,11 +9147,13 @@ class IPipesInput(IBaseLinksInput, IWaterZoneableNetworkElementsInput):
 	def Materials(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -8202,8 +9161,9 @@ class IPipesInput(IBaseLinksInput, IWaterZoneableNetworkElementsInput):
 	def FrictionCoefficients(self) -> Dict[int,int]:
 		"""Manning's - Roughness coefficient used in Manning's formula.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -8211,35 +9171,40 @@ class IPipesInput(IBaseLinksInput, IWaterZoneableNetworkElementsInput):
 	def FrictionCoefficients(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def LocalMinorLossCoefficient(self) -> Dict[int,int]:
 		"""User input minor loss coefficent.  You can either type in the value directly or select the value from the Minor Loss Library. The minor loss is applied to the valve when it is fully open (inactive). Note that minor losses do not apply to the following valve types: General Purpose Valve and Valve With Linear Area Change. These two valve types do not support a (fully) open status and always apply the head/flow relationship defined by their headloss curve and discharge coefficient respectively.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SpecifyLocalMinorLoss(self) -> Dict[int,int]:
 		"""If true then the minor coefficent for the element is manually set, otherwise the value is derived from the minor loss library.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def DerivedMinorLossCoefficient(self) -> Dict[int,int]:
 		"""Displays the composite value calculated from the data in the minor loss collection. The composite minor loss is applied to the valve when it is fully open (inactive). Note that minor losses do not apply to the following valve types: General Purpose Valve and Valve With Linear Area Change. These two valve types do not support a (fully) open status and always apply the head/flow relationship defined by their headloss curve and discharge coefficient respectively.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -8249,8 +9214,9 @@ class IPipeUnits(IBaseLinkUnits, IWaterQualityResultsUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8259,8 +9225,9 @@ class IPipeUnits(IBaseLinkUnits, IWaterQualityResultsUnits):
 	def DiameterUnit(self) -> IUnit:
 		"""The formatter information for diameter.
 
-		Returns:
-			IPipeUnits: 
+		Returns
+		--------
+			``IPipeUnits`` : 
 		"""
 		pass
 
@@ -8268,8 +9235,9 @@ class IPipeUnits(IBaseLinkUnits, IWaterQualityResultsUnits):
 	def FlowUnit(self) -> IUnit:
 		"""The formatter information for flow.
 
-		Returns:
-			IPipeUnits: 
+		Returns
+		--------
+			``IPipeUnits`` : 
 		"""
 		pass
 
@@ -8277,8 +9245,9 @@ class IPipeUnits(IBaseLinkUnits, IWaterQualityResultsUnits):
 	def VelocityUnit(self) -> IUnit:
 		"""The formatter information for velocity
 
-		Returns:
-			IPipeUnits: 
+		Returns
+		--------
+			``IPipeUnits`` : 
 		"""
 		pass
 
@@ -8286,8 +9255,9 @@ class IPipeUnits(IBaseLinkUnits, IWaterQualityResultsUnits):
 	def HeadlossUnit(self) -> IUnit:
 		"""The formatter information for headloss.
 
-		Returns:
-			IPipeUnits: 
+		Returns
+		--------
+			``IPipeUnits`` : 
 		"""
 		pass
 
@@ -8295,8 +9265,9 @@ class IPipeUnits(IBaseLinkUnits, IWaterQualityResultsUnits):
 	def HeadlossGradientUnit(self) -> IUnit:
 		"""The formatter information for headloss gradient.
 
-		Returns:
-			IPipeUnits: 
+		Returns
+		--------
+			``IPipeUnits`` : 
 		"""
 		pass
 
@@ -8306,8 +9277,9 @@ class ILateral(IWaterNetworkElement[ILaterals, ILateral, IBaseLinkUnits, ILatera
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8318,8 +9290,9 @@ class ILaterals(IWaterNetworkElements[ILaterals, ILateral, IBaseLinkUnits, ILate
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8330,8 +9303,9 @@ class ILateralInput(IBaseLinkInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8342,8 +9316,9 @@ class ILateralsInput(IBaseLinksInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8354,8 +9329,9 @@ class IFireFlowNodesResults(IDemandNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8364,8 +9340,9 @@ class IFireFlowNodesResults(IDemandNodesResults):
 	def Demands(self) -> Dict[int,int]:
 		"""Gets the total calculated demand for all fire flow nodes at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -8373,11 +9350,13 @@ class IFireFlowNodesResults(IDemandNodesResults):
 	def Demands(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Gets the total calculated demand for all fire flow nodes at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -8385,12 +9364,14 @@ class IFireFlowNodesResults(IDemandNodesResults):
 	def Demands(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -8398,8 +9379,9 @@ class IFireFlowNodesResults(IDemandNodesResults):
 	def Pressures(self) -> Dict[int,int]:
 		"""Gets the node pressure at all fire flow nodes at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -8407,11 +9389,13 @@ class IFireFlowNodesResults(IDemandNodesResults):
 	def Pressures(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Gets the node pressure at all fire flow nodes at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -8419,12 +9403,14 @@ class IFireFlowNodesResults(IDemandNodesResults):
 	def Pressures(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -8434,8 +9420,9 @@ class IFireFlowNodeResults(IDemandNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8444,8 +9431,9 @@ class IFireFlowNodeResults(IDemandNodeResults):
 	def Demand(self) -> Union[float, None]:
 		"""Total calculated demand at selected element at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -8453,19 +9441,22 @@ class IFireFlowNodeResults(IDemandNodeResults):
 	def Demand(self, timeStepIndex: int) -> Union[float, None]:
 		"""Total calculated demand at selected element at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Demands(self) -> array(Union[float, None]):
+	def Demands(self) -> List[Union[float, None]]:
 		"""Total calculated demand at selected element across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -8473,8 +9464,9 @@ class IFireFlowNodeResults(IDemandNodeResults):
 	def Pressure(self) -> Union[float, None]:
 		"""TCalculated pressure at node at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -8482,19 +9474,22 @@ class IFireFlowNodeResults(IDemandNodeResults):
 	def Pressure(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated pressure at node at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Pressures(self) -> array(Union[float, None]):
+	def Pressures(self) -> List[Union[float, None]]:
 		"""Calculated pressure at node across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -8504,8 +9499,9 @@ class IFireFlowNodeInput(IDemandNodeInput, IWaterTraceableInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8516,8 +9512,9 @@ class IFireFlowNodesInput(IDemandNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8528,8 +9525,9 @@ class IFireFlowNodeUnits(IDemandNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8538,8 +9536,9 @@ class IFireFlowNodeUnits(IDemandNodeUnits):
 	def DemandUnit(self) -> IUnit:
 		"""The formatter information for the calculated demand.
 
-		Returns:
-			IFireFlowNodeUnits: 
+		Returns
+		--------
+			``IFireFlowNodeUnits`` : 
 		"""
 		pass
 
@@ -8547,8 +9546,9 @@ class IFireFlowNodeUnits(IDemandNodeUnits):
 	def PressureUnit(self) -> IUnit:
 		"""The formatter information for pressure.
 
-		Returns:
-			IFireFlowNodeUnits: 
+		Returns
+		--------
+			``IFireFlowNodeUnits`` : 
 		"""
 		pass
 
@@ -8558,8 +9558,9 @@ class IJunctions(IWaterNetworkElements[IJunctions, IJunction, IJunctionUnits, IJ
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8570,8 +9571,9 @@ class IJunction(IWaterNetworkElement[IJunctions, IJunction, IJunctionUnits, IJun
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8582,8 +9584,9 @@ class IJunctionsResults(IFireFlowNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8594,8 +9597,9 @@ class IJunctionsInput(IFireFlowNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8606,8 +9610,9 @@ class IJunctionInput(IFireFlowNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8618,8 +9623,9 @@ class IJunctionResults(IFireFlowNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8630,8 +9636,9 @@ class IJunctionUnits(IFireFlowNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8642,8 +9649,9 @@ class IHydrants(IWaterNetworkElements[IHydrants, IHydrant, IHydrantUnits, IHydra
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8654,8 +9662,9 @@ class IHydrant(IWaterNetworkElement[IHydrants, IHydrant, IHydrantUnits, IHydrant
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8666,8 +9675,9 @@ class IHydrantsResults(IFireFlowNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8678,8 +9688,9 @@ class IHydrantResults(IFireFlowNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8690,8 +9701,9 @@ class IHydrantsInput(IFireFlowNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8702,8 +9714,9 @@ class IHydrantInput(IFireFlowNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8714,8 +9727,9 @@ class IHydrantUnits(IFireFlowNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8726,8 +9740,9 @@ class IDemandNodeInput(IBaseNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8736,8 +9751,9 @@ class IDemandNodeInput(IBaseNodeInput):
 	def DemandCollection(self) -> IDemandCollection:
 		"""A collection of baseline demands and associated temporal patterns.
 
-		Returns:
-			IDemandNodeInput: 
+		Returns
+		--------
+			``IDemandNodeInput`` : 
 		"""
 		pass
 
@@ -8745,8 +9761,9 @@ class IDemandNodeInput(IBaseNodeInput):
 	def UnitDemandLoadCollection(self) -> IUnitLoadDemandCollection:
 		"""A collection of unit demands, associated unit counts, and temporal patterns.
 
-		Returns:
-			IDemandNodeInput: 
+		Returns
+		--------
+			``IDemandNodeInput`` : 
 		"""
 		pass
 
@@ -8756,8 +9773,9 @@ class IDemandNodesInput(IBaseNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8768,8 +9786,9 @@ class IDemandNodesResults(IBaseNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8780,8 +9799,9 @@ class IDemandNodeResults(IBaseNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8792,8 +9812,9 @@ class IDemandNodeUnits(IBaseNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8804,8 +9825,9 @@ class IDemandCollection(ICollectionElements[IDemands, IDemand, IDemandUnits]):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8816,8 +9838,9 @@ class IDemands(ICollection[IDemand]):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8826,12 +9849,14 @@ class IDemands(ICollection[IDemand]):
 	def Add(self, flow: float, pattern: IPattern) -> IDemand:
 		"""Adds a new row to the list of demands and assigns the provided values.
 
-		Args:
-			flow(float): The demand flow in display units
-			pattern(IPattern): The pattern to apply.  If null, assumes fixed pattern.
+		Args
+		--------
+			flow (``float``) :  The demand flow in display units
+			pattern (``IPattern``) :  The pattern to apply.  If null, assumes fixed pattern.
 
-		Returns:
-			IDemand: 
+		Returns
+		--------
+			``IDemand`` : 
 		"""
 		pass
 
@@ -8839,8 +9864,9 @@ class IDemands(ICollection[IDemand]):
 	def Add(self) -> IDemand:
 		"""No Description
 
-		Returns:
-			IDemand: 
+		Returns
+		--------
+			``IDemand`` : 
 		"""
 		pass
 
@@ -8850,8 +9876,9 @@ class IDemand(ICollectionElement):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8860,8 +9887,9 @@ class IDemand(ICollectionElement):
 	def BaseFlow(self) -> float:
 		"""Enter the baseline flow rate for the load.
 
-		Returns:
-			IDemand: 
+		Returns
+		--------
+			``IDemand`` : 
 		"""
 		pass
 
@@ -8873,8 +9901,9 @@ class IDemand(ICollectionElement):
 	def DemandPattern(self) -> IPattern:
 		"""Choose the EPS pattern that will apply to this load. Each load in the table can have a different EPS pattern. The multipliers defined in the pattern will be applied against the baseline load.
 
-		Returns:
-			IDemand: 
+		Returns
+		--------
+			``IDemand`` : 
 		"""
 		pass
 
@@ -8888,8 +9917,9 @@ class IDemandUnits(IElementUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8898,8 +9928,9 @@ class IDemandUnits(IElementUnits):
 	def BaseFlowUnit(self) -> IUnit:
 		"""The formatter information for the base flow.
 
-		Returns:
-			IDemandUnits: 
+		Returns
+		--------
+			``IDemandUnits`` : 
 		"""
 		pass
 
@@ -8909,8 +9940,9 @@ class IUnitLoadDemandCollection(ICollectionElements[IUnitLoadDemands, IUnitLoadD
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8921,8 +9953,9 @@ class IUnitLoadDemands(ICollection[IUnitLoadDemand]):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8931,14 +9964,16 @@ class IUnitLoadDemands(ICollection[IUnitLoadDemand]):
 	def Add(self, unitDemandLoad: IUnitDemandLoad, numberOfLoadingUnits: float, unitDemandBaseFlow: float, unitDemandPattern: IPattern) -> IUnitLoadDemand:
 		"""Adds a new row to the unit demands and assigns the values.
 
-		Args:
-			unitDemandLoad(IUnitDemandLoad): The unit demand load to use.
-			numberOfLoadingUnits(float): The number of loading units to use.
-			unitDemandBaseFlow(float): The unit demand base flow in display units.
-			unitDemandPattern(IPattern): The demand pattern to apply.  If null, assumes fixed pattern.
+		Args
+		--------
+			unitDemandLoad (``IUnitDemandLoad``) :  The unit demand load to use.
+			numberOfLoadingUnits (``float``) :  The number of loading units to use.
+			unitDemandBaseFlow (``float``) :  The unit demand base flow in display units.
+			unitDemandPattern (``IPattern``) :  The demand pattern to apply.  If null, assumes fixed pattern.
 
-		Returns:
-			IUnitLoadDemand: 
+		Returns
+		--------
+			``IUnitLoadDemand`` : 
 		"""
 		pass
 
@@ -8946,8 +9981,9 @@ class IUnitLoadDemands(ICollection[IUnitLoadDemand]):
 	def Add(self) -> IUnitLoadDemand:
 		"""No Description
 
-		Returns:
-			IUnitLoadDemand: 
+		Returns
+		--------
+			``IUnitLoadDemand`` : 
 		"""
 		pass
 
@@ -8957,8 +9993,9 @@ class IUnitLoadDemand(ICollectionElement):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -8967,8 +10004,9 @@ class IUnitLoadDemand(ICollectionElement):
 	def UnitDemandLoad(self) -> IUnitDemandLoad:
 		"""The ID of the unit demand.
 
-		Returns:
-			IUnitLoadDemand: 
+		Returns
+		--------
+			``IUnitLoadDemand`` : 
 		"""
 		pass
 
@@ -8980,8 +10018,9 @@ class IUnitLoadDemand(ICollectionElement):
 	def NumberOfLoadingUnits(self) -> float:
 		"""The number of loading units.
 
-		Returns:
-			IUnitLoadDemand: 
+		Returns
+		--------
+			``IUnitLoadDemand`` : 
 		"""
 		pass
 
@@ -8993,8 +10032,9 @@ class IUnitLoadDemand(ICollectionElement):
 	def UnitDemandBaseFlow(self) -> float:
 		"""The unit demand base flow in display units.
 
-		Returns:
-			IUnitLoadDemand: 
+		Returns
+		--------
+			``IUnitLoadDemand`` : 
 		"""
 		pass
 
@@ -9006,8 +10046,9 @@ class IUnitLoadDemand(ICollectionElement):
 	def UnitDemandPattern(self) -> IPattern:
 		"""The ID of the unit demand load pattern.
 
-		Returns:
-			IUnitLoadDemand: 
+		Returns
+		--------
+			``IUnitLoadDemand`` : 
 		"""
 		pass
 
@@ -9021,8 +10062,9 @@ class IUnitLoadDemandUnits(IElementUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -9031,8 +10073,9 @@ class IUnitLoadDemandUnits(IElementUnits):
 	def UnitDemandBaseFlowUnit(self) -> IUnit:
 		"""The formatter name for unit demand base flow.
 
-		Returns:
-			IUnitLoadDemandUnits: 
+		Returns
+		--------
+			``IUnitLoadDemandUnits`` : 
 		"""
 		pass
 
@@ -9042,8 +10085,9 @@ class IConventionalTanksResults(IBaseTanksResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -9051,8 +10095,9 @@ class IConventionalTanksResults(IBaseTanksResults):
 	def VolumeFulls(self) -> Dict[int,int]:
 		"""The full active volume of all tanks between the limits of the defined operating range, exclusive of any inactive volume at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9060,8 +10105,9 @@ class IConventionalTanksResults(IBaseTanksResults):
 	def Levels(self) -> Dict[int,int]:
 		"""The difference between the calculated hydraulic grade and the base elevation of the tank at the current time step at all tanks.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9069,11 +10115,13 @@ class IConventionalTanksResults(IBaseTanksResults):
 	def Levels(self, timeStepIndex: int) -> Dict[int,int]:
 		"""The difference between the calculated hydraulic grade and the base elevation of the tank at the given time step at all tanks.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9081,12 +10129,14 @@ class IConventionalTanksResults(IBaseTanksResults):
 	def Levels(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9094,8 +10144,9 @@ class IConventionalTanksResults(IBaseTanksResults):
 	def Volumes(self) -> Dict[int,int]:
 		"""Total volume of fluid in tank including the inactive volume at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9103,11 +10154,13 @@ class IConventionalTanksResults(IBaseTanksResults):
 	def Volumes(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Total volume of fluid in tank including the inactive volume at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9115,12 +10168,14 @@ class IConventionalTanksResults(IBaseTanksResults):
 	def Volumes(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9128,8 +10183,9 @@ class IConventionalTanksResults(IBaseTanksResults):
 	def PercentFulls(self) -> Dict[int,int]:
 		"""The ratio of tank active volume to the tank full active volume. Active volume is the tank volume within the operating range and is exclusive of inactive volume at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9137,11 +10193,13 @@ class IConventionalTanksResults(IBaseTanksResults):
 	def PercentFulls(self, timeStepIndex: int) -> Dict[int,int]:
 		"""The ratio of tank active volume to the tank full active volume. Active volume is the tank volume within the operating range and is exclusive of inactive volume at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9149,12 +10207,14 @@ class IConventionalTanksResults(IBaseTanksResults):
 	def PercentFulls(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9162,8 +10222,9 @@ class IConventionalTanksResults(IBaseTanksResults):
 	def TankStatuses(self) -> Dict[int,int]:
 		"""Whether a tank is empty, emptying, full, or filling at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9171,11 +10232,13 @@ class IConventionalTanksResults(IBaseTanksResults):
 	def TankStatuses(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Whether a tank is empty, emptying, full, or filling at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9183,12 +10246,14 @@ class IConventionalTanksResults(IBaseTanksResults):
 	def TankStatuses(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9198,8 +10263,9 @@ class IConventionalTankResults(IBaseTankResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -9207,8 +10273,9 @@ class IConventionalTankResults(IBaseTankResults):
 	def VolumeFull(self) -> Union[float, None]:
 		"""The full active volume of the tank between the limits of the defined operating range, exclusive of any inactive volume at the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -9216,8 +10283,9 @@ class IConventionalTankResults(IBaseTankResults):
 	def Level(self) -> Union[float, None]:
 		"""The difference between the calculated hydraulic grade and the base elevation of the tank at the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -9225,19 +10293,22 @@ class IConventionalTankResults(IBaseTankResults):
 	def Level(self, timeStepIndex: int) -> Union[float, None]:
 		"""The difference between the calculated hydraulic grade and the base elevation of the tank at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Levels(self) -> array(Union[float, None]):
+	def Levels(self) -> List[Union[float, None]]:
 		"""The difference between the calculated hydraulic grade and the base elevation of the tank across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -9245,8 +10316,9 @@ class IConventionalTankResults(IBaseTankResults):
 	def Volume(self) -> Union[float, None]:
 		"""Total volume of fluid in tank including the inactive volume at the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -9254,19 +10326,22 @@ class IConventionalTankResults(IBaseTankResults):
 	def Volume(self, timeStepIndex: int) -> Union[float, None]:
 		"""Total volume of fluid in tank including the inactive volume at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Volumes(self) -> array(Union[float, None]):
+	def Volumes(self) -> List[Union[float, None]]:
 		"""Total volume of fluid in tank including the inactive volume across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -9274,8 +10349,9 @@ class IConventionalTankResults(IBaseTankResults):
 	def PercentFull(self) -> Union[float, None]:
 		"""The ratio of tank active volume to the tank full active volume. Active volume is the tank volume within the operating range and is exclusive of inactive volume at the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -9283,19 +10359,22 @@ class IConventionalTankResults(IBaseTankResults):
 	def PercentFull(self, timeStepIndex: int) -> Union[float, None]:
 		"""The ratio of tank active volume to the tank full active volume. Active volume is the tank volume within the operating range and is exclusive of inactive volume at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def PercentFulls(self) -> array(Union[float, None]):
+	def PercentFulls(self) -> List[Union[float, None]]:
 		"""The ratio of tank active volume to the tank full active volume. Active volume is the tank volume within the operating range and is exclusive of inactive volume over all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -9303,8 +10382,9 @@ class IConventionalTankResults(IBaseTankResults):
 	def TankStatus(self) -> Union[int, None]:
 		"""Whether a tank is empty, emptying, full, or filling at the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -9312,19 +10392,22 @@ class IConventionalTankResults(IBaseTankResults):
 	def TankStatus(self, timeStepIndex: int) -> Union[int, None]:
 		"""Whether a tank is empty, emptying, full, or filling at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def TankStatuses(self) -> array(Union[int, None]):
+	def TankStatuses(self) -> List[Union[int, None]]:
 		"""Whether a tank is empty, emptying, full, or filling across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -9334,8 +10417,9 @@ class IConventionalTanksInput(IBaseTanksInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -9344,8 +10428,9 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def TankSection(self) -> Dict[int,int]:
 		"""The type of section the tank is using.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9353,11 +10438,13 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def TankSection(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9365,8 +10452,9 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def ActiveVolumeFull(self) -> Dict[int,int]:
 		"""InvalidOperationException is thrown if the section type is not variable area.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9374,11 +10462,13 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def ActiveVolumeFull(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9386,8 +10476,9 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def Diameter(self) -> Dict[int,int]:
 		"""InvalidOperationException is thrown if the section type is not circular.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9395,11 +10486,13 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def Diameter(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9407,8 +10500,9 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def AverageArea(self) -> Dict[int,int]:
 		"""InvalidOperationException is thrown if the section type is not non-circular.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9416,11 +10510,13 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def AverageArea(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9428,8 +10524,9 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def BaseElevation(self) -> Dict[int,int]:
 		"""Always in display units.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9437,11 +10534,13 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def BaseElevation(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9449,8 +10548,9 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def MinimumLevel(self) -> Dict[int,int]:
 		"""If the operational range is set to elevation, the minimum elevation is automatically calculated and set when this property is set.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9458,11 +10558,13 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def MinimumLevel(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9470,8 +10572,9 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def InitialLevel(self) -> Dict[int,int]:
 		"""If the operational range is set to elevation, the initial elevation is automatically calculated and set when this property is set.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9479,11 +10582,13 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def InitialLevel(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9491,8 +10596,9 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def MaximumLevel(self) -> Dict[int,int]:
 		"""If the operational range is et to elevation, the maximum elevation is automatically calculated and set when this property is set.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9500,11 +10606,13 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def MaximumLevel(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9512,8 +10620,9 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def UseHighAlarm(self) -> Dict[int,int]:
 		"""Specifies whether or not to check high alarm levels during Steady State/EPS calculation and generate messages if the levels are violated.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9521,11 +10630,13 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def UseHighAlarm(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9533,8 +10644,9 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def HighAlarmLevel(self) -> Dict[int,int]:
 		"""The level above which the high level alarm is generated. Calculation notifications are produced to advise you of any alarm level violations.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9542,11 +10654,13 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def HighAlarmLevel(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9554,8 +10668,9 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def UseLowAlarm(self) -> Dict[int,int]:
 		"""Specifies whether or not to check low alarm levels during Steady State/EPS calculation and generate messages if the levels are violated.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9563,11 +10678,13 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def UseLowAlarm(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9575,8 +10692,9 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def LowAlarmLevel(self) -> Dict[int,int]:
 		"""The level below which the low level alarm is generated. Calculation notifications are produced to advise you of any alarm level violations.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9584,11 +10702,13 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def LowAlarmLevel(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9597,8 +10717,9 @@ class IConventionalTanksInput(IBaseTanksInput):
 		"""The inactive volume of the tank. 
             This volume is the inaccessible volume of the tank that is below the tank active operating range and can become important in water quality simulations subject to the selected mixing model.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9606,11 +10727,13 @@ class IConventionalTanksInput(IBaseTanksInput):
 	def InactiveVolume(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -9620,8 +10743,9 @@ class IConventionalTankInput(IBaseTankInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -9630,8 +10754,9 @@ class IConventionalTankInput(IBaseTankInput):
 	def TankSection(self) -> TankSectionType:
 		"""The type of section the tank is using.
 
-		Returns:
-			IConventionalTankInput: 
+		Returns
+		--------
+			``IConventionalTankInput`` : 
 		"""
 		pass
 
@@ -9643,8 +10768,9 @@ class IConventionalTankInput(IBaseTankInput):
 	def ActiveVolumeFull(self) -> float:
 		"""InvalidOperationException is thrown if the section type is not variable area.
 
-		Returns:
-			IConventionalTankInput: 
+		Returns
+		--------
+			``IConventionalTankInput`` : 
 		"""
 		pass
 
@@ -9656,8 +10782,9 @@ class IConventionalTankInput(IBaseTankInput):
 	def CrossSectionCurve(self) -> ICrossSectionCurveCollection:
 		"""InvalidOperationException is thrown if the section type is not variable area.
 
-		Returns:
-			IConventionalTankInput: 
+		Returns
+		--------
+			``IConventionalTankInput`` : 
 		"""
 		pass
 
@@ -9665,8 +10792,9 @@ class IConventionalTankInput(IBaseTankInput):
 	def Diameter(self) -> float:
 		"""InvalidOperationException is thrown if the section type is not circular.
 
-		Returns:
-			IConventionalTankInput: 
+		Returns
+		--------
+			``IConventionalTankInput`` : 
 		"""
 		pass
 
@@ -9678,8 +10806,9 @@ class IConventionalTankInput(IBaseTankInput):
 	def AverageArea(self) -> float:
 		"""InvalidOperationException is thrown if the section type is not non-circular.
 
-		Returns:
-			IConventionalTankInput: 
+		Returns
+		--------
+			``IConventionalTankInput`` : 
 		"""
 		pass
 
@@ -9691,8 +10820,9 @@ class IConventionalTankInput(IBaseTankInput):
 	def BaseElevation(self) -> float:
 		"""Always in display units.
 
-		Returns:
-			IConventionalTankInput: 
+		Returns
+		--------
+			``IConventionalTankInput`` : 
 		"""
 		pass
 
@@ -9704,8 +10834,9 @@ class IConventionalTankInput(IBaseTankInput):
 	def MinimumLevel(self) -> float:
 		"""If the operational range is set to elevation, the minimum elevation is automatically calculated and set when this property is set.
 
-		Returns:
-			IConventionalTankInput: 
+		Returns
+		--------
+			``IConventionalTankInput`` : 
 		"""
 		pass
 
@@ -9717,8 +10848,9 @@ class IConventionalTankInput(IBaseTankInput):
 	def InitialLevel(self) -> float:
 		"""If the operational range is set to elevation, the initial elevation is automatically calculated and set when this property is set.
 
-		Returns:
-			IConventionalTankInput: 
+		Returns
+		--------
+			``IConventionalTankInput`` : 
 		"""
 		pass
 
@@ -9730,8 +10862,9 @@ class IConventionalTankInput(IBaseTankInput):
 	def MaximumLevel(self) -> float:
 		"""If the operational range is et to elevation, the maximum elevation is automatically calculated and set when this property is set.
 
-		Returns:
-			IConventionalTankInput: 
+		Returns
+		--------
+			``IConventionalTankInput`` : 
 		"""
 		pass
 
@@ -9743,8 +10876,9 @@ class IConventionalTankInput(IBaseTankInput):
 	def UseHighAlarm(self) -> bool:
 		"""Specifies whether or not to check high alarm levels during Steady State/EPS calculation and generate messages if the levels are violated.
 
-		Returns:
-			IConventionalTankInput: 
+		Returns
+		--------
+			``IConventionalTankInput`` : 
 		"""
 		pass
 
@@ -9756,8 +10890,9 @@ class IConventionalTankInput(IBaseTankInput):
 	def HighAlarmLevel(self) -> float:
 		"""The level above which the high level alarm is generated. Calculation notifications are produced to advise you of any alarm level violations.
 
-		Returns:
-			IConventionalTankInput: 
+		Returns
+		--------
+			``IConventionalTankInput`` : 
 		"""
 		pass
 
@@ -9769,8 +10904,9 @@ class IConventionalTankInput(IBaseTankInput):
 	def UseLowAlarm(self) -> bool:
 		"""Specifies whether or not to check low alarm levels during Steady State/EPS calculation and generate messages if the levels are violated.
 
-		Returns:
-			IConventionalTankInput: 
+		Returns
+		--------
+			``IConventionalTankInput`` : 
 		"""
 		pass
 
@@ -9782,8 +10918,9 @@ class IConventionalTankInput(IBaseTankInput):
 	def LowAlarmLevel(self) -> float:
 		"""The level below which the low level alarm is generated. Calculation notifications are produced to advise you of any alarm level violations.
 
-		Returns:
-			IConventionalTankInput: 
+		Returns
+		--------
+			``IConventionalTankInput`` : 
 		"""
 		pass
 
@@ -9796,8 +10933,9 @@ class IConventionalTankInput(IBaseTankInput):
 		"""The inactive volume of the tank. 
             This volume is the inaccessible volume of the tank that is below the tank active operating range and can become important in water quality simulations subject to the selected mixing model.
 
-		Returns:
-			IConventionalTankInput: 
+		Returns
+		--------
+			``IConventionalTankInput`` : 
 		"""
 		pass
 
@@ -9811,8 +10949,9 @@ class IConventionalTankUnits(IBaseTankUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -9821,8 +10960,9 @@ class IConventionalTankUnits(IBaseTankUnits):
 	def LevelUnit(self) -> IUnit:
 		"""The formatter information for minimum level, maximum level and initial level.
 
-		Returns:
-			IConventionalTankUnits: 
+		Returns
+		--------
+			``IConventionalTankUnits`` : 
 		"""
 		pass
 
@@ -9830,8 +10970,9 @@ class IConventionalTankUnits(IBaseTankUnits):
 	def VolumeUnit(self) -> IUnit:
 		"""The formatter information for volume.
 
-		Returns:
-			IConventionalTankUnits: 
+		Returns
+		--------
+			``IConventionalTankUnits`` : 
 		"""
 		pass
 
@@ -9839,8 +10980,9 @@ class IConventionalTankUnits(IBaseTankUnits):
 	def PercentFullUnit(self) -> IUnit:
 		"""The formatter information for percent full.
 
-		Returns:
-			IConventionalTankUnits: 
+		Returns
+		--------
+			``IConventionalTankUnits`` : 
 		"""
 		pass
 
@@ -9850,8 +10992,9 @@ class ICrossSectionCurveCollection(ICollectionElements[ICrossSectionCurve, ICros
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -9862,8 +11005,9 @@ class ICrossSectionCurve(ICollection[ICrossSectionCurveElement]):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -9872,12 +11016,14 @@ class ICrossSectionCurve(ICollection[ICrossSectionCurveElement]):
 	def Add(self, depthRatio: float, volumeRatio: float) -> ICrossSectionCurveElement:
 		"""Adds a row to the cross-section curve and assigns the values.
 
-		Args:
-			depthRatio(float): The depth ratio in display units.
-			volumeRatio(float): The volume ratio in display units.
+		Args
+		--------
+			depthRatio (``float``) :  The depth ratio in display units.
+			volumeRatio (``float``) :  The volume ratio in display units.
 
-		Returns:
-			ICrossSectionCurveElement: 
+		Returns
+		--------
+			``ICrossSectionCurveElement`` : 
 		"""
 		pass
 
@@ -9885,8 +11031,9 @@ class ICrossSectionCurve(ICollection[ICrossSectionCurveElement]):
 	def Add(self) -> ICrossSectionCurveElement:
 		"""No Description
 
-		Returns:
-			ICrossSectionCurveElement: 
+		Returns
+		--------
+			``ICrossSectionCurveElement`` : 
 		"""
 		pass
 
@@ -9896,8 +11043,9 @@ class ICrossSectionCurveElement(ICollectionElement):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -9906,8 +11054,9 @@ class ICrossSectionCurveElement(ICollectionElement):
 	def DepthRatio(self) -> float:
 		"""Ratio of depth to total height of the tank.
 
-		Returns:
-			ICrossSectionCurveElement: 
+		Returns
+		--------
+			``ICrossSectionCurveElement`` : 
 		"""
 		pass
 
@@ -9919,8 +11068,9 @@ class ICrossSectionCurveElement(ICollectionElement):
 	def VolumeRatio(self) -> float:
 		"""Ratio of volume at given to depth to the total volume of the tank.
 
-		Returns:
-			ICrossSectionCurveElement: 
+		Returns
+		--------
+			``ICrossSectionCurveElement`` : 
 		"""
 		pass
 
@@ -9934,8 +11084,9 @@ class ICrossSectionCurveUnits(IElementUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -9944,8 +11095,9 @@ class ICrossSectionCurveUnits(IElementUnits):
 	def RatioUnit(self) -> IUnit:
 		"""The formatter for the depth and volume ratio fields.
 
-		Returns:
-			ICrossSectionCurveUnits: 
+		Returns
+		--------
+			``ICrossSectionCurveUnits`` : 
 		"""
 		pass
 
@@ -9955,8 +11107,9 @@ class ITanks(IWaterNetworkElements[ITanks, ITank, ITankUnits, ITankInput, ITankR
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -9967,8 +11120,9 @@ class ITank(IWaterNetworkElement[ITanks, ITank, ITankUnits, ITankInput, ITankRes
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -9979,8 +11133,9 @@ class ITanksResults(IConventionalTanksResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -9991,8 +11146,9 @@ class ITankResults(IConventionalTankResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10003,8 +11159,9 @@ class ITanksInput(IConventionalTanksInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10012,16 +11169,18 @@ class ITanksInput(IConventionalTanksInput):
 	def ValveCharacteristics(self) -> Dict[int,int]:
 		"""Specifies the valve characteristics definition to be used for this valve. If the Valve Characteristic Curve is not defined then a default curve will be used. The default curve will have (Relative Closure, Relative Area) points of (0,1) and (1,0).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def ValveTypes(self) -> Dict[int,int]:
 		"""Specifies the type of valve. Choices are Butterfly, Needle, Circular Gate, Globe, Ball and User Defined.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -10031,8 +11190,9 @@ class ITankInput(IConventionalTankInput, IWaterTraceableInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10041,8 +11201,9 @@ class ITankInput(IConventionalTankInput, IWaterTraceableInput):
 	def ValveCharacteristics(self) -> IValveCharacteristic:
 		"""Specifies the valve characteristics definition to be used for this valve. If the Valve Characteristic Curve is not defined then a default curve will be used. The default curve will have (Relative Closure, Relative Area) points of (0,1) and (1,0).
 
-		Returns:
-			ITankInput: 
+		Returns
+		--------
+			``ITankInput`` : 
 		"""
 		pass
 
@@ -10054,8 +11215,9 @@ class ITankInput(IConventionalTankInput, IWaterTraceableInput):
 	def ValveType(self) -> HammerValveType:
 		"""Specifies the type of valve. Choices are Butterfly, Needle, Circular Gate, Globe, Ball and User Defined.
 
-		Returns:
-			ITankInput: 
+		Returns
+		--------
+			``ITankInput`` : 
 		"""
 		pass
 
@@ -10069,8 +11231,9 @@ class ITankUnits(IConventionalTankUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10081,8 +11244,9 @@ class ISurgeTankInput(IConventionalTankInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10091,8 +11255,9 @@ class ISurgeTankInput(IConventionalTankInput):
 	def TankOrificeDiameter(self) -> float:
 		"""Specifies the diameter of the tank inlet orifice. Only used by the transient engine.
 
-		Returns:
-			ISurgeTankInput: 
+		Returns
+		--------
+			``ISurgeTankInput`` : 
 		"""
 		pass
 
@@ -10104,8 +11269,9 @@ class ISurgeTankInput(IConventionalTankInput):
 	def RatioOfLosses(self) -> float:
 		"""Ratio of the head losses for equal inflows to / outflows from the tank via the orifice. Default value is 2.5.
 
-		Returns:
-			ISurgeTankInput: 
+		Returns
+		--------
+			``ISurgeTankInput`` : 
 		"""
 		pass
 
@@ -10117,8 +11283,9 @@ class ISurgeTankInput(IConventionalTankInput):
 	def HeadlossCoefficient(self) -> float:
 		"""Applies to flow from the tank to the pipe/riser. This must be a positive number.
 
-		Returns:
-			ISurgeTankInput: 
+		Returns
+		--------
+			``ISurgeTankInput`` : 
 		"""
 		pass
 
@@ -10130,8 +11297,9 @@ class ISurgeTankInput(IConventionalTankInput):
 	def SurgeTankType(self) -> SurgeTankTypeEnum:
 		"""Specifies the type of surge tank to simulate in the transient engine.
 
-		Returns:
-			ISurgeTankInput: 
+		Returns
+		--------
+			``ISurgeTankInput`` : 
 		"""
 		pass
 
@@ -10143,8 +11311,9 @@ class ISurgeTankInput(IConventionalTankInput):
 	def HasCheckValve(self) -> bool:
 		"""Specify whether there is a check valve installed on the tank inlet/outlet. For the case of steady state and EPS simulations, a surge tank with a check valve is simulated as a pressure junction.
 
-		Returns:
-			ISurgeTankInput: 
+		Returns
+		--------
+			``ISurgeTankInput`` : 
 		"""
 		pass
 
@@ -10156,8 +11325,9 @@ class ISurgeTankInput(IConventionalTankInput):
 	def WeirCoefficient(self) -> float:
 		"""Coefficient k in the formula for weir flow over the top of the tank as follows: Q = k L H^1.5 ( H >= 0 ) where Q is the rate of overflow, L is the width of the weir, and H is the height above the top of the tank. The coefficient must be positive. By default, it is the large positive number 99999, say. For a broad-crested weir, in SI units k = 1.84 (refer to Streeter and Wylie, pg. 358).
 
-		Returns:
-			ISurgeTankInput: 
+		Returns
+		--------
+			``ISurgeTankInput`` : 
 		"""
 		pass
 
@@ -10169,8 +11339,9 @@ class ISurgeTankInput(IConventionalTankInput):
 	def WeirLength(self) -> float:
 		"""The width of the weir.
 
-		Returns:
-			ISurgeTankInput: 
+		Returns
+		--------
+			``ISurgeTankInput`` : 
 		"""
 		pass
 
@@ -10182,8 +11353,9 @@ class ISurgeTankInput(IConventionalTankInput):
 	def InternalRiserDiameter(self) -> float:
 		"""This is the upper riser.
 
-		Returns:
-			ISurgeTankInput: 
+		Returns
+		--------
+			``ISurgeTankInput`` : 
 		"""
 		pass
 
@@ -10195,8 +11367,9 @@ class ISurgeTankInput(IConventionalTankInput):
 	def InternalRiserTopElevation(self) -> float:
 		"""The top of the upper riser.
 
-		Returns:
-			ISurgeTankInput: 
+		Returns
+		--------
+			``ISurgeTankInput`` : 
 		"""
 		pass
 
@@ -10208,8 +11381,9 @@ class ISurgeTankInput(IConventionalTankInput):
 	def JunctionElevation(self) -> float:
 		"""Elevation at which the external and internal risers meet.
 
-		Returns:
-			ISurgeTankInput: 
+		Returns
+		--------
+			``ISurgeTankInput`` : 
 		"""
 		pass
 
@@ -10221,8 +11395,9 @@ class ISurgeTankInput(IConventionalTankInput):
 	def DiameterExternalRiser(self) -> float:
 		"""This is the lower riser.
 
-		Returns:
-			ISurgeTankInput: 
+		Returns
+		--------
+			``ISurgeTankInput`` : 
 		"""
 		pass
 
@@ -10234,8 +11409,9 @@ class ISurgeTankInput(IConventionalTankInput):
 	def ElevationOrificeFromInternalRiserInTank(self) -> float:
 		"""Elevation of the internal riser orifice.
 
-		Returns:
-			ISurgeTankInput: 
+		Returns
+		--------
+			``ISurgeTankInput`` : 
 		"""
 		pass
 
@@ -10247,8 +11423,9 @@ class ISurgeTankInput(IConventionalTankInput):
 	def ElevationTopOfTankBase(self) -> float:
 		"""The elevation of the top of the hemisherical base of the tank. For a cylindrical tank, this is equal to the pipe elevation.
 
-		Returns:
-			ISurgeTankInput: 
+		Returns
+		--------
+			``ISurgeTankInput`` : 
 		"""
 		pass
 
@@ -10262,8 +11439,9 @@ class ISurgeTanksInput(IConventionalTanksInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10271,104 +11449,117 @@ class ISurgeTanksInput(IConventionalTanksInput):
 	def TankOrificeDiameter(self) -> Dict[int,int]:
 		"""Specifies the diameter of the tank inlet orifice. Only used by the transient engine.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def RatioOfLosses(self) -> Dict[int,int]:
 		"""Ratio of the head losses for equal inflows to / outflows from the tank via the orifice. Default value is 2.5.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def HeadlossCoefficient(self) -> Dict[int,int]:
 		"""Applies to flow from the tank to the pipe/riser. This must be a positive number.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SurgeTankType(self) -> Dict[int,int]:
 		"""Specifies the type of surge tank to simulate in the transient engine.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def HasCheckValve(self) -> Dict[int,int]:
 		"""Specify whether there is a check valve installed on the tank inlet/outlet. For the case of steady state and EPS simulations, a surge tank with a check valve is simulated as a pressure junction.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def WeirCoefficient(self) -> Dict[int,int]:
 		"""Coefficient k in the formula for weir flow over the top of the tank as follows: Q = k L H^1.5 ( H >= 0 ) where Q is the rate of overflow, L is the width of the weir, and H is the height above the top of the tank. The coefficient must be positive. By default, it is the large positive number 99999, say. For a broad-crested weir, in SI units k = 1.84 (refer to Streeter and Wylie, pg. 358).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def WeirLength(self) -> Dict[int,int]:
 		"""The width of the weir.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def InternalRiserDiameter(self) -> Dict[int,int]:
 		"""This is the upper riser.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def InternalRiserTopElevation(self) -> Dict[int,int]:
 		"""The top of the upper riser.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def JunctionElevation(self) -> Dict[int,int]:
 		"""Elevation at which the external and internal risers meet.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def DiameterExternalRiser(self) -> Dict[int,int]:
 		"""This is the lower riser.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def ElevationOrificeFromInternalRiserInTank(self) -> Dict[int,int]:
 		"""Elevation of the internal riser orifice.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def ElevationTopOfTankBase(self) -> Dict[int,int]:
 		"""The elevation of the top of the hemisherical base of the tank. For a cylindrical tank, this is equal to the pipe elevation.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -10378,8 +11569,9 @@ class ISurgeTankResults(IConventionalTankResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10390,8 +11582,9 @@ class ISurgeTanksResults(IConventionalTanksResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10402,8 +11595,9 @@ class ISurgeTankUnits(IConventionalTankUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10412,8 +11606,9 @@ class ISurgeTankUnits(IConventionalTankUnits):
 	def DiameterUnit(self) -> IUnit:
 		"""Unit information for diameter
 
-		Returns:
-			ISurgeTankUnits: 
+		Returns
+		--------
+			``ISurgeTankUnits`` : 
 		"""
 		pass
 
@@ -10421,8 +11616,9 @@ class ISurgeTankUnits(IConventionalTankUnits):
 	def RatioUnit(self) -> IUnit:
 		"""Unit information for ratio
 
-		Returns:
-			ISurgeTankUnits: 
+		Returns
+		--------
+			``ISurgeTankUnits`` : 
 		"""
 		pass
 
@@ -10430,8 +11626,9 @@ class ISurgeTankUnits(IConventionalTankUnits):
 	def WeirCoefficientUnit(self) -> IUnit:
 		"""Unit information for weir coefficient
 
-		Returns:
-			ISurgeTankUnits: 
+		Returns
+		--------
+			``ISurgeTankUnits`` : 
 		"""
 		pass
 
@@ -10439,8 +11636,9 @@ class ISurgeTankUnits(IConventionalTankUnits):
 	def LengthUnit(self) -> IUnit:
 		"""Unit information for length
 
-		Returns:
-			ISurgeTankUnits: 
+		Returns
+		--------
+			``ISurgeTankUnits`` : 
 		"""
 		pass
 
@@ -10450,8 +11648,9 @@ class ISurgeTanks(IWaterNetworkElements[ISurgeTanks, ISurgeTank, ISurgeTankUnits
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10462,8 +11661,9 @@ class ISurgeTank(IWaterNetworkElement[ISurgeTanks, ISurgeTank, ISurgeTankUnits, 
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10474,8 +11674,9 @@ class IBaseTanksResults(IDemandNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10484,8 +11685,9 @@ class IBaseTanksResults(IDemandNodesResults):
 	def Flows(self) -> Dict[int,int]:
 		"""Net flow out of the element at current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -10493,11 +11695,13 @@ class IBaseTanksResults(IDemandNodesResults):
 	def Flows(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Net flow out of the element at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -10505,12 +11709,14 @@ class IBaseTanksResults(IDemandNodesResults):
 	def Flows(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -10520,8 +11726,9 @@ class IBaseTankResults(IDemandNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10530,8 +11737,9 @@ class IBaseTankResults(IDemandNodeResults):
 	def Flow(self) -> Union[float, None]:
 		"""Net flow out of the element at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -10539,19 +11747,22 @@ class IBaseTankResults(IDemandNodeResults):
 	def Flow(self, timeStepIndex: int) -> Union[float, None]:
 		"""Net flow out of the element at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Flows(self) -> array(Union[float, None]):
+	def Flows(self) -> List[Union[float, None]]:
 		"""Net flow out of the element across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -10561,8 +11772,9 @@ class IBaseTankInput(IDemandNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10573,8 +11785,9 @@ class IBaseTanksInput(IDemandNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10585,8 +11798,9 @@ class IBaseTankUnits(IDemandNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10595,8 +11809,9 @@ class IBaseTankUnits(IDemandNodeUnits):
 	def FlowUnit(self) -> IUnit:
 		"""The formatter name for flow.
 
-		Returns:
-			IBaseTankUnits: 
+		Returns
+		--------
+			``IBaseTankUnits`` : 
 		"""
 		pass
 
@@ -10606,8 +11821,9 @@ class IVariableLevelCurveCollection(ICollectionElements[ILevelDiameters, ILevelD
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10618,8 +11834,9 @@ class ILevelDiameters(ICollection[ILevelDiameter]):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10628,12 +11845,14 @@ class ILevelDiameters(ICollection[ILevelDiameter]):
 	def Add(self, liquidLevel: float, diameter: float) -> ILevelDiameter:
 		"""Adds a new row with the given data.
 
-		Args:
-			liquidLevel(float): liquidLevel
-			diameter(float): diameter
+		Args
+		--------
+			liquidLevel (``float``) :  liquidLevel
+			diameter (``float``) :  diameter
 
-		Returns:
-			ILevelDiameter: 
+		Returns
+		--------
+			``ILevelDiameter`` : 
 		"""
 		pass
 
@@ -10641,8 +11860,9 @@ class ILevelDiameters(ICollection[ILevelDiameter]):
 	def Add(self) -> ILevelDiameter:
 		"""No Description
 
-		Returns:
-			ILevelDiameter: 
+		Returns
+		--------
+			``ILevelDiameter`` : 
 		"""
 		pass
 
@@ -10652,8 +11872,9 @@ class ILevelDiameter(ICollectionElement):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10662,8 +11883,9 @@ class ILevelDiameter(ICollectionElement):
 	def LiquidLevel(self) -> float:
 		"""The level of the liquid.
 
-		Returns:
-			ILevelDiameter: 
+		Returns
+		--------
+			``ILevelDiameter`` : 
 		"""
 		pass
 
@@ -10675,8 +11897,9 @@ class ILevelDiameter(ICollectionElement):
 	def EquivalentDiameter(self) -> float:
 		"""The equivalent diameter in the tank.
 
-		Returns:
-			ILevelDiameter: 
+		Returns
+		--------
+			``ILevelDiameter`` : 
 		"""
 		pass
 
@@ -10690,8 +11913,9 @@ class IVariableLevelCurveUnits(IElementUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10700,8 +11924,9 @@ class IVariableLevelCurveUnits(IElementUnits):
 	def LevelUnit(self) -> IUnit:
 		"""Unit information for liquid level
 
-		Returns:
-			IVariableLevelCurveUnits: 
+		Returns
+		--------
+			``IVariableLevelCurveUnits`` : 
 		"""
 		pass
 
@@ -10709,8 +11934,9 @@ class IVariableLevelCurveUnits(IElementUnits):
 	def DiameterUnit(self) -> IUnit:
 		"""Unit information diameter
 
-		Returns:
-			IVariableLevelCurveUnits: 
+		Returns
+		--------
+			``IVariableLevelCurveUnits`` : 
 		"""
 		pass
 
@@ -10720,8 +11946,9 @@ class IHydroTankInput(IBaseTankInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -10730,8 +11957,9 @@ class IHydroTankInput(IBaseTankInput):
 	def InitialVolumeOfGas(self) -> float:
 		"""The initial volume of gas in the pressure vessel at the start of the simulation. During the transient event, this gas volume expands or compresses, depending on the transient pressures in the system. Not used in steady state or EPS analyses.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10743,8 +11971,9 @@ class IHydroTankInput(IBaseTankInput):
 	def TankInletOrificeDiameter(self) -> float:
 		"""This is the size of the opening between the gas vessel and the main pipe line. It is typically smaller than the main pipe size. It is used to compute the correct velocity through the tank inlet, so the correct headloss is computed based on the minor loss coefficient (the standard head loss equation is used: Hl = K*V2/2g.)
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10756,8 +11985,9 @@ class IHydroTankInput(IBaseTankInput):
 	def RatioOfLosses(self) -> float:
 		"""For same flow magnitude, ratio of inflow head loss to outflow loss. Default value is 2.5.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10769,8 +11999,9 @@ class IHydroTankInput(IBaseTankInput):
 	def GasLawExponent(self) -> float:
 		"""Refers to the exponent to be used in the gas law equation. The usual range of this exponent is 1.0 to 1.4.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10782,8 +12013,9 @@ class IHydroTankInput(IBaseTankInput):
 	def HasBladder(self) -> bool:
 		"""Denotes whether the gas is contained within a bladder. If it is set to true, the transient analysis automatically assumes that the bladder occupied the full-tank volume at the preset pressure at some time and that the air volume was compressed to a smaller size by the steady-state pressure in the system. In this case the full-tank volume is specified by the Volume (Tank) field under ?Physical?.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10795,8 +12027,9 @@ class IHydroTankInput(IBaseTankInput):
 	def GasPresetPressure(self) -> float:
 		"""If there is a bladder, this is the pressure of the gas prior to exposing the tank to pipeline pressure; otherwise, this should be omitted as it is ignored.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10808,8 +12041,9 @@ class IHydroTankInput(IBaseTankInput):
 	def MeanLiquidElevation(self) -> float:
 		"""The mean elevation of the liquid at the gas-liquid interface. (Liquid level referenced from a datum of 0).
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10821,8 +12055,9 @@ class IHydroTankInput(IBaseTankInput):
 	def AirInflowOrificeDiameter(self) -> float:
 		"""This is the equivalent orifice size of the opening that allows air to enter the tank.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10834,8 +12069,9 @@ class IHydroTankInput(IBaseTankInput):
 	def AirOutflowOrificeDiameter(self) -> float:
 		"""This is the equivalent orifice size of the opening that allows air to leave the tank.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10847,8 +12083,9 @@ class IHydroTankInput(IBaseTankInput):
 	def DippingTubeDiameter(self) -> float:
 		"""The diameter of the dipping or ventilation tube within the hydropneumatic tank (only applicable for the Dipping Tube tank type)
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10860,8 +12097,9 @@ class IHydroTankInput(IBaseTankInput):
 	def CompressionChamberVolume(self) -> float:
 		"""The volume of the air around the dipping tube that is compressed once the water level elevation exceeds the bottom of the dipping tube.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10873,8 +12111,9 @@ class IHydroTankInput(IBaseTankInput):
 	def TopElevationDippingTube(self) -> float:
 		"""The elevation of the top of the dipping tube and the dipping tube-type hydropneumatic tank.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10886,8 +12125,9 @@ class IHydroTankInput(IBaseTankInput):
 	def BottomElevationDippingTube(self) -> float:
 		"""The elevation of the bottom of the dipping tube.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10899,8 +12139,9 @@ class IHydroTankInput(IBaseTankInput):
 	def LevelType(self) -> GasVesselLevelType:
 		"""Specify the elevation type to be used for the transient analysis of the gas-liquid interface. The elevation in this instance is used to refer to the liquid level elevation (i.e., level referenced from a datum of zero.)
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10912,8 +12153,9 @@ class IHydroTankInput(IBaseTankInput):
 	def HydroTankType(self) -> HydroTankType:
 		"""Specify the type of Hydropneumatic Tank that this model element represents. Sealed means the tank is a fully sealed pressure vessel. Vented means the tank has an air valve attached. Dipping tube means the tank has an internal dipping or ventilation tube.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10925,8 +12167,9 @@ class IHydroTankInput(IBaseTankInput):
 	def VariableLevelCurve(self) -> IVariableLevelCurveCollection:
 		"""Defines the gas vessel chamber geometry as a function of liquid elevation versus equivalent diameter.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10934,8 +12177,9 @@ class IHydroTankInput(IBaseTankInput):
 	def TankVolume(self) -> float:
 		"""The total volume of the hydropneumatic tank. This value is used by steady state / EPS analysis for both the Constant Area Approximation and Gas Law calculation models. For a transient analysis, this value is only used if the "Has Bladder?" property under ?Transient (Physical)? is set to true.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10947,8 +12191,9 @@ class IHydroTankInput(IBaseTankInput):
 	def InflowMinorLossCoefficient(self) -> float:
 		"""Dimensionless quantity, typical value = 2.5. This property is used only for transient analysis, to restrict the flow out of the hydropneumatic tank.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10960,8 +12205,9 @@ class IHydroTankInput(IBaseTankInput):
 	def TankBaseElevation(self) -> float:
 		"""Elevation of the storage tank base used as a reference when entering water surface elevations in the tank in terms of levels.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10973,8 +12219,9 @@ class IHydroTankInput(IBaseTankInput):
 	def TreatAsJunction(self) -> bool:
 		"""Specifies whether or not to treat the hydropneumatic tank as a junction in steady state and EPS simulations. Note that if you wish to use the steady state / EPS results as input for a HAMMER transient analysis and you set this field to true, you will need to manually enter the initial gas volume of the tank for HAMMER.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10986,8 +12233,9 @@ class IHydroTankInput(IBaseTankInput):
 	def OperatingRangeType(self) -> OperatingRangeTypeEnum:
 		"""Specify whether the vertical parameters of the tank are specified as levels measured from the base elevation or as elevations measured from the global datum.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -10999,8 +12247,9 @@ class IHydroTankInput(IBaseTankInput):
 	def TankCalculationModel(self) -> TankCalculationModel:
 		"""Specifies which of the two models (constant area approximation and gas law model) should be used to simulate this hydropneumatic tank. Applies to steady state and EPS analyses only.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -11012,8 +12261,9 @@ class IHydroTankInput(IBaseTankInput):
 	def TankInitialElevation(self) -> float:
 		"""Starting water surface elevation/level in the tank. Used in steady state and EPS analyses.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -11025,8 +12275,9 @@ class IHydroTankInput(IBaseTankInput):
 	def TankInitialLevel(self) -> float:
 		"""Starting water surface elevation/level in the tank. Used in steady state and EPS analyses.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -11038,8 +12289,9 @@ class IHydroTankInput(IBaseTankInput):
 	def TankInitialLiquidVolume(self) -> float:
 		"""Starting liquid volume in the tank. For constant area approximation tanks, this volume includes the inactive volume of the tank that lies below the effective volume.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -11051,8 +12303,9 @@ class IHydroTankInput(IBaseTankInput):
 	def AirInflowOrificeAirFlowCurve(self) -> IAirFlowCurve:
 		"""The curve that defines the rate of air inflow (a ?free air? rate, measured at atmospheric pressure) into the tank versus the differential pressure across the air valve.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -11064,8 +12317,9 @@ class IHydroTankInput(IBaseTankInput):
 	def AirOutflowOrificeAirFlowCurve(self) -> IAirFlowCurve:
 		"""The curve that defines the rate of air outflow (a ?free air? rate, measured at atmospheric pressure) out of the tank versus the differential pressure across the air valve.
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -11077,8 +12331,9 @@ class IHydroTankInput(IBaseTankInput):
 	def AirFlowCalculationMethod(self) -> AirFlowCalculationMethod:
 		"""Specify whether the air valve air flow rate is determined by user-entered curves of pressure vs. air flow rate, or whether it is calculated based on a user-entered orifice diameter (not applicable for a sealed hydropneumatic tank).
 
-		Returns:
-			IHydroTankInput: 
+		Returns
+		--------
+			``IHydroTankInput`` : 
 		"""
 		pass
 
@@ -11092,8 +12347,9 @@ class IHydroTanksInput(IBaseTanksInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -11101,216 +12357,243 @@ class IHydroTanksInput(IBaseTanksInput):
 	def InitialVolumeOfGas(self) -> Dict[int,int]:
 		"""The initial volume of gas in the pressure vessel at the start of the simulation. During the transient event, this gas volume expands or compresses, depending on the transient pressures in the system. Not used in steady state or EPS analyses.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TankInletOrificeDiameter(self) -> Dict[int,int]:
 		"""This is the size of the opening between the gas vessel and the main pipe line. It is typically smaller than the main pipe size. It is used to compute the correct velocity through the tank inlet, so the correct headloss is computed based on the minor loss coefficient (the standard head loss equation is used: Hl = K*V2/2g.)
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def RatioOfLosses(self) -> Dict[int,int]:
 		"""For same flow magnitude, ratio of inflow head loss to outflow loss. Default value is 2.5.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def GasLawExponent(self) -> Dict[int,int]:
 		"""Refers to the exponent to be used in the gas law equation. The usual range of this exponent is 1.0 to 1.4.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def HasBladder(self) -> Dict[int,int]:
 		"""Denotes whether the gas is contained within a bladder. If it is set to true, the transient analysis automatically assumes that the bladder occupied the full-tank volume at the preset pressure at some time and that the air volume was compressed to a smaller size by the steady-state pressure in the system. In this case the full-tank volume is specified by the Volume (Tank) field under ?Physical?.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def GasPresetPressure(self) -> Dict[int,int]:
 		"""If there is a bladder, this is the pressure of the gas prior to exposing the tank to pipeline pressure; otherwise, this should be omitted as it is ignored.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def MeanLiquidElevation(self) -> Dict[int,int]:
 		"""The mean elevation of the liquid at the gas-liquid interface. (Liquid level referenced from a datum of 0).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def AirInflowOrificeDiameter(self) -> Dict[int,int]:
 		"""This is the equivalent orifice size of the opening that allows air to enter the tank.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def AirOutflowOrificeDiameter(self) -> Dict[int,int]:
 		"""This is the equivalent orifice size of the opening that allows air to leave the tank.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def DippingTubeDiameter(self) -> Dict[int,int]:
 		"""The diameter of the dipping or ventilation tube within the hydropneumatic tank (only applicable for the Dipping Tube tank type)
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def CompressionChamberVolume(self) -> Dict[int,int]:
 		"""The volume of the air around the dipping tube that is compressed once the water level elevation exceeds the bottom of the dipping tube.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TopElevationDippingTube(self) -> Dict[int,int]:
 		"""The elevation of the top of the dipping tube and the dipping tube-type hydropneumatic tank.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def BottomElevationDippingTube(self) -> Dict[int,int]:
 		"""The elevation of the bottom of the dipping tube.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def LevelType(self) -> Dict[int,int]:
 		"""Specify the elevation type to be used for the transient analysis of the gas-liquid interface. The elevation in this instance is used to refer to the liquid level elevation (i.e., level referenced from a datum of zero.)
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def HydroTankType(self) -> Dict[int,int]:
 		"""Specify the type of Hydropneumatic Tank that this model element represents. Sealed means the tank is a fully sealed pressure vessel. Vented means the tank has an air valve attached. Dipping tube means the tank has an internal dipping or ventilation tube.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TankVolume(self) -> Dict[int,int]:
 		"""The total volume of the hydropneumatic tank. This value is used by steady state / EPS analysis for both the Constant Area Approximation and Gas Law calculation models. For a transient analysis, this value is only used if the "Has Bladder?" property under ?Transient (Physical)? is set to true.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def InflowMinorLossCoefficient(self) -> Dict[int,int]:
 		"""Dimensionless quantity, typical value = 2.5. This property is used only for transient analysis, to restrict the flow out of the hydropneumatic tank.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TankBaseElevation(self) -> Dict[int,int]:
 		"""Elevation of the storage tank base used as a reference when entering water surface elevations in the tank in terms of levels.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TreatAsJunction(self) -> Dict[int,int]:
 		"""Specifies whether or not to treat the hydropneumatic tank as a junction in steady state and EPS simulations. Note that if you wish to use the steady state / EPS results as input for a HAMMER transient analysis and you set this field to true, you will need to manually enter the initial gas volume of the tank for HAMMER.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def OperatingRangeType(self) -> Dict[int,int]:
 		"""Specify whether the vertical parameters of the tank are specified as levels measured from the base elevation or as elevations measured from the global datum.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TankCalculationModel(self) -> Dict[int,int]:
 		"""Specifies which of the two models (constant area approximation and gas law model) should be used to simulate this hydropneumatic tank. Applies to steady state and EPS analyses only.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TankInitialElevation(self) -> Dict[int,int]:
 		"""Starting water surface elevation/level in the tank. Used in steady state and EPS analyses.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TankInitialLevel(self) -> Dict[int,int]:
 		"""Starting water surface elevation/level in the tank. Used in steady state and EPS analyses.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TankInitialLiquidVolume(self) -> Dict[int,int]:
 		"""Starting liquid volume in the tank. For constant area approximation tanks, this volume includes the inactive volume of the tank that lies below the effective volume.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def AirInflowOrificeAirFlowCurve(self) -> Dict[int,int]:
 		"""The curve that defines the rate of air inflow (a ?free air? rate, measured at atmospheric pressure) into the tank versus the differential pressure across the air valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def AirOutflowOrificeAirFlowCurve(self) -> Dict[int,int]:
 		"""The curve that defines the rate of air outflow (a ?free air? rate, measured at atmospheric pressure) out of the tank versus the differential pressure across the air valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def AirFlowCalculationMethod(self) -> Dict[int,int]:
 		"""Specify whether the air valve air flow rate is determined by user-entered curves of pressure vs. air flow rate, or whether it is calculated based on a user-entered orifice diameter (not applicable for a sealed hydropneumatic tank).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11320,8 +12603,9 @@ class IHydroTankResults(IBaseTankResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -11330,8 +12614,9 @@ class IHydroTankResults(IBaseTankResults):
 	def CalculatedGasVolume(self) -> Union[float, None]:
 		"""The calculated volume of gas in the hydropneumatic tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -11339,19 +12624,22 @@ class IHydroTankResults(IBaseTankResults):
 	def CalculatedGasVolume(self, timeStepIndex: int) -> Union[float, None]:
 		"""The calculated volume of gas in the hydropneumatic tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def CalculatedGasVolumes(self) -> array(Union[float, None]):
+	def CalculatedGasVolumes(self) -> List[Union[float, None]]:
 		"""The calculated volume of gas in the hydropneumatic tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -11359,8 +12647,9 @@ class IHydroTankResults(IBaseTankResults):
 	def CalculatedPressure(self) -> Union[float, None]:
 		"""The calculated pressure in the hydropenumatic tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -11368,19 +12657,22 @@ class IHydroTankResults(IBaseTankResults):
 	def CalculatedPressure(self, timeStepIndex: int) -> Union[float, None]:
 		"""The calculated pressure in the hydropenumatic tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def CalculatedPressures(self) -> array(Union[float, None]):
+	def CalculatedPressures(self) -> List[Union[float, None]]:
 		"""The calculated pressure in the hydropenumatic tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -11388,8 +12680,9 @@ class IHydroTankResults(IBaseTankResults):
 	def CalculatedLiquidVolume(self) -> Union[float, None]:
 		"""The calculated liquid volume in the hydropneumatic tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -11397,19 +12690,22 @@ class IHydroTankResults(IBaseTankResults):
 	def CalculatedLiquidVolume(self, timeStepIndex: int) -> Union[float, None]:
 		"""The calculated liquid volume in the hydropneumatic tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def CalculatedLiquidVolumes(self) -> array(Union[float, None]):
+	def CalculatedLiquidVolumes(self) -> List[Union[float, None]]:
 		"""The calculated liquid volume in the hydropneumatic tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -11417,8 +12713,9 @@ class IHydroTankResults(IBaseTankResults):
 	def CalculatedPercentFull(self) -> Union[float, None]:
 		"""The ratio of the fluid volume in the tank to the calculated full volume of the tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -11426,67 +12723,76 @@ class IHydroTankResults(IBaseTankResults):
 	def CalculatedPercentFull(self, timeStepIndex: int) -> Union[float, None]:
 		"""The ratio of the fluid volume in the tank to the calculated full volume of the tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def CalculatedPercentFulls(self) -> array(Union[float, None]):
+	def CalculatedPercentFulls(self) -> List[Union[float, None]]:
 		"""The ratio of the fluid volume in the tank to the calculated full volume of the tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
 	def MaximumTransientGasPressure(self) -> Union[float, None]:
 		"""Maximum gas pressure at hydropneumatic tank over the course of the transient simulation.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
 	def MinimumTransientGasPressure(self) -> Union[float, None]:
 		"""Minimum gas pressure at hydropneumatic tank over the course of the transient simulation.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
 	def MaximumTransientGasVolume(self) -> Union[float, None]:
 		"""Maximum gas volume at hydropneumatic tank over the course of the transient simulation.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
 	def MinimumTransientGasVolume(self) -> Union[float, None]:
 		"""Minimum gas volume at hydropneumatic tank over the course of the transient simulation.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
 	def MaximumTransientWaterLevel(self) -> Union[float, None]:
 		"""Maximum water level at hydropneumatic tank over the course of the transient simulation.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
 	def MinimumTransientWaterLevel(self) -> Union[float, None]:
 		"""Minimum water level at hydropneumatic tank over the course of the transient simulation.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -11496,8 +12802,9 @@ class IHydroTanksResults(IBaseTanksResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -11506,8 +12813,9 @@ class IHydroTanksResults(IBaseTanksResults):
 	def CalculatedGasVolumes(self) -> Dict[int,int]:
 		"""The calculated volume of gas in the hydropneumatic tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11515,11 +12823,13 @@ class IHydroTanksResults(IBaseTanksResults):
 	def CalculatedGasVolumes(self, timeStepIndex: int) -> Dict[int,int]:
 		"""The calculated volume of gas in the hydropneumatic tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11527,12 +12837,14 @@ class IHydroTanksResults(IBaseTanksResults):
 	def CalculatedGasVolumes(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11540,8 +12852,9 @@ class IHydroTanksResults(IBaseTanksResults):
 	def CalculatedPressures(self) -> Dict[int,int]:
 		"""The calculated pressure in the hydropenumatic tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11549,11 +12862,13 @@ class IHydroTanksResults(IBaseTanksResults):
 	def CalculatedPressures(self, timeStepIndex: int) -> Dict[int,int]:
 		"""The calculated pressure in the hydropenumatic tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11561,12 +12876,14 @@ class IHydroTanksResults(IBaseTanksResults):
 	def CalculatedPressures(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11574,8 +12891,9 @@ class IHydroTanksResults(IBaseTanksResults):
 	def CalculatedLiquidVolumes(self) -> Dict[int,int]:
 		"""The calculated liquid volume in the hydropneumatic tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11583,11 +12901,13 @@ class IHydroTanksResults(IBaseTanksResults):
 	def CalculatedLiquidVolumes(self, timeStepIndex: int) -> Dict[int,int]:
 		"""The calculated liquid volume in the hydropneumatic tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11595,12 +12915,14 @@ class IHydroTanksResults(IBaseTanksResults):
 	def CalculatedLiquidVolumes(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11608,8 +12930,9 @@ class IHydroTanksResults(IBaseTanksResults):
 	def CalculatedPercentFulls(self) -> Dict[int,int]:
 		"""The ratio of the fluid volume in the tank to the calculated full volume of the tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11617,11 +12940,13 @@ class IHydroTanksResults(IBaseTanksResults):
 	def CalculatedPercentFulls(self, timeStepIndex: int) -> Dict[int,int]:
 		"""The ratio of the fluid volume in the tank to the calculated full volume of the tank. This result is based on the steady state Tank Calculation Model, however, if the tank is a Dipping Tube tank with a defined Variable Elevation Curve, this result is re-calculated to be representative of the dipping tube tank geometry. If the tank is simulated as a junction in steady state this result will be reported as N/A.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11629,60 +12954,68 @@ class IHydroTanksResults(IBaseTanksResults):
 	def CalculatedPercentFulls(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def MaximumTransientGasPressures(self) -> Dict[int,int]:
 		"""Maximum gas pressure at hydropneumatic tank over the course of the transient simulation.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def MinimumTransientGasPressures(self) -> Dict[int,int]:
 		"""Minimum gas pressure at hydropneumatic tank over the course of the transient simulation.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def MaximumTransientGasVolumes(self) -> Dict[int,int]:
 		"""Maximum gas volume at hydropneumatic tank over the course of the transient simulation.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def MinimumTransientGasVolumes(self) -> Dict[int,int]:
 		"""Minimum gas volume at hydropneumatic tank over the course of the transient simulation.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def MaximumTransientWaterLevels(self) -> Dict[int,int]:
 		"""Maximum water level at hydropneumatic tank over the course of the transient simulation.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def MinimumTransientWaterLevels(self) -> Dict[int,int]:
 		"""Minimum water level at hydropneumatic tank over the course of the transient simulation.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11692,8 +13025,9 @@ class IHydropneumaticTankUnits(IBaseTankUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -11702,8 +13036,9 @@ class IHydropneumaticTankUnits(IBaseTankUnits):
 	def VolumeUnit(self) -> IUnit:
 		"""Unit information for volume
 
-		Returns:
-			IHydropneumaticTankUnits: 
+		Returns
+		--------
+			``IHydropneumaticTankUnits`` : 
 		"""
 		pass
 
@@ -11711,8 +13046,9 @@ class IHydropneumaticTankUnits(IBaseTankUnits):
 	def DiameterUnit(self) -> IUnit:
 		"""Unit information for diameter
 
-		Returns:
-			IHydropneumaticTankUnits: 
+		Returns
+		--------
+			``IHydropneumaticTankUnits`` : 
 		"""
 		pass
 
@@ -11720,8 +13056,9 @@ class IHydropneumaticTankUnits(IBaseTankUnits):
 	def GasExponentUnit(self) -> IUnit:
 		"""Unit information for gas exponent
 
-		Returns:
-			IHydropneumaticTankUnits: 
+		Returns
+		--------
+			``IHydropneumaticTankUnits`` : 
 		"""
 		pass
 
@@ -11729,8 +13066,9 @@ class IHydropneumaticTankUnits(IBaseTankUnits):
 	def PressureUnit(self) -> IUnit:
 		"""Unit information for pressure
 
-		Returns:
-			IHydropneumaticTankUnits: 
+		Returns
+		--------
+			``IHydropneumaticTankUnits`` : 
 		"""
 		pass
 
@@ -11738,8 +13076,9 @@ class IHydropneumaticTankUnits(IBaseTankUnits):
 	def LengthUnit(self) -> IUnit:
 		"""Unit information for length
 
-		Returns:
-			IHydropneumaticTankUnits: 
+		Returns
+		--------
+			``IHydropneumaticTankUnits`` : 
 		"""
 		pass
 
@@ -11747,8 +13086,9 @@ class IHydropneumaticTankUnits(IBaseTankUnits):
 	def PercentUnit(self) -> IUnit:
 		"""Unit information for percent full
 
-		Returns:
-			IHydropneumaticTankUnits: 
+		Returns
+		--------
+			``IHydropneumaticTankUnits`` : 
 		"""
 		pass
 
@@ -11758,8 +13098,9 @@ class IHydropneumaticTank(IWaterNetworkElement[IHydropneumaticTanks, IHydropneum
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -11770,8 +13111,9 @@ class IHydropneumaticTanks(IWaterNetworkElements[IHydropneumaticTanks, IHydropne
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -11782,8 +13124,9 @@ class IHammerNodeInput(IBaseNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -11794,8 +13137,9 @@ class IHammerNodesInput(IBaseNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -11806,8 +13150,9 @@ class IHammerNodeResults(IBaseNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -11816,8 +13161,9 @@ class IHammerNodeResults(IBaseNodeResults):
 	def Pressure(self) -> Union[float, None]:
 		"""Calculated pressure at node.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -11825,19 +13171,22 @@ class IHammerNodeResults(IBaseNodeResults):
 	def Pressure(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated pressure at node.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Pressures(self) -> array(Union[float, None]):
+	def Pressures(self) -> List[Union[float, None]]:
 		"""Calculated pressure at node.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -11845,8 +13194,9 @@ class IHammerNodeResults(IBaseNodeResults):
 	def PressureHead(self) -> Union[float, None]:
 		"""Calculated pressure head at node.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -11854,19 +13204,22 @@ class IHammerNodeResults(IBaseNodeResults):
 	def PressureHead(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated pressure head at node.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def PressureHeads(self) -> array(Union[float, None]):
+	def PressureHeads(self) -> List[Union[float, None]]:
 		"""Calculated pressure head at node.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -11876,8 +13229,9 @@ class IHammerNodesResults(IBaseNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -11886,8 +13240,9 @@ class IHammerNodesResults(IBaseNodesResults):
 	def Pressures(self) -> Dict[int,int]:
 		"""Calculated pressure at node.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11895,11 +13250,13 @@ class IHammerNodesResults(IBaseNodesResults):
 	def Pressures(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated pressure at node.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11907,12 +13264,14 @@ class IHammerNodesResults(IBaseNodesResults):
 	def Pressures(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11920,8 +13279,9 @@ class IHammerNodesResults(IBaseNodesResults):
 	def PressureHeads(self) -> Dict[int,int]:
 		"""Calculated pressure head at node.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11929,11 +13289,13 @@ class IHammerNodesResults(IBaseNodesResults):
 	def PressureHeads(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated pressure head at node.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11941,12 +13303,14 @@ class IHammerNodesResults(IBaseNodesResults):
 	def PressureHeads(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -11956,8 +13320,9 @@ class IHammerNodeUnits(IBaseNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -11966,8 +13331,9 @@ class IHammerNodeUnits(IBaseNodeUnits):
 	def PressureUnit(self) -> IUnit:
 		"""Unit information for pressure
 
-		Returns:
-			IHammerNodeUnits: 
+		Returns
+		--------
+			``IHammerNodeUnits`` : 
 		"""
 		pass
 
@@ -11975,8 +13341,9 @@ class IHammerNodeUnits(IBaseNodeUnits):
 	def PressureHeadUnit(self) -> IUnit:
 		"""Unit information for pressure head
 
-		Returns:
-			IHammerNodeUnits: 
+		Returns
+		--------
+			``IHammerNodeUnits`` : 
 		"""
 		pass
 
@@ -11986,8 +13353,9 @@ class IFlowPatternCollection(ICollectionElements[IFlowPatterns, IFlowPattern, IF
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -11998,8 +13366,9 @@ class IFlowPatterns(ICollection[IFlowPattern]):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -12008,12 +13377,14 @@ class IFlowPatterns(ICollection[IFlowPattern]):
 	def Add(self, time: float, flow: float) -> IFlowPattern:
 		"""Adds a new row to the collection (in-memory) with the provided time and flow values.
 
-		Args:
-			time(float): time
-			flow(float): flow
+		Args
+		--------
+			time (``float``) :  time
+			flow (``float``) :  flow
 
-		Returns:
-			IFlowPattern: 
+		Returns
+		--------
+			``IFlowPattern`` : 
 		"""
 		pass
 
@@ -12021,8 +13392,9 @@ class IFlowPatterns(ICollection[IFlowPattern]):
 	def Add(self) -> IFlowPattern:
 		"""No Description
 
-		Returns:
-			IFlowPattern: 
+		Returns
+		--------
+			``IFlowPattern`` : 
 		"""
 		pass
 
@@ -12032,8 +13404,9 @@ class IFlowPattern(ICollectionElement):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -12042,8 +13415,9 @@ class IFlowPattern(ICollectionElement):
 	def Time(self) -> float:
 		"""No Description
 
-		Returns:
-			IFlowPattern: 
+		Returns
+		--------
+			``IFlowPattern`` : 
 		"""
 		pass
 
@@ -12055,8 +13429,9 @@ class IFlowPattern(ICollectionElement):
 	def Flow(self) -> float:
 		"""No Description
 
-		Returns:
-			IFlowPattern: 
+		Returns
+		--------
+			``IFlowPattern`` : 
 		"""
 		pass
 
@@ -12070,8 +13445,9 @@ class IFlowPatternUnits(IElementUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -12080,8 +13456,9 @@ class IFlowPatternUnits(IElementUnits):
 	def TimeUnit(self) -> IUnit:
 		"""The unit information for time in the collection.
 
-		Returns:
-			IFlowPatternUnits: 
+		Returns
+		--------
+			``IFlowPatternUnits`` : 
 		"""
 		pass
 
@@ -12089,8 +13466,9 @@ class IFlowPatternUnits(IElementUnits):
 	def FlowUnit(self) -> IUnit:
 		"""The unit information for flow in the collection
 
-		Returns:
-			IFlowPatternUnits: 
+		Returns
+		--------
+			``IFlowPatternUnits`` : 
 		"""
 		pass
 
@@ -12100,8 +13478,9 @@ class IHeadPatternCollection(ICollectionElements[IHeadPatterns, IHeadPattern, IH
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -12112,8 +13491,9 @@ class IHeadPatterns(ICollection[IHeadPattern]):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -12122,12 +13502,14 @@ class IHeadPatterns(ICollection[IHeadPattern]):
 	def Add(self, time: float, head: float) -> IHeadPattern:
 		"""No Description
 
-		Args:
-			time(float): time
-			head(float): head
+		Args
+		--------
+			time (``float``) :  time
+			head (``float``) :  head
 
-		Returns:
-			IHeadPattern: 
+		Returns
+		--------
+			``IHeadPattern`` : 
 		"""
 		pass
 
@@ -12135,8 +13517,9 @@ class IHeadPatterns(ICollection[IHeadPattern]):
 	def Add(self) -> IHeadPattern:
 		"""No Description
 
-		Returns:
-			IHeadPattern: 
+		Returns
+		--------
+			``IHeadPattern`` : 
 		"""
 		pass
 
@@ -12146,8 +13529,9 @@ class IHeadPattern(ICollectionElement):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -12156,8 +13540,9 @@ class IHeadPattern(ICollectionElement):
 	def Time(self) -> float:
 		"""No Description
 
-		Returns:
-			IHeadPattern: 
+		Returns
+		--------
+			``IHeadPattern`` : 
 		"""
 		pass
 
@@ -12169,8 +13554,9 @@ class IHeadPattern(ICollectionElement):
 	def Head(self) -> float:
 		"""No Description
 
-		Returns:
-			IHeadPattern: 
+		Returns
+		--------
+			``IHeadPattern`` : 
 		"""
 		pass
 
@@ -12184,8 +13570,9 @@ class IHeadPatternUnits(IElementUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -12194,8 +13581,9 @@ class IHeadPatternUnits(IElementUnits):
 	def TimeUnit(self) -> IUnit:
 		"""Unit information for time in the collection
 
-		Returns:
-			IHeadPatternUnits: 
+		Returns
+		--------
+			``IHeadPatternUnits`` : 
 		"""
 		pass
 
@@ -12203,8 +13591,9 @@ class IHeadPatternUnits(IElementUnits):
 	def HeadUnit(self) -> IUnit:
 		"""Unit information for head in the collection
 
-		Returns:
-			IHeadPatternUnits: 
+		Returns
+		--------
+			``IHeadPatternUnits`` : 
 		"""
 		pass
 
@@ -12214,8 +13603,9 @@ class IPeriodicHeadFlowInput(IHammerNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -12224,8 +13614,9 @@ class IPeriodicHeadFlowInput(IHammerNodeInput):
 	def Sinusoidal(self) -> bool:
 		"""If sinusoidal, then mean value, amplitude and phase are entered; otherwise, a table of values is required. A sinusoidal quantity X has the form: X = X0 + A sin( 2 * PI * t / T + Phase ).
 
-		Returns:
-			IPeriodicHeadFlowInput: 
+		Returns
+		--------
+			``IPeriodicHeadFlowInput`` : 
 		"""
 		pass
 
@@ -12237,8 +13628,9 @@ class IPeriodicHeadFlowInput(IHammerNodeInput):
 	def HeadMeanValue(self) -> float:
 		"""The mean head value. Required only if sinusoidal data specified.
 
-		Returns:
-			IPeriodicHeadFlowInput: 
+		Returns
+		--------
+			``IPeriodicHeadFlowInput`` : 
 		"""
 		pass
 
@@ -12250,8 +13642,9 @@ class IPeriodicHeadFlowInput(IHammerNodeInput):
 	def HeadAmplitude(self) -> float:
 		"""The amplitude of the sinusoidal head curve. Required only if sinusoidal data specified.
 
-		Returns:
-			IPeriodicHeadFlowInput: 
+		Returns
+		--------
+			``IPeriodicHeadFlowInput`` : 
 		"""
 		pass
 
@@ -12263,8 +13656,9 @@ class IPeriodicHeadFlowInput(IHammerNodeInput):
 	def Phase(self) -> float:
 		"""Phase of the sinusoidal flow or head curve. Default option is 0 such that periodic component of head or flow is zero at time zero.
 
-		Returns:
-			IPeriodicHeadFlowInput: 
+		Returns
+		--------
+			``IPeriodicHeadFlowInput`` : 
 		"""
 		pass
 
@@ -12276,8 +13670,9 @@ class IPeriodicHeadFlowInput(IHammerNodeInput):
 	def Period(self) -> float:
 		"""Oscillation period of the sinusoidal flow or head curve (must be positive), or the period after which a tabular flow or head pattern repeats.
 
-		Returns:
-			IPeriodicHeadFlowInput: 
+		Returns
+		--------
+			``IPeriodicHeadFlowInput`` : 
 		"""
 		pass
 
@@ -12289,8 +13684,9 @@ class IPeriodicHeadFlowInput(IHammerNodeInput):
 	def FlowMeanValue(self) -> float:
 		"""The mean flow value. Required only if sinusoidal data specified.
 
-		Returns:
-			IPeriodicHeadFlowInput: 
+		Returns
+		--------
+			``IPeriodicHeadFlowInput`` : 
 		"""
 		pass
 
@@ -12302,8 +13698,9 @@ class IPeriodicHeadFlowInput(IHammerNodeInput):
 	def FlowAmplitude(self) -> float:
 		"""The amplitude of the sinusoidal flow curve. Required only if sinusoidal data specified.
 
-		Returns:
-			IPeriodicHeadFlowInput: 
+		Returns
+		--------
+			``IPeriodicHeadFlowInput`` : 
 		"""
 		pass
 
@@ -12315,8 +13712,9 @@ class IPeriodicHeadFlowInput(IHammerNodeInput):
 	def TransientParameter(self) -> TransientParameterType:
 		"""Specifies whether the periodic head/flow element is used to simulate a periodic head or periodic flow.
 
-		Returns:
-			IPeriodicHeadFlowInput: 
+		Returns
+		--------
+			``IPeriodicHeadFlowInput`` : 
 		"""
 		pass
 
@@ -12328,8 +13726,9 @@ class IPeriodicHeadFlowInput(IHammerNodeInput):
 	def FlowPatternCollection(self) -> IFlowPatternCollection:
 		"""A collection of time/flow pairs representing the transient flow pattern.
 
-		Returns:
-			IPeriodicHeadFlowInput: 
+		Returns
+		--------
+			``IPeriodicHeadFlowInput`` : 
 		"""
 		pass
 
@@ -12337,8 +13736,9 @@ class IPeriodicHeadFlowInput(IHammerNodeInput):
 	def HeadPatternCollection(self) -> IHeadPatternCollection:
 		"""A collection of time/head pairs representing the transient flow pattern.
 
-		Returns:
-			IPeriodicHeadFlowInput: 
+		Returns
+		--------
+			``IPeriodicHeadFlowInput`` : 
 		"""
 		pass
 
@@ -12348,8 +13748,9 @@ class IPeriodicHeadFlowsInput(IHammerNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -12358,8 +13759,9 @@ class IPeriodicHeadFlowsInput(IHammerNodesInput):
 	def Sinusoidals(self) -> Dict[int,int]:
 		"""If sinusoidal, then mean value, amplitude and phase are entered; otherwise, a table of values is required. A sinusoidal quantity X has the form: X = X0 + A sin( 2 * PI * t / T + Phase ).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12367,11 +13769,13 @@ class IPeriodicHeadFlowsInput(IHammerNodesInput):
 	def Sinusoidals(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12379,8 +13783,9 @@ class IPeriodicHeadFlowsInput(IHammerNodesInput):
 	def HeadMeanValues(self) -> Dict[int,int]:
 		"""The mean head value. Required only if sinusoidal data specified.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12388,11 +13793,13 @@ class IPeriodicHeadFlowsInput(IHammerNodesInput):
 	def HeadMeanValues(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12400,8 +13807,9 @@ class IPeriodicHeadFlowsInput(IHammerNodesInput):
 	def HeadAmplitudes(self) -> Dict[int,int]:
 		"""The amplitude of the sinusoidal head curve. Required only if sinusoidal data specified.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12409,11 +13817,13 @@ class IPeriodicHeadFlowsInput(IHammerNodesInput):
 	def HeadAmplitudes(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12421,8 +13831,9 @@ class IPeriodicHeadFlowsInput(IHammerNodesInput):
 	def Phases(self) -> Dict[int,int]:
 		"""Phase of the sinusoidal flow or head curve. Default option is 0 such that periodic component of head or flow is zero at time zero.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12430,11 +13841,13 @@ class IPeriodicHeadFlowsInput(IHammerNodesInput):
 	def Phases(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12442,8 +13855,9 @@ class IPeriodicHeadFlowsInput(IHammerNodesInput):
 	def Periods(self) -> Dict[int,int]:
 		"""Oscillation period of the sinusoidal flow or head curve (must be positive), or the period after which a tabular flow or head pattern repeats.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12451,11 +13865,13 @@ class IPeriodicHeadFlowsInput(IHammerNodesInput):
 	def Periods(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12463,8 +13879,9 @@ class IPeriodicHeadFlowsInput(IHammerNodesInput):
 	def FlowMeanValues(self) -> Dict[int,int]:
 		"""The mean flow value. Required only if sinusoidal data specified.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12472,11 +13889,13 @@ class IPeriodicHeadFlowsInput(IHammerNodesInput):
 	def FlowMeanValues(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12484,8 +13903,9 @@ class IPeriodicHeadFlowsInput(IHammerNodesInput):
 	def FlowAmplitudes(self) -> Dict[int,int]:
 		"""The amplitude of the sinusoidal flow curve. Required only if sinusoidal data specified.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12493,11 +13913,13 @@ class IPeriodicHeadFlowsInput(IHammerNodesInput):
 	def FlowAmplitudes(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12505,8 +13927,9 @@ class IPeriodicHeadFlowsInput(IHammerNodesInput):
 	def TransientParameters(self) -> Dict[int,int]:
 		"""Specifies whether the periodic head/flow element is used to simulate a periodic head or periodic flow.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12514,11 +13937,13 @@ class IPeriodicHeadFlowsInput(IHammerNodesInput):
 	def TransientParameters(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12528,8 +13953,9 @@ class IPeriodicHeadFlowResults(IHammerNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -12538,8 +13964,9 @@ class IPeriodicHeadFlowResults(IHammerNodeResults):
 	def CalculatedDischarge(self) -> Union[float, None]:
 		"""Calculated discharge from the node.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -12547,19 +13974,22 @@ class IPeriodicHeadFlowResults(IHammerNodeResults):
 	def CalculatedDischarge(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated discharge from the node.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def CalculatedDischarges(self) -> array(Union[float, None]):
+	def CalculatedDischarges(self) -> List[Union[float, None]]:
 		"""Calculated discharge from the node.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -12569,8 +13999,9 @@ class IPeriodicHeadFlowsResults(IHammerNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -12579,8 +14010,9 @@ class IPeriodicHeadFlowsResults(IHammerNodesResults):
 	def CalculatedDischarges(self) -> Dict[int,int]:
 		"""Calculated discharge from the node.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12588,11 +14020,13 @@ class IPeriodicHeadFlowsResults(IHammerNodesResults):
 	def CalculatedDischarges(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated discharge from the node.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12600,12 +14034,14 @@ class IPeriodicHeadFlowsResults(IHammerNodesResults):
 	def CalculatedDischarges(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -12615,8 +14051,9 @@ class IPeriodicHeadFlowUnits(IHammerNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -12625,8 +14062,9 @@ class IPeriodicHeadFlowUnits(IHammerNodeUnits):
 	def LengthUnit(self) -> IUnit:
 		"""Unit information for mean head and head amplitude
 
-		Returns:
-			IPeriodicHeadFlowUnits: 
+		Returns
+		--------
+			``IPeriodicHeadFlowUnits`` : 
 		"""
 		pass
 
@@ -12634,8 +14072,9 @@ class IPeriodicHeadFlowUnits(IHammerNodeUnits):
 	def AngleUnit(self) -> IUnit:
 		"""Unit information for phase
 
-		Returns:
-			IPeriodicHeadFlowUnits: 
+		Returns
+		--------
+			``IPeriodicHeadFlowUnits`` : 
 		"""
 		pass
 
@@ -12643,8 +14082,9 @@ class IPeriodicHeadFlowUnits(IHammerNodeUnits):
 	def PeriodUnit(self) -> IUnit:
 		"""Unit information for period value.
 
-		Returns:
-			IPeriodicHeadFlowUnits: 
+		Returns
+		--------
+			``IPeriodicHeadFlowUnits`` : 
 		"""
 		pass
 
@@ -12652,8 +14092,9 @@ class IPeriodicHeadFlowUnits(IHammerNodeUnits):
 	def FlowUnit(self) -> IUnit:
 		"""Unit information for mean flow and flow amplitude.
 
-		Returns:
-			IPeriodicHeadFlowUnits: 
+		Returns
+		--------
+			``IPeriodicHeadFlowUnits`` : 
 		"""
 		pass
 
@@ -12663,8 +14104,9 @@ class IPeriodicHeadFlows(IWaterNetworkElements[IPeriodicHeadFlows, IPeriodicHead
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -12675,8 +14117,9 @@ class IPeriodicHeadFlow(IWaterNetworkElement[IPeriodicHeadFlows, IPeriodicHeadFl
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -12687,8 +14130,9 @@ class IAirValveInput(IHammerNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -12697,8 +14141,9 @@ class IAirValveInput(IHammerNodeInput):
 	def InitialAirvolume(self) -> float:
 		"""Volume of air near the valve at initial time - default is zero. If volume is non-zero, then pressure must be zero.
 
-		Returns:
-			IAirValveInput: 
+		Returns
+		--------
+			``IAirValveInput`` : 
 		"""
 		pass
 
@@ -12710,8 +14155,9 @@ class IAirValveInput(IHammerNodeInput):
 	def SmallAirOutflowOrificeDiameter(self) -> float:
 		"""Refers to the discharge of air when the air volume is less than the transition volume (TV), or the air pressure is greater than the transition pressure (TP). This diameter is typically small enough for the injected air to be compressed.
 
-		Returns:
-			IAirValveInput: 
+		Returns
+		--------
+			``IAirValveInput`` : 
 		"""
 		pass
 
@@ -12723,8 +14169,9 @@ class IAirValveInput(IHammerNodeInput):
 	def TransitionVolume(self) -> float:
 		"""This is the local volume of air at the air valve below which the transient solver switches from using the large air outflow orifice to the small air outflow orifice (in order to minimize transients). This volume often corresponds to the volume of the body of the air valve.
 
-		Returns:
-			IAirValveInput: 
+		Returns
+		--------
+			``IAirValveInput`` : 
 		"""
 		pass
 
@@ -12736,8 +14183,9 @@ class IAirValveInput(IHammerNodeInput):
 	def LargeAirOutflowOrificeDiameter(self) -> float:
 		"""Refers to the discharge of air when the air volume is greater than or equal to the transition volume (TV), or the air pressure is less than or equal to the transition pressure (TP). This diameter is typically larger than the diameter when the volume is less than the TV or greater than the TP.
 
-		Returns:
-			IAirValveInput: 
+		Returns
+		--------
+			``IAirValveInput`` : 
 		"""
 		pass
 
@@ -12749,8 +14197,9 @@ class IAirValveInput(IHammerNodeInput):
 	def AirInflowOrificeDiameter(self) -> float:
 		"""Diameter of orifice through which air is injected into the pipeline. This diameter should be large enough to allow free entry of air into the pipeline.
 
-		Returns:
-			IAirValveInput: 
+		Returns
+		--------
+			``IAirValveInput`` : 
 		"""
 		pass
 
@@ -12762,8 +14211,9 @@ class IAirValveInput(IHammerNodeInput):
 	def AirOutflowOrificeDiameter(self) -> float:
 		"""Diameter of the orifice through which air is expelled from the pipeline.
 
-		Returns:
-			IAirValveInput: 
+		Returns
+		--------
+			``IAirValveInput`` : 
 		"""
 		pass
 
@@ -12775,8 +14225,9 @@ class IAirValveInput(IHammerNodeInput):
 	def TransitionPressure(self) -> float:
 		"""This is the local internal system air pressure at the air valve above which the transient solver will switch from using the large air outflow orifice to the small air outflow orifice (in order to minimize transients).
 
-		Returns:
-			IAirValveInput: 
+		Returns
+		--------
+			``IAirValveInput`` : 
 		"""
 		pass
 
@@ -12788,8 +14239,9 @@ class IAirValveInput(IHammerNodeInput):
 	def SmallAirFlowCurve(self) -> IAirFlowCurve:
 		"""Curve that defines discharge of air when the air volume is less than the transition volume (TV), or the air pressure is greater than the transition pressure (TP).
 
-		Returns:
-			IAirValveInput: 
+		Returns
+		--------
+			``IAirValveInput`` : 
 		"""
 		pass
 
@@ -12801,8 +14253,9 @@ class IAirValveInput(IHammerNodeInput):
 	def LargeAirFlowCurve(self) -> IAirFlowCurve:
 		"""Curve that defines discharge of air when the air volume is greater than or equal to the transition volume (TV), or the air pressure is less than or equal to the transition pressure (TP).
 
-		Returns:
-			IAirValveInput: 
+		Returns
+		--------
+			``IAirValveInput`` : 
 		"""
 		pass
 
@@ -12814,8 +14267,9 @@ class IAirValveInput(IHammerNodeInput):
 	def AirValveType(self) -> AirValveTypeEnum:
 		"""Select the type of Air Valve to simulate. Choices are Slow Closing, Double Acting, Triple Acting and Vacuum Breaker. The choice you make will only affect the transient engine.
 
-		Returns:
-			IAirValveInput: 
+		Returns
+		--------
+			``IAirValveInput`` : 
 		"""
 		pass
 
@@ -12827,8 +14281,9 @@ class IAirValveInput(IHammerNodeInput):
 	def AirValveTransitionType(self) -> AirValveTransitionType:
 		"""Users can select whether the transient solver switches from the large air outflow orifice to the small air outflow orifice based on a Transition Volume or a Transition Pressure.
 
-		Returns:
-			IAirValveInput: 
+		Returns
+		--------
+			``IAirValveInput`` : 
 		"""
 		pass
 
@@ -12840,8 +14295,9 @@ class IAirValveInput(IHammerNodeInput):
 	def TimeToClose(self) -> float:
 		"""For a slow-closing air valve, the valve starts to close linearly with respect to area once air begins to exit the pipe. If air subsequently re-enters, then the air valve opens fully again. For a valve with linear area change, the valve will close linearly over this time, starting at the beginning of the simulation if this value is greater than zero. If this value equals zero a valve with linear area change will close when reverse flow is first sensed and will remain closed for the remainder of the simulation. For an air valve, adiabatic compression (i.e., gas law exponent = 1.4) is assumed.
 
-		Returns:
-			IAirValveInput: 
+		Returns
+		--------
+			``IAirValveInput`` : 
 		"""
 		pass
 
@@ -12853,8 +14309,9 @@ class IAirValveInput(IHammerNodeInput):
 	def ReportPeriod(self) -> int:
 		"""Number of time steps between successive printouts of operation. By default, this printout is suppressed.
 
-		Returns:
-			IAirValveInput: 
+		Returns
+		--------
+			``IAirValveInput`` : 
 		"""
 		pass
 
@@ -12866,8 +14323,9 @@ class IAirValveInput(IHammerNodeInput):
 	def TreatAirValveAsJunction(self) -> bool:
 		"""Specifies whether or not to treat the air-valve as a junction element in steady state and EPS simulations. If false, the valve may allow part full flow subject to the prevailing hydraulic conditions.
 
-		Returns:
-			IAirValveInput: 
+		Returns
+		--------
+			``IAirValveInput`` : 
 		"""
 		pass
 
@@ -12879,8 +14337,9 @@ class IAirValveInput(IHammerNodeInput):
 	def InflowOrificeAirFlowCurve(self) -> IAirFlowCurve:
 		"""The curve that defines the rate of air inflow (a ?free air? rate, measured at atmospheric pressure) into the tank versus the differential pressure across the air valve.
 
-		Returns:
-			IAirValveInput: 
+		Returns
+		--------
+			``IAirValveInput`` : 
 		"""
 		pass
 
@@ -12892,8 +14351,9 @@ class IAirValveInput(IHammerNodeInput):
 	def OutflowOrificeAirFlowCurve(self) -> IAirFlowCurve:
 		"""The curve that defines the rate of air outflow (a ?free air? rate, measured at atmospheric pressure) out of the tank versus the differential pressure across the air valve.
 
-		Returns:
-			IAirValveInput: 
+		Returns
+		--------
+			``IAirValveInput`` : 
 		"""
 		pass
 
@@ -12905,8 +14365,9 @@ class IAirValveInput(IHammerNodeInput):
 	def AirFlowCalculationMethod(self) -> AirFlowCalculationMethod:
 		"""Specify whether the air valve air flow rate is determined by user-entered curves of pressure vs. air flow rate, or whether it is calculated based on a user-entered orifice diameter (not applicable for a sealed hydropneumatic tank).
 
-		Returns:
-			IAirValveInput: 
+		Returns
+		--------
+			``IAirValveInput`` : 
 		"""
 		pass
 
@@ -12920,8 +14381,9 @@ class IAirValvesInput(IHammerNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -12929,136 +14391,153 @@ class IAirValvesInput(IHammerNodesInput):
 	def InitialAirVolumes(self) -> Dict[int,int]:
 		"""Volume of air near the valve at initial time - default is zero. If volume is non-zero, then pressure must be zero.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SmallAirOutflowOrificeDiameters(self) -> Dict[int,int]:
 		"""Refers to the discharge of air when the air volume is less than the transition volume (TV), or the air pressure is greater than the transition pressure (TP). This diameter is typically small enough for the injected air to be compressed.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TransitionVolumes(self) -> Dict[int,int]:
 		"""This is the local volume of air at the air valve below which the transient solver switches from using the large air outflow orifice to the small air outflow orifice (in order to minimize transients). This volume often corresponds to the volume of the body of the air valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def LargeAirOutflowOrificeDiameters(self) -> Dict[int,int]:
 		"""Refers to the discharge of air when the air volume is greater than or equal to the transition volume (TV), or the air pressure is less than or equal to the transition pressure (TP). This diameter is typically larger than the diameter when the volume is less than the TV or greater than the TP.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def AirInflowOrificeDiameters(self) -> Dict[int,int]:
 		"""Diameter of orifice through which air is injected into the pipeline. This diameter should be large enough to allow free entry of air into the pipeline.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def AirOutflowOrificeDiameters(self) -> Dict[int,int]:
 		"""Diameter of the orifice through which air is expelled from the pipeline.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TransitionPressures(self) -> Dict[int,int]:
 		"""This is the local internal system air pressure at the air valve above which the transient solver will switch from using the large air outflow orifice to the small air outflow orifice (in order to minimize transients).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SmallAirflowCurves(self) -> Dict[int,int]:
 		"""Curve that defines discharge of air when the air volume is less than the transition volume (TV), or the air pressure is greater than the transition pressure (TP).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def LargeAirFlowCurves(self) -> Dict[int,int]:
 		"""Curve that defines discharge of air when the air volume is greater than or equal to the transition volume (TV), or the air pressure is less than or equal to the transition pressure (TP).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def AirValveTypes(self) -> Dict[int,int]:
 		"""Select the type of Air Valve to simulate. Choices are Slow Closing, Double Acting, Triple Acting and Vacuum Breaker. The choice you make will only affect the transient engine.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def AirValveTransitionTypes(self) -> Dict[int,int]:
 		"""Users can select whether the transient solver switches from the large air outflow orifice to the small air outflow orifice based on a Transition Volume or a Transition Pressure.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TimeToClose(self) -> Dict[int,int]:
 		"""For a slow-closing air valve, the valve starts to close linearly with respect to area once air begins to exit the pipe. If air subsequently re-enters, then the air valve opens fully again. For a valve with linear area change, the valve will close linearly over this time, starting at the beginning of the simulation if this value is greater than zero. If this value equals zero a valve with linear area change will close when reverse flow is first sensed and will remain closed for the remainder of the simulation. For an air valve, adiabatic compression (i.e., gas law exponent = 1.4) is assumed.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def ReportPeriods(self) -> Dict[int,int]:
 		"""Number of time steps between successive printouts of operation. By default, this printout is suppressed.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TreatAirValvesAsJunctions(self) -> Dict[int,int]:
 		"""Specifies whether or not to treat the air-valve as a junction element in steady state and EPS simulations. If false, the valve may allow part full flow subject to the prevailing hydraulic conditions.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def InflowOrificeAirFlowCurves(self) -> Dict[int,int]:
 		"""The curve that defines the rate of air inflow (a ?free air? rate, measured at atmospheric pressure) into the tank versus the differential pressure across the air valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def OutflowOrificeAirFlowCurves(self) -> Dict[int,int]:
 		"""The curve that defines the rate of air outflow (a ?free air? rate, measured at atmospheric pressure) out of the tank versus the differential pressure across the air valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def AirFlowCalculationMethods(self) -> Dict[int,int]:
 		"""Specify whether the air valve air flow rate is determined by user-entered curves of pressure vs. air flow rate, or whether it is calculated based on a user-entered orifice diameter (not applicable for a sealed hydropneumatic tank).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -13068,8 +14547,9 @@ class IAirValveResults(IHammerNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13080,8 +14560,9 @@ class IAirValvesResults(IHammerNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13092,8 +14573,9 @@ class IAirValveUnits(IHammerNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13102,8 +14584,9 @@ class IAirValveUnits(IHammerNodeUnits):
 	def VolumeUnit(self) -> IUnit:
 		"""Unit information for volume
 
-		Returns:
-			IAirValveUnits: 
+		Returns
+		--------
+			``IAirValveUnits`` : 
 		"""
 		pass
 
@@ -13111,8 +14594,9 @@ class IAirValveUnits(IHammerNodeUnits):
 	def DiameterUnit(self) -> IUnit:
 		"""Unit information for diameter
 
-		Returns:
-			IAirValveUnits: 
+		Returns
+		--------
+			``IAirValveUnits`` : 
 		"""
 		pass
 
@@ -13120,8 +14604,9 @@ class IAirValveUnits(IHammerNodeUnits):
 	def TimeTocloseUnit(self) -> IUnit:
 		"""Unit information for time to close
 
-		Returns:
-			IAirValveUnits: 
+		Returns
+		--------
+			``IAirValveUnits`` : 
 		"""
 		pass
 
@@ -13131,8 +14616,9 @@ class IAirValve(IWaterNetworkElement[IAirValves, IAirValve, IAirValveUnits, IAir
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13143,8 +14629,9 @@ class IAirValves(IWaterNetworkElements[IAirValves, IAirValve, IAirValveUnits, IA
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13155,8 +14642,9 @@ class ISurgeValveInput(IHammerNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13165,8 +14653,9 @@ class ISurgeValveInput(IHammerNodeInput):
 	def SavDiameter(self) -> float:
 		"""The valve's characteristics are determined by its Cv and type, so that the diameter is only used for descriptive purposes.
 
-		Returns:
-			ISurgeValveInput: 
+		Returns
+		--------
+			``ISurgeValveInput`` : 
 		"""
 		pass
 
@@ -13178,8 +14667,9 @@ class ISurgeValveInput(IHammerNodeInput):
 	def SavThresholdPressure(self) -> float:
 		"""Pressure below which the SAV opens.
 
-		Returns:
-			ISurgeValveInput: 
+		Returns
+		--------
+			``ISurgeValveInput`` : 
 		"""
 		pass
 
@@ -13191,8 +14681,9 @@ class ISurgeValveInput(IHammerNodeInput):
 	def TimeForSAVToOpen(self) -> float:
 		"""Time for the SAV to open fully after being triggered.
 
-		Returns:
-			ISurgeValveInput: 
+		Returns
+		--------
+			``ISurgeValveInput`` : 
 		"""
 		pass
 
@@ -13204,8 +14695,9 @@ class ISurgeValveInput(IHammerNodeInput):
 	def TimeSAVStaysFullyOpen(self) -> float:
 		"""Time that SAV remains fully open (i.e., time between the end of the opening phase and the start of the closing phase).
 
-		Returns:
-			ISurgeValveInput: 
+		Returns
+		--------
+			``ISurgeValveInput`` : 
 		"""
 		pass
 
@@ -13217,8 +14709,9 @@ class ISurgeValveInput(IHammerNodeInput):
 	def TimeForSAVToClose(self) -> float:
 		"""Time for the SAV to close fully, measured from the time that it was completely open.
 
-		Returns:
-			ISurgeValveInput: 
+		Returns
+		--------
+			``ISurgeValveInput`` : 
 		"""
 		pass
 
@@ -13230,8 +14723,9 @@ class ISurgeValveInput(IHammerNodeInput):
 	def SavDischargeCoefficient(self) -> float:
 		"""Discharge coefficient, Cv, is defined as: Flow / (Pressure Drop) ^ 0.5.
 
-		Returns:
-			ISurgeValveInput: 
+		Returns
+		--------
+			``ISurgeValveInput`` : 
 		"""
 		pass
 
@@ -13243,8 +14737,9 @@ class ISurgeValveInput(IHammerNodeInput):
 	def SrvDiameter(self) -> float:
 		"""The diameter of the SRV.
 
-		Returns:
-			ISurgeValveInput: 
+		Returns
+		--------
+			``ISurgeValveInput`` : 
 		"""
 		pass
 
@@ -13256,8 +14751,9 @@ class ISurgeValveInput(IHammerNodeInput):
 	def SrvThresholdPressure(self) -> float:
 		"""Pressure above which the SRV opens.
 
-		Returns:
-			ISurgeValveInput: 
+		Returns
+		--------
+			``ISurgeValveInput`` : 
 		"""
 		pass
 
@@ -13269,8 +14765,9 @@ class ISurgeValveInput(IHammerNodeInput):
 	def SrvSpringConstant(self) -> float:
 		"""Change in restoring force of the return spring per unit lift off seat. A possible value is 150 lb/in. (26.27 N/mm).
 
-		Returns:
-			ISurgeValveInput: 
+		Returns
+		--------
+			``ISurgeValveInput`` : 
 		"""
 		pass
 
@@ -13282,8 +14779,9 @@ class ISurgeValveInput(IHammerNodeInput):
 	def TimeForSRVToOpen(self) -> float:
 		"""Time for the SRV to open fully from fully closed position.
 
-		Returns:
-			ISurgeValveInput: 
+		Returns
+		--------
+			``ISurgeValveInput`` : 
 		"""
 		pass
 
@@ -13295,8 +14793,9 @@ class ISurgeValveInput(IHammerNodeInput):
 	def TimeForSRVToClose(self) -> float:
 		"""Time for SRV to close fully from fully open opsition.
 
-		Returns:
-			ISurgeValveInput: 
+		Returns
+		--------
+			``ISurgeValveInput`` : 
 		"""
 		pass
 
@@ -13308,8 +14807,9 @@ class ISurgeValveInput(IHammerNodeInput):
 	def SrvDischargeCoefficient(self) -> float:
 		"""Discharge coefficient of SRV at fully opening. it is defined as: Flow / (Pressure Drop) ^ 0.5.
 
-		Returns:
-			ISurgeValveInput: 
+		Returns
+		--------
+			``ISurgeValveInput`` : 
 		"""
 		pass
 
@@ -13321,8 +14821,9 @@ class ISurgeValveInput(IHammerNodeInput):
 	def SavSrvType(self) -> SAV_SRVTypeEnum:
 		"""The type of SAV/SRV valve to simulate in the transient engine.%n-SAV (surge aniticipator valve)%n-SRV (surge relief valve)%n-SAV + SRV (SAV and SRV)
 
-		Returns:
-			ISurgeValveInput: 
+		Returns
+		--------
+			``ISurgeValveInput`` : 
 		"""
 		pass
 
@@ -13334,8 +14835,9 @@ class ISurgeValveInput(IHammerNodeInput):
 	def SavType(self) -> SAVValveTypeEnum:
 		"""The type of SAV to simulate. Choices are Needle, Circular Gate, Globe, Ball and Butterfly. The choice you make will only affect the transient engine.
 
-		Returns:
-			ISurgeValveInput: 
+		Returns
+		--------
+			``ISurgeValveInput`` : 
 		"""
 		pass
 
@@ -13347,8 +14849,9 @@ class ISurgeValveInput(IHammerNodeInput):
 	def SavClosureTriggerType(self) -> SavClosureTriggerEnum:
 		"""The closure of an open/opening SAV is initiated by either Time (SAV stays fully open) or the Threshold  Pressure (SAV), but not both. When based on Pressure, the SAV will begin to close when the pressure rises back above the Threshold Pressure (SAV), which may occur before the SAV has fully opened.
 
-		Returns:
-			ISurgeValveInput: 
+		Returns
+		--------
+			``ISurgeValveInput`` : 
 		"""
 		pass
 
@@ -13360,8 +14863,9 @@ class ISurgeValveInput(IHammerNodeInput):
 	def SrvControlType(self) -> SRVControlTypeEnum:
 		"""The opening and closure of SRV is control by spring constant or time.
 
-		Returns:
-			ISurgeValveInput: 
+		Returns
+		--------
+			``ISurgeValveInput`` : 
 		"""
 		pass
 
@@ -13373,8 +14877,9 @@ class ISurgeValveInput(IHammerNodeInput):
 	def SrvValveType(self) -> SRVValveTypeEnum:
 		"""The type of SRV to simulate. Choices are Needle, Circular Gate, Globe, Ball and Butterfly. The choice you make will only affect the transient engine.
 
-		Returns:
-			ISurgeValveInput: 
+		Returns
+		--------
+			``ISurgeValveInput`` : 
 		"""
 		pass
 
@@ -13388,8 +14893,9 @@ class ISurgeValvesInput(IHammerNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13397,136 +14903,153 @@ class ISurgeValvesInput(IHammerNodesInput):
 	def SavDiameter(self) -> Dict[int,int]:
 		"""The valve's characteristics are determined by its Cv and type, so that the diameter is only used for descriptive purposes.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SavThresholdPressure(self) -> Dict[int,int]:
 		"""Pressure below which the SAV opens.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TimeForSAVToOpen(self) -> Dict[int,int]:
 		"""Time for the SAV to open fully after being triggered.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TimeSAVStaysFullyOpen(self) -> Dict[int,int]:
 		"""Time that SAV remains fully open (i.e., time between the end of the opening phase and the start of the closing phase).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TimeForSAVToClose(self) -> Dict[int,int]:
 		"""Time for the SAV to close fully, measured from the time that it was completely open.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SavDischargeCoefficient(self) -> Dict[int,int]:
 		"""Discharge coefficient, Cv, is defined as: Flow / (Pressure Drop) ^ 0.5.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SrvDiameter(self) -> Dict[int,int]:
 		"""The diameter of the SRV.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SrvThresholdPressure(self) -> Dict[int,int]:
 		"""Pressure above which the SRV opens.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SrvSpringConstant(self) -> Dict[int,int]:
 		"""Change in restoring force of the return spring per unit lift off seat. A possible value is 150 lb/in. (26.27 N/mm).
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TimeForSRVToOpen(self) -> Dict[int,int]:
 		"""Time for the SRV to open fully from fully closed position.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TimeForSRVToClose(self) -> Dict[int,int]:
 		"""Time for SRV to close fully from fully open opsition.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SrvDischargeCoefficient(self) -> Dict[int,int]:
 		"""Discharge coefficient of SRV at fully opening. it is defined as: Flow / (Pressure Drop) ^ 0.5.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SavSrvType(self) -> Dict[int,int]:
 		"""The type of SAV/SRV valve to simulate in the transient engine.%n-SAV (surge aniticipator valve)%n-SRV (surge relief valve)%n-SAV + SRV (SAV and SRV)
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SavType(self) -> Dict[int,int]:
 		"""The type of SAV to simulate. Choices are Needle, Circular Gate, Globe, Ball and Butterfly. The choice you make will only affect the transient engine.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SavClosureTriggerType(self) -> Dict[int,int]:
 		"""The closure of an open/opening SAV is initiated by either Time (SAV stays fully open) or the Threshold  Pressure (SAV), but not both. When based on Pressure, the SAV will begin to close when the pressure rises back above the Threshold Pressure (SAV), which may occur before the SAV has fully opened.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SrvControlType(self) -> Dict[int,int]:
 		"""The opening and closure of SRV is control by spring constant or time.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def SRVValveType(self) -> Dict[int,int]:
 		"""The type of SRV to simulate. Choices are Needle, Circular Gate, Globe, Ball and Butterfly. The choice you make will only affect the transient engine.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -13536,8 +15059,9 @@ class ISurgeValveResults(IHammerNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13548,8 +15072,9 @@ class ISurgeValvesResults(IHammerNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13560,8 +15085,9 @@ class ISurgeValveUnits(IHammerNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13570,8 +15096,9 @@ class ISurgeValveUnits(IHammerNodeUnits):
 	def DiameterUnit(self) -> IUnit:
 		"""Unit information for Sav and Srv Diameters
 
-		Returns:
-			ISurgeValveUnits: 
+		Returns
+		--------
+			``ISurgeValveUnits`` : 
 		"""
 		pass
 
@@ -13579,8 +15106,9 @@ class ISurgeValveUnits(IHammerNodeUnits):
 	def TimeOpenUnit(self) -> IUnit:
 		"""Unit information for Sav/Srv opening and time to close
 
-		Returns:
-			ISurgeValveUnits: 
+		Returns
+		--------
+			``ISurgeValveUnits`` : 
 		"""
 		pass
 
@@ -13588,8 +15116,9 @@ class ISurgeValveUnits(IHammerNodeUnits):
 	def DischargeCoefficient(self) -> IUnit:
 		"""Unit information for Sav/Srv discharge coefficient
 
-		Returns:
-			ISurgeValveUnits: 
+		Returns
+		--------
+			``ISurgeValveUnits`` : 
 		"""
 		pass
 
@@ -13597,8 +15126,9 @@ class ISurgeValveUnits(IHammerNodeUnits):
 	def SpringConstantUnit(self) -> IUnit:
 		"""Unit information for spring constnat
 
-		Returns:
-			ISurgeValveUnits: 
+		Returns
+		--------
+			``ISurgeValveUnits`` : 
 		"""
 		pass
 
@@ -13608,8 +15138,9 @@ class ISurgeValve(IWaterNetworkElement[ISurgeValves, ISurgeValve, ISurgeValveUni
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13620,8 +15151,9 @@ class ISurgeValves(IWaterNetworkElements[ISurgeValves, ISurgeValve, ISurgeValveU
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13632,8 +15164,9 @@ class IBaseOrificeNodeInput(IHammerNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13642,8 +15175,9 @@ class IBaseOrificeNodeInput(IHammerNodeInput):
 	def OrificePressureDrop(self) -> float:
 		"""Pressure drop corresponding to the typical flow.
 
-		Returns:
-			IBaseOrificeNodeInput: 
+		Returns
+		--------
+			``IBaseOrificeNodeInput`` : 
 		"""
 		pass
 
@@ -13655,8 +15189,9 @@ class IBaseOrificeNodeInput(IHammerNodeInput):
 	def OrificeFlow(self) -> float:
 		"""This is a typical (positive) flow through the orifice or valve.
 
-		Returns:
-			IBaseOrificeNodeInput: 
+		Returns
+		--------
+			``IBaseOrificeNodeInput`` : 
 		"""
 		pass
 
@@ -13670,8 +15205,9 @@ class IBaseOrificeNodesInput(IHammerNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13679,16 +15215,18 @@ class IBaseOrificeNodesInput(IHammerNodesInput):
 	def OrificePressureDrop(self) -> Dict[int,int]:
 		"""Pressure drop corresponding to the typical flow.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def OrificeFlow(self) -> Dict[int,int]:
 		"""This is a typical (positive) flow through the orifice or valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -13698,8 +15236,9 @@ class IBaseOrificeNodeResults(IHammerNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13710,8 +15249,9 @@ class IBaseOrificeNodesResults(IHammerNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13722,8 +15262,9 @@ class IBaseOrificeNodeUnits(IHammerNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13732,8 +15273,9 @@ class IBaseOrificeNodeUnits(IHammerNodeUnits):
 	def FlowUnit(self) -> IUnit:
 		"""Unit information for orifice flow
 
-		Returns:
-			IBaseOrificeNodeUnits: 
+		Returns
+		--------
+			``IBaseOrificeNodeUnits`` : 
 		"""
 		pass
 
@@ -13743,8 +15285,9 @@ class IPressureHeadFlowCollection(ICollectionElements[IPressureHeadFlows, IPress
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13755,8 +15298,9 @@ class IPressureHeadFlows(ICollection[IPressureHeadFlow]):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13765,12 +15309,14 @@ class IPressureHeadFlows(ICollection[IPressureHeadFlow]):
 	def Add(self, pressureHead: float, flow: float) -> IPressureHeadFlow:
 		"""Adds a new row to the collection with the provided data.
 
-		Args:
-			pressureHead(float): pressureHead
-			flow(float): flow
+		Args
+		--------
+			pressureHead (``float``) :  pressureHead
+			flow (``float``) :  flow
 
-		Returns:
-			IPressureHeadFlow: 
+		Returns
+		--------
+			``IPressureHeadFlow`` : 
 		"""
 		pass
 
@@ -13778,8 +15324,9 @@ class IPressureHeadFlows(ICollection[IPressureHeadFlow]):
 	def Add(self) -> IPressureHeadFlow:
 		"""No Description
 
-		Returns:
-			IPressureHeadFlow: 
+		Returns
+		--------
+			``IPressureHeadFlow`` : 
 		"""
 		pass
 
@@ -13789,8 +15336,9 @@ class IPressureHeadFlow(ICollectionElement):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13799,8 +15347,9 @@ class IPressureHeadFlow(ICollectionElement):
 	def PressureHead(self) -> float:
 		"""Pressure head for this row
 
-		Returns:
-			IPressureHeadFlow: 
+		Returns
+		--------
+			``IPressureHeadFlow`` : 
 		"""
 		pass
 
@@ -13812,8 +15361,9 @@ class IPressureHeadFlow(ICollectionElement):
 	def Flow(self) -> float:
 		"""Flow for this row.
 
-		Returns:
-			IPressureHeadFlow: 
+		Returns
+		--------
+			``IPressureHeadFlow`` : 
 		"""
 		pass
 
@@ -13827,8 +15377,9 @@ class IPressureHeadFlowUnits(IElementUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13837,8 +15388,9 @@ class IPressureHeadFlowUnits(IElementUnits):
 	def PressureHeadUnit(self) -> IUnit:
 		"""Unit information for pressure head
 
-		Returns:
-			IPressureHeadFlowUnits: 
+		Returns
+		--------
+			``IPressureHeadFlowUnits`` : 
 		"""
 		pass
 
@@ -13846,8 +15398,9 @@ class IPressureHeadFlowUnits(IElementUnits):
 	def FlowUnit(self) -> IUnit:
 		"""Unit information for flow
 
-		Returns:
-			IPressureHeadFlowUnits: 
+		Returns
+		--------
+			``IPressureHeadFlowUnits`` : 
 		"""
 		pass
 
@@ -13857,8 +15410,9 @@ class IDischargeToAtmosphereNodeInput(IBaseOrificeNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13867,8 +15421,9 @@ class IDischargeToAtmosphereNodeInput(IBaseOrificeNodeInput):
 	def DischargeElementType(self) -> DischargeToAtmosphereTypeEnum:
 		"""The type of discharge element to simulate. Choices are Orifice, Valve or Rating Curve.
 
-		Returns:
-			IDischargeToAtmosphereNodeInput: 
+		Returns
+		--------
+			``IDischargeToAtmosphereNodeInput`` : 
 		"""
 		pass
 
@@ -13880,8 +15435,9 @@ class IDischargeToAtmosphereNodeInput(IBaseOrificeNodeInput):
 	def InitialGaseVolume(self) -> float:
 		"""The accumulated air at the orifice at the beginning of the simulation.
 
-		Returns:
-			IDischargeToAtmosphereNodeInput: 
+		Returns
+		--------
+			``IDischargeToAtmosphereNodeInput`` : 
 		"""
 		pass
 
@@ -13893,8 +15449,9 @@ class IDischargeToAtmosphereNodeInput(IBaseOrificeNodeInput):
 	def TimeToStartOperating(self) -> float:
 		"""Valve starts to operate after this time.
 
-		Returns:
-			IDischargeToAtmosphereNodeInput: 
+		Returns
+		--------
+			``IDischargeToAtmosphereNodeInput`` : 
 		"""
 		pass
 
@@ -13906,8 +15463,9 @@ class IDischargeToAtmosphereNodeInput(IBaseOrificeNodeInput):
 	def TimeToFullyOpenOrClose(self) -> float:
 		"""Time to close (or open, if zero initial flow) the valve.
 
-		Returns:
-			IDischargeToAtmosphereNodeInput: 
+		Returns
+		--------
+			``IDischargeToAtmosphereNodeInput`` : 
 		"""
 		pass
 
@@ -13919,8 +15477,9 @@ class IDischargeToAtmosphereNodeInput(IBaseOrificeNodeInput):
 	def PressureHeadFlowCollection(self) -> IPressureHeadFlowCollection:
 		"""Specify a collection of Pressure Head vs. Flow points.
 
-		Returns:
-			IDischargeToAtmosphereNodeInput: 
+		Returns
+		--------
+			``IDischargeToAtmosphereNodeInput`` : 
 		"""
 		pass
 
@@ -13928,8 +15487,9 @@ class IDischargeToAtmosphereNodeInput(IBaseOrificeNodeInput):
 	def InitialStatus(self) -> ValveTypeInitialStatusEnum:
 		"""If the Discharge Element is a valve, then this field specifies whether the valve is initially open or closed.
 
-		Returns:
-			IDischargeToAtmosphereNodeInput: 
+		Returns
+		--------
+			``IDischargeToAtmosphereNodeInput`` : 
 		"""
 		pass
 
@@ -13941,8 +15501,9 @@ class IDischargeToAtmosphereNodeInput(IBaseOrificeNodeInput):
 	def ReportPeriod(self) -> int:
 		"""Number of time steps between successive printouts of operation. By default, this printout is suppressed.
 
-		Returns:
-			IDischargeToAtmosphereNodeInput: 
+		Returns
+		--------
+			``IDischargeToAtmosphereNodeInput`` : 
 		"""
 		pass
 
@@ -13956,8 +15517,9 @@ class IDischargeToAtmosphereNodesInput(IBaseOrificeNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -13965,48 +15527,54 @@ class IDischargeToAtmosphereNodesInput(IBaseOrificeNodesInput):
 	def DischargeElementType(self) -> Dict[int,int]:
 		"""The type of discharge element to simulate. Choices are Orifice, Valve or Rating Curve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def InitialGasVolume(self) -> Dict[int,int]:
 		"""The accumulated air at the orifice at the beginning of the simulation.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TimeToStartOpening(self) -> Dict[int,int]:
 		"""Valve starts to operate after this time.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def TimeToFullyOpenOrClose(self) -> Dict[int,int]:
 		"""Time to close (or open, if zero initial flow) the valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def InitialStatus(self) -> Dict[int,int]:
 		"""If the Discharge Element is a valve, then this field specifies whether the valve is initially open or closed.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
 	def ReportPeriod(self) -> Dict[int,int]:
 		"""Number of time steps between successive printouts of operation. By default, this printout is suppressed.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14016,8 +15584,9 @@ class IDischargeToAtmosphereNodeResults(IBaseOrificeNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14026,8 +15595,9 @@ class IDischargeToAtmosphereNodeResults(IBaseOrificeNodeResults):
 	def CalculatedDischarge(self) -> Union[float, None]:
 		"""Calculated discharge from the node.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -14035,19 +15605,22 @@ class IDischargeToAtmosphereNodeResults(IBaseOrificeNodeResults):
 	def CalculatedDischarge(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated discharge from the node.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def CalculatedDischarges(self) -> array(Union[float, None]):
+	def CalculatedDischarges(self) -> List[Union[float, None]]:
 		"""Calculated discharge from the node.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -14057,8 +15630,9 @@ class IDischargeToAtmosphereNodesResults(IBaseOrificeNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14067,8 +15641,9 @@ class IDischargeToAtmosphereNodesResults(IBaseOrificeNodesResults):
 	def CalculatedDischarge(self) -> Dict[int,int]:
 		"""Calculated discharge from the node.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14076,11 +15651,13 @@ class IDischargeToAtmosphereNodesResults(IBaseOrificeNodesResults):
 	def CalculatedDischarge(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated discharge from the node.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14088,12 +15665,14 @@ class IDischargeToAtmosphereNodesResults(IBaseOrificeNodesResults):
 	def CalculatedDischarge(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14103,8 +15682,9 @@ class IDischargeToAtmosphereUnits(IBaseOrificeNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14113,8 +15693,9 @@ class IDischargeToAtmosphereUnits(IBaseOrificeNodeUnits):
 	def VolumeUnit(self) -> IUnit:
 		"""Unit information for gase volume
 
-		Returns:
-			IDischargeToAtmosphereUnits: 
+		Returns
+		--------
+			``IDischargeToAtmosphereUnits`` : 
 		"""
 		pass
 
@@ -14122,8 +15703,9 @@ class IDischargeToAtmosphereUnits(IBaseOrificeNodeUnits):
 	def TimeUnit(self) -> IUnit:
 		"""Unit information for time to open or close
 
-		Returns:
-			IDischargeToAtmosphereUnits: 
+		Returns
+		--------
+			``IDischargeToAtmosphereUnits`` : 
 		"""
 		pass
 
@@ -14131,8 +15713,9 @@ class IDischargeToAtmosphereUnits(IBaseOrificeNodeUnits):
 	def DischargeUnit(self) -> IUnit:
 		"""Unit information for discharge
 
-		Returns:
-			IDischargeToAtmosphereUnits: 
+		Returns
+		--------
+			``IDischargeToAtmosphereUnits`` : 
 		"""
 		pass
 
@@ -14142,8 +15725,9 @@ class IDischargeToAtmosphere(IWaterNetworkElement[IDischargeToAtmospheres, IDisc
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14154,8 +15738,9 @@ class IDischargeToAtmospheres(IWaterNetworkElements[IDischargeToAtmospheres, IDi
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14166,8 +15751,9 @@ class IRuptureDiskInput(IBaseOrificeNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14176,8 +15762,9 @@ class IRuptureDiskInput(IBaseOrificeNodeInput):
 	def PressureThreshold(self) -> float:
 		"""The pressure above which the rupture disk breaks to vent the liquid to atmosphere.
 
-		Returns:
-			IRuptureDiskInput: 
+		Returns
+		--------
+			``IRuptureDiskInput`` : 
 		"""
 		pass
 
@@ -14191,8 +15778,9 @@ class IRuptureDisksInput(IBaseOrificeNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14200,8 +15788,9 @@ class IRuptureDisksInput(IBaseOrificeNodesInput):
 	def PressureThreshold(self) -> Dict[int,int]:
 		"""The pressure above which the rupture disk breaks to vent the liquid to atmosphere.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14211,8 +15800,9 @@ class IRuptureDiskResults(IBaseOrificeNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14223,8 +15813,9 @@ class IRuptureDisksResults(IBaseOrificeNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14235,8 +15826,9 @@ class IRuptureDiskUnits(IBaseOrificeNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14247,8 +15839,9 @@ class IRuptureDisk(IWaterNetworkElement[IRuptureDisks, IRuptureDisk, IRuptureDis
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14259,8 +15852,9 @@ class IRuptureDisks(IWaterNetworkElements[IRuptureDisks, IRuptureDisk, IRuptureD
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14271,8 +15865,9 @@ class IBaseNodesResults(IElementsResults, IWaterQualityElementsResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14281,8 +15876,9 @@ class IBaseNodesResults(IElementsResults, IWaterQualityElementsResults):
 	def HydraulicGrades(self) -> Dict[int,int]:
 		"""Gets the hydraulic grade for all nodes at the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14290,11 +15886,13 @@ class IBaseNodesResults(IElementsResults, IWaterQualityElementsResults):
 	def HydraulicGrades(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Gets the hydraulic grade for all nodes at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14302,12 +15900,14 @@ class IBaseNodesResults(IElementsResults, IWaterQualityElementsResults):
 	def HydraulicGrades(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14317,8 +15917,9 @@ class IPhysicalNodeElementInput(IPointNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14327,8 +15928,9 @@ class IPhysicalNodeElementInput(IPointNodeInput):
 	def Elevation(self) -> float:
 		"""Elevation at centroid of junctions, valves, and pumps; the ground elevation at tanks; the hydraulic grade at reservoirs.
 
-		Returns:
-			IPhysicalNodeElementInput: 
+		Returns
+		--------
+			``IPhysicalNodeElementInput`` : 
 		"""
 		pass
 
@@ -14342,8 +15944,9 @@ class IPhysicalNodeElementsInput(IPointNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14352,8 +15955,9 @@ class IPhysicalNodeElementsInput(IPointNodesInput):
 	def Elevations(self) -> Dict[int,int]:
 		"""Gets elevations for all base nodes.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14361,11 +15965,13 @@ class IPhysicalNodeElementsInput(IPointNodesInput):
 	def Elevations(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14375,8 +15981,9 @@ class IBaseNodeInput(IPhysicalNodeElementInput, IWaterZoneableNetworkElementInpu
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14387,8 +15994,9 @@ class IBaseNodesInput(IWaterZoneableNetworkElementsInput, IWaterQualityElementsI
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14399,8 +16007,9 @@ class IBaseNodeResults(IElementResults, IWaterQualityResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14409,8 +16018,9 @@ class IBaseNodeResults(IElementResults, IWaterQualityResults):
 	def HydraulicGrade(self) -> Union[float, None]:
 		"""Calculated hydraulic grade at node at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -14418,19 +16028,22 @@ class IBaseNodeResults(IElementResults, IWaterQualityResults):
 	def HydraulicGrade(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated hydraulic grade at node at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def HydraulicGrades(self) -> array(Union[float, None]):
+	def HydraulicGrades(self) -> List[Union[float, None]]:
 		"""Calculated hydraulic grade at node across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -14440,8 +16053,9 @@ class IBaseNodeUnits(IGeometryUnits, IWaterQualityResultsUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14450,8 +16064,9 @@ class IBaseNodeUnits(IGeometryUnits, IWaterQualityResultsUnits):
 	def ElevationUnit(self) -> IUnit:
 		"""The formatter information for elevation.
 
-		Returns:
-			IBaseNodeUnits: 
+		Returns
+		--------
+			``IBaseNodeUnits`` : 
 		"""
 		pass
 
@@ -14459,8 +16074,9 @@ class IBaseNodeUnits(IGeometryUnits, IWaterQualityResultsUnits):
 	def InitialAgeUnit(self) -> IUnit:
 		"""The formatter information for initial age.
 
-		Returns:
-			IBaseNodeUnits: 
+		Returns
+		--------
+			``IBaseNodeUnits`` : 
 		"""
 		pass
 
@@ -14468,8 +16084,9 @@ class IBaseNodeUnits(IGeometryUnits, IWaterQualityResultsUnits):
 	def InitialConcentrationUnit(self) -> IUnit:
 		"""The formatter information for initial concentration.
 
-		Returns:
-			IBaseNodeUnits: 
+		Returns
+		--------
+			``IBaseNodeUnits`` : 
 		"""
 		pass
 
@@ -14477,8 +16094,9 @@ class IBaseNodeUnits(IGeometryUnits, IWaterQualityResultsUnits):
 	def InitialTraceUnit(self) -> IUnit:
 		"""The formatter information for initial trace.
 
-		Returns:
-			IBaseNodeUnits: 
+		Returns
+		--------
+			``IBaseNodeUnits`` : 
 		"""
 		pass
 
@@ -14488,8 +16106,9 @@ class IBaseNodeUnits(IGeometryUnits, IWaterQualityResultsUnits):
             If the source type is concentration, flow paced booster or setpoint booster, returns The formatter information for base concentration.
             If the source type is mass booster, returns the formatter name for base mass rate.
 
-		Returns:
-			IBaseNodeUnits: 
+		Returns
+		--------
+			``IBaseNodeUnits`` : 
 		"""
 		pass
 
@@ -14497,8 +16116,9 @@ class IBaseNodeUnits(IGeometryUnits, IWaterQualityResultsUnits):
 	def HydraulicGradeUnit(self) -> IUnit:
 		"""The formatter information for hydraulic grade.
 
-		Returns:
-			IBaseNodeUnits: 
+		Returns
+		--------
+			``IBaseNodeUnits`` : 
 		"""
 		pass
 
@@ -14508,8 +16128,9 @@ class IReservoirs(IWaterNetworkElements[IReservoirs, IReservoir, IReservoirUnits
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14520,8 +16141,9 @@ class IReservoir(IWaterNetworkElement[IReservoirs, IReservoir, IReservoirUnits, 
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14532,8 +16154,9 @@ class IReservoirsResults(IBaseNodesResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14542,8 +16165,9 @@ class IReservoirsResults(IBaseNodesResults):
 	def Flows(self) -> Dict[int,int]:
 		"""Net flow out at the current time step across all reservoirs.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14551,11 +16175,13 @@ class IReservoirsResults(IBaseNodesResults):
 	def Flows(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Net flow out at the given time step across all reservoirs.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14563,12 +16189,14 @@ class IReservoirsResults(IBaseNodesResults):
 	def Flows(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14578,8 +16206,9 @@ class IReservoirResults(IBaseNodeResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14588,8 +16217,9 @@ class IReservoirResults(IBaseNodeResults):
 	def Flow(self) -> Union[float, None]:
 		"""Net flow out of the element at the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -14597,19 +16227,22 @@ class IReservoirResults(IBaseNodeResults):
 	def Flow(self, timeStepIndex: int) -> Union[float, None]:
 		"""Net flow out of the element at the given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Flows(self) -> array(Union[float, None]):
+	def Flows(self) -> List[Union[float, None]]:
 		"""Net flow out of the element across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -14619,8 +16252,9 @@ class IReservoirInput(IBaseNodeInput, IWaterTraceableInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14631,8 +16265,9 @@ class IReservoirsInput(IBaseNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14643,8 +16278,9 @@ class IReservoirUnits(IBaseNodeUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14653,8 +16289,9 @@ class IReservoirUnits(IBaseNodeUnits):
 	def FlowUnit(self) -> IUnit:
 		"""The formatter name for flow.
 
-		Returns:
-			IReservoirUnits: 
+		Returns
+		--------
+			``IReservoirUnits`` : 
 		"""
 		pass
 
@@ -14664,8 +16301,9 @@ class ITapInput(IPointNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14674,8 +16312,9 @@ class ITapInput(IPointNodeInput):
 	def AssociatedElement(self) -> IPipe:
 		"""Specify the pipe which the current node is associated.
 
-		Returns:
-			ITapInput: 
+		Returns
+		--------
+			``ITapInput`` : 
 		"""
 		pass
 
@@ -14689,8 +16328,9 @@ class ITapsInput(IPointNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14699,8 +16339,9 @@ class ITapsInput(IPointNodesInput):
 	def AssociatedElements(self) -> Dict[int,int]:
 		"""Gets the geometry of all nodes of this type.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14708,11 +16349,13 @@ class ITapsInput(IPointNodesInput):
 	def AssociatedElements(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14722,8 +16365,9 @@ class ITap(IWaterNetworkElement[ITaps, ITap, IGeometryUnits, ITapInput, IElement
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14734,8 +16378,9 @@ class ITaps(IWaterNetworkElements[ITaps, ITap, IGeometryUnits, ITapInput, IEleme
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14746,8 +16391,9 @@ class IIsolationValveElementInput(IPhysicalNodeElementInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14756,8 +16402,9 @@ class IIsolationValveElementInput(IPhysicalNodeElementInput):
 	def ReferencedPipe(self) -> IPipe:
 		"""The pipe the isolation valve references
 
-		Returns:
-			IIsolationValveElementInput: 
+		Returns
+		--------
+			``IIsolationValveElementInput`` : 
 		"""
 		pass
 
@@ -14769,8 +16416,9 @@ class IIsolationValveElementInput(IPhysicalNodeElementInput):
 	def ValveDiameter(self) -> float:
 		"""Inside diameter of the valve. Used to calculate the velocity through the valve and a corresponding minor loss when a minor loss coefficient is entered.
 
-		Returns:
-			IIsolationValveElementInput: 
+		Returns
+		--------
+			``IIsolationValveElementInput`` : 
 		"""
 		pass
 
@@ -14782,8 +16430,9 @@ class IIsolationValveElementInput(IPhysicalNodeElementInput):
 	def MinorLossCoefficient(self) -> float:
 		"""K value in the minor headloss equation.
 
-		Returns:
-			IIsolationValveElementInput: 
+		Returns
+		--------
+			``IIsolationValveElementInput`` : 
 		"""
 		pass
 
@@ -14795,8 +16444,9 @@ class IIsolationValveElementInput(IPhysicalNodeElementInput):
 	def IsOperable(self) -> bool:
 		"""If true, valve can be used in identifying segments.
 
-		Returns:
-			IIsolationValveElementInput: 
+		Returns
+		--------
+			``IIsolationValveElementInput`` : 
 		"""
 		pass
 
@@ -14808,8 +16458,9 @@ class IIsolationValveElementInput(IPhysicalNodeElementInput):
 	def InitialStatus(self) -> IsolationValveInitialSetting:
 		"""Set whether the valve is initially open or closed.
 
-		Returns:
-			IIsolationValveElementInput: 
+		Returns
+		--------
+			``IIsolationValveElementInput`` : 
 		"""
 		pass
 
@@ -14821,8 +16472,9 @@ class IIsolationValveElementInput(IPhysicalNodeElementInput):
 	def InstallationYear(self) -> int:
 		"""Specify the install year of the element.  It does not affect the calculations.
 
-		Returns:
-			IIsolationValveElementInput: 
+		Returns
+		--------
+			``IIsolationValveElementInput`` : 
 		"""
 		pass
 
@@ -14836,8 +16488,9 @@ class IIsolationValveElementsInput(IPhysicalNodeElementsInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14846,8 +16499,9 @@ class IIsolationValveElementsInput(IPhysicalNodeElementsInput):
 	def ReferencedPipes(self) -> Dict[int,int]:
 		"""The pipe the isolation valve references
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14855,11 +16509,13 @@ class IIsolationValveElementsInput(IPhysicalNodeElementsInput):
 	def ReferencedPipes(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14867,8 +16523,9 @@ class IIsolationValveElementsInput(IPhysicalNodeElementsInput):
 	def ValveDiameters(self) -> Dict[int,int]:
 		"""Inside diameter of the valve. Used to calculate the velocity through the valve and a corresponding minor loss when a minor loss coefficient is entered.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14876,11 +16533,13 @@ class IIsolationValveElementsInput(IPhysicalNodeElementsInput):
 	def ValveDiameters(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14888,8 +16547,9 @@ class IIsolationValveElementsInput(IPhysicalNodeElementsInput):
 	def MinorLossCoefficients(self) -> Dict[int,int]:
 		"""K value in the minor headloss equation.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14897,11 +16557,13 @@ class IIsolationValveElementsInput(IPhysicalNodeElementsInput):
 	def MinorLossCoefficients(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14909,8 +16571,9 @@ class IIsolationValveElementsInput(IPhysicalNodeElementsInput):
 	def IsOperables(self) -> Dict[int,int]:
 		"""If true, valve can be used in identifying segments.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14918,11 +16581,13 @@ class IIsolationValveElementsInput(IPhysicalNodeElementsInput):
 	def IsOperables(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14930,8 +16595,9 @@ class IIsolationValveElementsInput(IPhysicalNodeElementsInput):
 	def InitialStatuses(self) -> Dict[int,int]:
 		"""Set whether the valve is initially open or closed.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14939,11 +16605,13 @@ class IIsolationValveElementsInput(IPhysicalNodeElementsInput):
 	def InitialStatuses(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14951,8 +16619,9 @@ class IIsolationValveElementsInput(IPhysicalNodeElementsInput):
 	def InstallationYears(self) -> Dict[int,int]:
 		"""Specify the install year of the element.  It does not affect the calculations.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14960,11 +16629,13 @@ class IIsolationValveElementsInput(IPhysicalNodeElementsInput):
 	def InstallationYears(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -14974,8 +16645,9 @@ class IIsolatioNValveElementResults(IElementResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -14984,8 +16656,9 @@ class IIsolatioNValveElementResults(IElementResults):
 	def HydraulicGrade(self) -> Union[float, None]:
 		"""Hydraulic Grade at valve location on pipe.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -14993,19 +16666,22 @@ class IIsolatioNValveElementResults(IElementResults):
 	def HydraulicGrade(self, timeStepIndex: int) -> Union[float, None]:
 		"""Hydraulic Grade at valve location on pipe.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def HydraulicGrades(self) -> array(Union[float, None]):
+	def HydraulicGrades(self) -> List[Union[float, None]]:
 		"""Hydraulic Grade at valve location on pipe.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -15013,8 +16689,9 @@ class IIsolatioNValveElementResults(IElementResults):
 	def Pressure(self) -> Union[float, None]:
 		"""Pressure at valve location on pipe.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -15022,19 +16699,22 @@ class IIsolatioNValveElementResults(IElementResults):
 	def Pressure(self, timeStepIndex: int) -> Union[float, None]:
 		"""Pressure at valve location on pipe.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Pressures(self) -> array(Union[float, None]):
+	def Pressures(self) -> List[Union[float, None]]:
 		"""Pressure at valve location on pipe.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -15042,8 +16722,9 @@ class IIsolatioNValveElementResults(IElementResults):
 	def Flow(self) -> Union[float, None]:
 		"""Magnitude of flow through isolation valve.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -15051,19 +16732,22 @@ class IIsolatioNValveElementResults(IElementResults):
 	def Flow(self, timeStepIndex: int) -> Union[float, None]:
 		"""Magnitude of flow through isolation valve.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Flows(self) -> array(Union[float, None]):
+	def Flows(self) -> List[Union[float, None]]:
 		"""Magnitude of flow through isolation valve.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -15071,8 +16755,9 @@ class IIsolatioNValveElementResults(IElementResults):
 	def Velocity(self) -> Union[float, None]:
 		"""Velocity through the isolation valve.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -15080,27 +16765,31 @@ class IIsolatioNValveElementResults(IElementResults):
 	def Velocity(self, timeStepIndex: int) -> Union[float, None]:
 		"""Velocity through the isolation valve.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Velocities(self) -> array(Union[float, None]):
+	def Velocities(self) -> List[Union[float, None]]:
 		"""Velocity through the isolation valve.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
 	def DistanceFromEndPoint(self) -> Union[float, None]:
 		"""Presents the active Distance From End Point for the current isolation valve.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -15108,8 +16797,9 @@ class IIsolatioNValveElementResults(IElementResults):
 	def IsClosed(self) -> Union[bool, None]:
 		"""True if current isolation valve is closed during the current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -15117,19 +16807,22 @@ class IIsolatioNValveElementResults(IElementResults):
 	def IsClosed(self, timeStepIndex: int) -> Union[bool, None]:
 		"""True if current isolation valve is closed during the current time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def IsCloseds(self) -> array(Union[bool, None]):
+	def IsCloseds(self) -> List[Union[bool, None]]:
 		"""True if current isolation valve is closed during the current time step.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -15139,8 +16832,9 @@ class IIsolationValveElementsResults(IElementsResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -15149,8 +16843,9 @@ class IIsolationValveElementsResults(IElementsResults):
 	def HydraulicGrades(self) -> Dict[int,int]:
 		"""Hydraulic Grade at valve location on pipe.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15158,11 +16853,13 @@ class IIsolationValveElementsResults(IElementsResults):
 	def HydraulicGrades(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Hydraulic Grade at valve location on pipe.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15170,12 +16867,14 @@ class IIsolationValveElementsResults(IElementsResults):
 	def HydraulicGrades(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15183,8 +16882,9 @@ class IIsolationValveElementsResults(IElementsResults):
 	def Pressures(self) -> Dict[int,int]:
 		"""Pressure at valve location on pipe.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15192,11 +16892,13 @@ class IIsolationValveElementsResults(IElementsResults):
 	def Pressures(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Pressure at valve location on pipe.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15204,12 +16906,14 @@ class IIsolationValveElementsResults(IElementsResults):
 	def Pressures(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15217,8 +16921,9 @@ class IIsolationValveElementsResults(IElementsResults):
 	def Flows(self) -> Dict[int,int]:
 		"""Magnitude of flow through isolation valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15226,11 +16931,13 @@ class IIsolationValveElementsResults(IElementsResults):
 	def Flows(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Magnitude of flow through isolation valve.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15238,12 +16945,14 @@ class IIsolationValveElementsResults(IElementsResults):
 	def Flows(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15251,8 +16960,9 @@ class IIsolationValveElementsResults(IElementsResults):
 	def Velocities(self) -> Dict[int,int]:
 		"""Velocity through the isolation valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15260,11 +16970,13 @@ class IIsolationValveElementsResults(IElementsResults):
 	def Velocities(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Velocity through the isolation valve.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15272,12 +16984,14 @@ class IIsolationValveElementsResults(IElementsResults):
 	def Velocities(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15285,8 +16999,9 @@ class IIsolationValveElementsResults(IElementsResults):
 	def DistanceFromEndPoints(self) -> Dict[int,int]:
 		"""Presents the active Distance From End Point for the current isolation valve.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15294,11 +17009,13 @@ class IIsolationValveElementsResults(IElementsResults):
 	def DistanceFromEndPoints(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15306,8 +17023,9 @@ class IIsolationValveElementsResults(IElementsResults):
 	def IsCloseds(self) -> Dict[int,int]:
 		"""True if current isolation valve is closed during the current time step.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15315,11 +17033,13 @@ class IIsolationValveElementsResults(IElementsResults):
 	def IsCloseds(self, timeStepIndex: int) -> Dict[int,int]:
 		"""True if current isolation valve is closed during the current time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15327,12 +17047,14 @@ class IIsolationValveElementsResults(IElementsResults):
 	def IsCloseds(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15342,8 +17064,9 @@ class IIsolationValveUnits(IGeometryUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -15352,8 +17075,9 @@ class IIsolationValveUnits(IGeometryUnits):
 	def DiameterUnit(self) -> IUnit:
 		"""No Description
 
-		Returns:
-			IIsolationValveUnits: 
+		Returns
+		--------
+			``IIsolationValveUnits`` : 
 		"""
 		pass
 
@@ -15361,8 +17085,9 @@ class IIsolationValveUnits(IGeometryUnits):
 	def CoefficientUnit(self) -> IUnit:
 		"""No Description
 
-		Returns:
-			IIsolationValveUnits: 
+		Returns
+		--------
+			``IIsolationValveUnits`` : 
 		"""
 		pass
 
@@ -15370,8 +17095,9 @@ class IIsolationValveUnits(IGeometryUnits):
 	def ElevationUnit(self) -> IUnit:
 		"""No Description
 
-		Returns:
-			IIsolationValveUnits: 
+		Returns
+		--------
+			``IIsolationValveUnits`` : 
 		"""
 		pass
 
@@ -15379,8 +17105,9 @@ class IIsolationValveUnits(IGeometryUnits):
 	def PressureUnit(self) -> IUnit:
 		"""No Description
 
-		Returns:
-			IIsolationValveUnits: 
+		Returns
+		--------
+			``IIsolationValveUnits`` : 
 		"""
 		pass
 
@@ -15388,8 +17115,9 @@ class IIsolationValveUnits(IGeometryUnits):
 	def FlowUnit(self) -> IUnit:
 		"""No Description
 
-		Returns:
-			IIsolationValveUnits: 
+		Returns
+		--------
+			``IIsolationValveUnits`` : 
 		"""
 		pass
 
@@ -15397,8 +17125,9 @@ class IIsolationValveUnits(IGeometryUnits):
 	def VelocityUnit(self) -> IUnit:
 		"""No Description
 
-		Returns:
-			IIsolationValveUnits: 
+		Returns
+		--------
+			``IIsolationValveUnits`` : 
 		"""
 		pass
 
@@ -15408,8 +17137,9 @@ class IIsolationValves(IWaterNetworkElements[IIsolationValves, IIsolationValve, 
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -15420,8 +17150,9 @@ class IIsolationValve(IWaterNetworkElement[IIsolationValves, IIsolationValve, II
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -15432,8 +17163,9 @@ class ISpotElevationInput(IPointNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -15442,8 +17174,9 @@ class ISpotElevationInput(IPointNodeInput):
 	def Elevation(self) -> float:
 		"""The elevation of this spot.
 
-		Returns:
-			ISpotElevationInput: 
+		Returns
+		--------
+			``ISpotElevationInput`` : 
 		"""
 		pass
 
@@ -15457,8 +17190,9 @@ class ISpotElevationsInput(IPointNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -15467,8 +17201,9 @@ class ISpotElevationsInput(IPointNodesInput):
 	def Elevations(self) -> Dict[int,int]:
 		"""The spot elevations.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15476,11 +17211,13 @@ class ISpotElevationsInput(IPointNodesInput):
 	def Elevations(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15490,8 +17227,9 @@ class ISpotElevationResults(IElementResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -15500,8 +17238,9 @@ class ISpotElevationResults(IElementResults):
 	def EnhancedHydraulicGrade(self) -> Union[float, None]:
 		"""Interpolated hydraulic grade at this location.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -15509,19 +17248,22 @@ class ISpotElevationResults(IElementResults):
 	def EnhancedHydraulicGrade(self, timeStepIndex: int) -> Union[float, None]:
 		"""Interpolated hydraulic grade at this location at the given time step
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def EnhancedHydraulicGrades(self) -> array(Union[float, None]):
+	def EnhancedHydraulicGrades(self) -> List[Union[float, None]]:
 		"""Interpolated hydraulic grade at this location across all time steps
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -15529,8 +17271,9 @@ class ISpotElevationResults(IElementResults):
 	def EnhancedPressure(self) -> Union[float, None]:
 		"""Pressure based on the interpolated hydraulic grade.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -15538,19 +17281,22 @@ class ISpotElevationResults(IElementResults):
 	def EnhancedPressure(self, timeStepIndex: int) -> Union[float, None]:
 		"""Pressure based on the interpolated hydraulic grade.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def EnhancedPressures(self) -> array(Union[float, None]):
+	def EnhancedPressures(self) -> List[Union[float, None]]:
 		"""Pressure based on the interpolated hydraulic grade.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -15560,8 +17306,9 @@ class ISpotElevationsResults(IElementsResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -15570,8 +17317,9 @@ class ISpotElevationsResults(IElementsResults):
 	def EnhancedHydraulicGrades(self) -> Dict[int,int]:
 		"""Interpolated hydraulic grade at this location.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15579,11 +17327,13 @@ class ISpotElevationsResults(IElementsResults):
 	def EnhancedHydraulicGrades(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Interpolated hydraulic grade at this location.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15591,12 +17341,14 @@ class ISpotElevationsResults(IElementsResults):
 	def EnhancedHydraulicGrades(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15604,8 +17356,9 @@ class ISpotElevationsResults(IElementsResults):
 	def EnhancedPressures(self) -> Dict[int,int]:
 		"""Pressure based on the interpolated hydraulic grade.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15613,11 +17366,13 @@ class ISpotElevationsResults(IElementsResults):
 	def EnhancedPressures(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Pressure based on the interpolated hydraulic grade.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15625,12 +17380,14 @@ class ISpotElevationsResults(IElementsResults):
 	def EnhancedPressures(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15640,8 +17397,9 @@ class ISpotElevationUnits(IGeometryUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -15650,8 +17408,9 @@ class ISpotElevationUnits(IGeometryUnits):
 	def ElevationUnit(self) -> IUnit:
 		"""the unit information for elevation
 
-		Returns:
-			ISpotElevationUnits: 
+		Returns
+		--------
+			``ISpotElevationUnits`` : 
 		"""
 		pass
 
@@ -15659,8 +17418,9 @@ class ISpotElevationUnits(IGeometryUnits):
 	def HydraulicGradeUnit(self) -> IUnit:
 		"""The unit information for hydraulic grade
 
-		Returns:
-			ISpotElevationUnits: 
+		Returns
+		--------
+			``ISpotElevationUnits`` : 
 		"""
 		pass
 
@@ -15668,8 +17428,9 @@ class ISpotElevationUnits(IGeometryUnits):
 	def PressureUnit(self) -> IUnit:
 		"""The unit information for pressure
 
-		Returns:
-			ISpotElevationUnits: 
+		Returns
+		--------
+			``ISpotElevationUnits`` : 
 		"""
 		pass
 
@@ -15679,8 +17440,9 @@ class ISpotElevation(IWaterNetworkElement[ISpotElevations, ISpotElevation, ISpot
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -15691,8 +17453,9 @@ class ISpotElevations(IWaterNetworkElements[ISpotElevations, ISpotElevation, ISp
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -15703,8 +17466,9 @@ class ICustomerMeterInput(IPhysicalNodeElementInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -15714,8 +17478,9 @@ class ICustomerMeterInput(IPhysicalNodeElementInput):
 		"""Choose the EPS pattern that will apply to this load. Each load in the table can have a different EPS pattern.
             The multipliers defined in the pattern will be applied against the baseline load.
 
-		Returns:
-			ICustomerMeterInput: 
+		Returns
+		--------
+			``ICustomerMeterInput`` : 
 		"""
 		pass
 
@@ -15727,8 +17492,9 @@ class ICustomerMeterInput(IPhysicalNodeElementInput):
 	def BaseDemand(self) -> float:
 		"""Enter the baseline flow rate for the load.
 
-		Returns:
-			ICustomerMeterInput: 
+		Returns
+		--------
+			``ICustomerMeterInput`` : 
 		"""
 		pass
 
@@ -15740,8 +17506,9 @@ class ICustomerMeterInput(IPhysicalNodeElementInput):
 	def StartDemandDistribution(self) -> float:
 		"""The percentage of customer demand that should be distributed to the start node of the associated pipe.
 
-		Returns:
-			ICustomerMeterInput: 
+		Returns
+		--------
+			``ICustomerMeterInput`` : 
 		"""
 		pass
 
@@ -15753,8 +17520,9 @@ class ICustomerMeterInput(IPhysicalNodeElementInput):
 	def AssociatedElement(self) -> IWaterElement:
 		"""The demand node or pipe the customer meter is associated with.
 
-		Returns:
-			ICustomerMeterInput: 
+		Returns
+		--------
+			``ICustomerMeterInput`` : 
 		"""
 		pass
 
@@ -15766,8 +17534,9 @@ class ICustomerMeterInput(IPhysicalNodeElementInput):
 	def UnitDemand(self) -> IUnitDemandLoad:
 		"""Enter unit demands
 
-		Returns:
-			ICustomerMeterInput: 
+		Returns
+		--------
+			``ICustomerMeterInput`` : 
 		"""
 		pass
 
@@ -15779,8 +17548,9 @@ class ICustomerMeterInput(IPhysicalNodeElementInput):
 	def UnitDemandPattern(self) -> IPattern:
 		"""Choose the demand pattern to be applied to unit demands.
 
-		Returns:
-			ICustomerMeterInput: 
+		Returns
+		--------
+			``ICustomerMeterInput`` : 
 		"""
 		pass
 
@@ -15792,8 +17562,9 @@ class ICustomerMeterInput(IPhysicalNodeElementInput):
 	def NumberOfUnitDemands(self) -> float:
 		"""Enter the number of unit demands.
 
-		Returns:
-			ICustomerMeterInput: 
+		Returns
+		--------
+			``ICustomerMeterInput`` : 
 		"""
 		pass
 
@@ -15807,8 +17578,9 @@ class ICustomerMetersInput(IPhysicalNodeElementsInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -15817,8 +17589,9 @@ class ICustomerMetersInput(IPhysicalNodeElementsInput):
 	def DemandPatterns(self) -> Dict[int,int]:
 		"""Demand patterns for all customer meters.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15826,11 +17599,13 @@ class ICustomerMetersInput(IPhysicalNodeElementsInput):
 	def DemandPatterns(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15838,8 +17613,9 @@ class ICustomerMetersInput(IPhysicalNodeElementsInput):
 	def BaseDemands(self) -> Dict[int,int]:
 		"""Base demand loads for all customer meters.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15847,11 +17623,13 @@ class ICustomerMetersInput(IPhysicalNodeElementsInput):
 	def BaseDemands(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15859,8 +17637,9 @@ class ICustomerMetersInput(IPhysicalNodeElementsInput):
 	def StartDemandDistributions(self) -> Dict[int,int]:
 		"""Start demand distributions for all customer meters.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15868,11 +17647,13 @@ class ICustomerMetersInput(IPhysicalNodeElementsInput):
 	def StartDemandDistributions(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15880,8 +17661,9 @@ class ICustomerMetersInput(IPhysicalNodeElementsInput):
 	def AssociatedElements(self) -> Dict[int,int]:
 		"""Associated elements for all customer meters
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15889,11 +17671,13 @@ class ICustomerMetersInput(IPhysicalNodeElementsInput):
 	def AssociatedElements(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15901,8 +17685,9 @@ class ICustomerMetersInput(IPhysicalNodeElementsInput):
 	def UnitDemands(self) -> Dict[int,int]:
 		"""Unit demands for all customer meters.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15910,11 +17695,13 @@ class ICustomerMetersInput(IPhysicalNodeElementsInput):
 	def UnitDemands(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15922,8 +17709,9 @@ class ICustomerMetersInput(IPhysicalNodeElementsInput):
 	def UnitDemandPatterns(self) -> Dict[int,int]:
 		"""Unit demand patterns for all customer meters.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15931,11 +17719,13 @@ class ICustomerMetersInput(IPhysicalNodeElementsInput):
 	def UnitDemandPatterns(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15943,8 +17733,9 @@ class ICustomerMetersInput(IPhysicalNodeElementsInput):
 	def NumberOfUnitDemands(self) -> Dict[int,int]:
 		"""Number of unit demands for all customer meters.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15952,11 +17743,13 @@ class ICustomerMetersInput(IPhysicalNodeElementsInput):
 	def NumberOfUnitDemands(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -15966,8 +17759,9 @@ class ICustomerMeterResults(IElementResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -15976,8 +17770,9 @@ class ICustomerMeterResults(IElementResults):
 	def HydraulicGrade(self) -> Union[float, None]:
 		"""Calculated hydraulic grade at node at current time step.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -15985,19 +17780,22 @@ class ICustomerMeterResults(IElementResults):
 	def HydraulicGrade(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated hydraulic grade at node at given time step.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def HydraulicGrades(self) -> array(Union[float, None]):
+	def HydraulicGrades(self) -> List[Union[float, None]]:
 		"""Calculated hydraulic grade at node across all time steps.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -16005,8 +17803,9 @@ class ICustomerMeterResults(IElementResults):
 	def Pressure(self) -> Union[float, None]:
 		"""Calculated pressure at customer meter for current time step. This result is only computed when the calculation option 'Calculate Customer Results?' is set to true.
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
@@ -16014,19 +17813,22 @@ class ICustomerMeterResults(IElementResults):
 	def Pressure(self, timeStepIndex: int) -> Union[float, None]:
 		"""Calculated pressure at customer meter at given time step. This result is only computed when the calculation option 'Calculate Customer Results?' is set to true.
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Nullable: 
+		Returns
+		--------
+			``Nullable`` : 
 		"""
 		pass
 
-	def Pressures(self) -> array(Union[float, None]):
+	def Pressures(self) -> List[Union[float, None]]:
 		"""Calculated pressure at customer meter across all time steps. This result is only computed when the calculation option 'Calculate Customer Results?' is set to true.
 
-		Returns:
-			array(Nullable): 
+		Returns
+		--------
+			``List[Nullable]`` : 
 		"""
 		pass
 
@@ -16036,8 +17838,9 @@ class ICustomerMetersResults(IElementsResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16046,8 +17849,9 @@ class ICustomerMetersResults(IElementsResults):
 	def HydraulicGrades(self) -> Dict[int,int]:
 		"""Calculated hydraulic grade at node at current time step for all customer meters.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -16055,11 +17859,13 @@ class ICustomerMetersResults(IElementsResults):
 	def HydraulicGrades(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated hydraulic grade at node at given time step for all customer meters
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -16067,12 +17873,14 @@ class ICustomerMetersResults(IElementsResults):
 	def HydraulicGrades(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -16080,8 +17888,9 @@ class ICustomerMetersResults(IElementsResults):
 	def Pressures(self) -> Dict[int,int]:
 		"""Calculated pressure at customer meter for current time step for all customer meters.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -16089,11 +17898,13 @@ class ICustomerMetersResults(IElementsResults):
 	def Pressures(self, timeStepIndex: int) -> Dict[int,int]:
 		"""Calculated pressure at customer meter for given time step for all customer meters
 
-		Args:
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -16101,12 +17912,14 @@ class ICustomerMetersResults(IElementsResults):
 	def Pressures(self, ids: List[int], timeStepIndex: int) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
-			timeStepIndex(int): timeStepIndex
+		Args
+		--------
+			ids (``List[int]``) :  ids
+			timeStepIndex (``int``) :  timeStepIndex
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -16116,8 +17929,9 @@ class ICustomerMeterUnits(IGeometryUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16126,8 +17940,9 @@ class ICustomerMeterUnits(IGeometryUnits):
 	def ElevationUnit(self) -> IUnit:
 		"""The formatter information for elevation.
 
-		Returns:
-			ICustomerMeterUnits: 
+		Returns
+		--------
+			``ICustomerMeterUnits`` : 
 		"""
 		pass
 
@@ -16135,8 +17950,9 @@ class ICustomerMeterUnits(IGeometryUnits):
 	def HydraulicGradeUnit(self) -> IUnit:
 		"""The formatter information for hydraulic grade.
 
-		Returns:
-			ICustomerMeterUnits: 
+		Returns
+		--------
+			``ICustomerMeterUnits`` : 
 		"""
 		pass
 
@@ -16144,8 +17960,9 @@ class ICustomerMeterUnits(IGeometryUnits):
 	def PressureUnit(self) -> IUnit:
 		"""The formatter information for pressure.
 
-		Returns:
-			ICustomerMeterUnits: 
+		Returns
+		--------
+			``ICustomerMeterUnits`` : 
 		"""
 		pass
 
@@ -16155,8 +17972,9 @@ class ICustomerMeter(IWaterNetworkElement[ICustomerMeters, ICustomerMeter, ICust
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16167,8 +17985,9 @@ class ICustomerMeters(IWaterNetworkElements[ICustomerMeters, ICustomerMeter, ICu
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16179,8 +17998,9 @@ class ISCADAElementInput(IPointNodeInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16189,8 +18009,9 @@ class ISCADAElementInput(IPointNodeInput):
 	def TargetElement(self) -> IWaterElement:
 		"""The Domain Element the SCADA Signal targets.
 
-		Returns:
-			ISCADAElementInput: 
+		Returns
+		--------
+			``ISCADAElementInput`` : 
 		"""
 		pass
 
@@ -16202,8 +18023,9 @@ class ISCADAElementInput(IPointNodeInput):
 	def RealtimeSignal(self) -> ISCADASignal:
 		"""The signal returning the real-time value for the selected attribute.
 
-		Returns:
-			ISCADAElementInput: 
+		Returns
+		--------
+			``ISCADAElementInput`` : 
 		"""
 		pass
 
@@ -16215,8 +18037,9 @@ class ISCADAElementInput(IPointNodeInput):
 	def HistoricalSignal(self) -> ISCADASignal:
 		"""The signal returning historical value(s) for the selected attribute.
 
-		Returns:
-			ISCADAElementInput: 
+		Returns
+		--------
+			``ISCADAElementInput`` : 
 		"""
 		pass
 
@@ -16229,8 +18052,9 @@ class ISCADAElementInput(IPointNodeInput):
 		"""The target attribute for the SCADA element
             Must align with the target element.
 
-		Returns:
-			ISCADAElementInput: 
+		Returns
+		--------
+			``ISCADAElementInput`` : 
 		"""
 		pass
 
@@ -16244,8 +18068,9 @@ class ISCADAElementsInput(IPointNodesInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16254,8 +18079,9 @@ class ISCADAElementsInput(IPointNodesInput):
 	def TargetElements(self) -> Dict[int,int]:
 		"""The domain elements the SCADA elements target.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -16263,11 +18089,13 @@ class ISCADAElementsInput(IPointNodesInput):
 	def TargetElements(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -16275,8 +18103,9 @@ class ISCADAElementsInput(IPointNodesInput):
 	def RealtimeSignals(self) -> Dict[int,int]:
 		"""The assigned real-time signals
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -16284,11 +18113,13 @@ class ISCADAElementsInput(IPointNodesInput):
 	def RealtimeSignals(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -16296,8 +18127,9 @@ class ISCADAElementsInput(IPointNodesInput):
 	def HistoricalSignals(self) -> Dict[int,int]:
 		"""The assigned historical signals
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -16305,11 +18137,13 @@ class ISCADAElementsInput(IPointNodesInput):
 	def HistoricalSignals(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -16319,8 +18153,9 @@ class ISCADAElement(IWaterNetworkElement[ISCADAElements, ISCADAElement, IGeometr
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16331,8 +18166,9 @@ class ISCADAElements(IWaterNetworkElements[ISCADAElements, ISCADAElement, IGeome
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16343,8 +18179,9 @@ class IPumpStations(IWaterNetworkElements[IPumpStations, IPumpStation, IPumpStat
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16355,8 +18192,9 @@ class IPumpStation(IWaterNetworkElement[IPumpStations, IPumpStation, IPumpStatio
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16367,8 +18205,9 @@ class IPumpStationUnits(IGeometryUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16379,8 +18218,9 @@ class IPumpStationsInput(IBasePolygonsInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16391,8 +18231,9 @@ class IPumpStationsResults(IBasePolygonsResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16403,8 +18244,9 @@ class IPumpStationResults(IBasePolygonResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16415,8 +18257,9 @@ class IPumpStationInput(IBasePolygonInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16425,8 +18268,9 @@ class IPumpStationInput(IBasePolygonInput):
 	def Pumps(self) -> IPumpStationPumpIDsCollection:
 		"""The list of pumps associated with this pump station
 
-		Returns:
-			IPumpStationInput: 
+		Returns
+		--------
+			``IPumpStationInput`` : 
 		"""
 		pass
 
@@ -16436,8 +18280,9 @@ class IPumpStationPumpIDsCollection(ICollectionElements[IPumpStationPumpIDs, IPu
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16448,8 +18293,9 @@ class IPumpStationPumpIDs(ICollection[IPumpStationPumpID]):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16458,12 +18304,14 @@ class IPumpStationPumpIDs(ICollection[IPumpStationPumpID]):
 	def Add(self, pump: IPump, pumpDefinition: IPumpDefinition) -> IPumpStationPumpID:
 		"""Adds a pump to the pump station.
 
-		Args:
-			pump(IPump): The pump to associate with the pump station.
-			pumpDefinition(IPumpDefinition): The pump definition to use with this pump.
+		Args
+		--------
+			pump (``IPump``) :  The pump to associate with the pump station.
+			pumpDefinition (``IPumpDefinition``) :  The pump definition to use with this pump.
 
-		Returns:
-			IPumpStationPumpID: 
+		Returns
+		--------
+			``IPumpStationPumpID`` : 
 		"""
 		pass
 
@@ -16471,8 +18319,9 @@ class IPumpStationPumpIDs(ICollection[IPumpStationPumpID]):
 	def Add(self) -> IPumpStationPumpID:
 		"""No Description
 
-		Returns:
-			IPumpStationPumpID: 
+		Returns
+		--------
+			``IPumpStationPumpID`` : 
 		"""
 		pass
 
@@ -16482,8 +18331,9 @@ class IPumpStationPumpID(ICollectionElement):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -16492,8 +18342,9 @@ class IPumpStationPumpID(ICollectionElement):
 	def Pump(self) -> IElement:
 		"""The pump associated to the pump station
 
-		Returns:
-			IPumpStationPumpID: 
+		Returns
+		--------
+			``IPumpStationPumpID`` : 
 		"""
 		pass
 
@@ -16505,8 +18356,9 @@ class IPumpStationPumpID(ICollectionElement):
 	def PumpDefinition(self) -> IPumpDefinition:
 		"""The pump definition applied to this pump
 
-		Returns:
-			IPumpStationPumpID: 
+		Returns
+		--------
+			``IPumpStationPumpID`` : 
 		"""
 		pass
 

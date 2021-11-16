@@ -1,10 +1,10 @@
 from enum import Enum
-from OpenFlows.Domain.ModelingElements import TUnitsType, IModelingElementBase, TElementManagerType, TElementType, TElementTypeEnum, IElementUnits, IElementInput, IElementResults, IElementsInput, IElementsResults, IModelingElementsBase, IElement, IGeometryUnits
+from System import TypeCode
+from OpenFlows.Domain.ModelingElements import IElement, TElementTypeEnum, TUnitsType, IModelingElementBase, TElementManagerType, TElementType, IElementUnits, IElementInput, IElementResults, IElementsInput, IElementsResults, IModelingElementsBase, IGeometryUnits, IElements, IElementManager
 from typing import Generic, List, overload, Dict, TypeVar
 from OpenFlows.Domain.ModelingElements.Support import IFieldManager
-from Haestad.Support.Support import GeometryPoint
+from Haestad.Support.Support import GeometryPoint, IEditLabeled, ILabeled
 from OpenFlows.Units import IUnit
-from array import array
 
 TElementInputType = TypeVar("TElementInputType", IElementInput)
 TElementResultsType = TypeVar("TElementResultsType", IElementResults)
@@ -16,14 +16,41 @@ class ElementStateType(Enum):
 	Active = 1
 	Inactive = 2
 
-class INetworkElement(Generic[TElementManagerType, TElementType, TUnitsType, TElementTypeEnum, TElementInputType, TElementResultsType, TElementsInputType, TElementsResultsType], IModelingElementBase[TElementManagerType, TElementType, TElementTypeEnum]):
+class IMorphable(Generic[TElementTypeEnum]):
 
 	def __init__(self) -> None:
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
+		"""
+		raise Exception("Creating a new Instance of this class is not allowed")
+		pass
+
+	def Morph(self, toElementType: TElementTypeEnum) -> IElement:
+		"""No Description
+
+		Args
+		--------
+			toElementType (``TElementTypeEnum``) :  toElementType
+
+		Returns
+		--------
+			``IElement`` : 
+		"""
+		pass
+
+class INetworkElement(Generic[TElementManagerType, TElementType, TUnitsType, TElementTypeEnum, TElementInputType, TElementResultsType, TElementsInputType, TElementsResultsType], IModelingElementBase[TElementManagerType, TElementType, TElementTypeEnum], IMorphable[TElementTypeEnum]):
+
+	def __init__(self) -> None:
+		"""Creating a new Instance of this class is not allowed
+
+
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -32,8 +59,9 @@ class INetworkElement(Generic[TElementManagerType, TElementType, TUnitsType, TEl
 	def GISIDs(self) -> str:
 		"""A comma-delimited string representing the GIDs of the element.
 
-		Returns:
-			INetworkElement: 
+		Returns
+		--------
+			``INetworkElement`` : 
 		"""
 		pass
 
@@ -45,8 +73,9 @@ class INetworkElement(Generic[TElementManagerType, TElementType, TUnitsType, TEl
 	def Input(self) -> TElementInputType:
 		"""Provides easy access to only input properties for this element.
 
-		Returns:
-			INetworkElement: 
+		Returns
+		--------
+			``INetworkElement`` : 
 		"""
 		pass
 
@@ -55,8 +84,9 @@ class INetworkElement(Generic[TElementManagerType, TElementType, TUnitsType, TEl
 		"""Provides easy access to only result properties for this element.
             Null if there are no results available for the current scenario.
 
-		Returns:
-			INetworkElement: 
+		Returns
+		--------
+			``INetworkElement`` : 
 		"""
 		pass
 
@@ -64,8 +94,9 @@ class INetworkElement(Generic[TElementManagerType, TElementType, TUnitsType, TEl
 	def Units(self) -> TUnitsType:
 		"""Provides easy access to this element's field formatters.
 
-		Returns:
-			INetworkElement: 
+		Returns
+		--------
+			``INetworkElement`` : 
 		"""
 		pass
 
@@ -75,8 +106,9 @@ class INetworkElements(Generic[TElementManagerType, TElementType, TUnitsType, TE
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -85,11 +117,13 @@ class INetworkElements(Generic[TElementManagerType, TElementType, TUnitsType, TE
 	def Elements(self, state: ElementStateType) -> List[TElementType]:
 		"""Returns a list of elements of the given state.
 
-		Args:
-			state(ElementStateType): Determines the state of the element to include
+		Args
+		--------
+			state (``ElementStateType``) :  Determines the state of the element to include
 
-		Returns:
-			List[TElementType]: Returns a list of 
+		Returns
+		--------
+			``List[TElementType]`` : Returns a list of 
 		"""
 		pass
 
@@ -97,11 +131,13 @@ class INetworkElements(Generic[TElementManagerType, TElementType, TUnitsType, TE
 	def Elements(self, label: str) -> List[TElementType]:
 		"""No Description
 
-		Args:
-			label(str): label
+		Args
+		--------
+			label (``str``) :  label
 
-		Returns:
-			List[TElementType]: 
+		Returns
+		--------
+			``List[TElementType]`` : 
 		"""
 		pass
 
@@ -109,8 +145,9 @@ class INetworkElements(Generic[TElementManagerType, TElementType, TUnitsType, TE
 	def Elements(self) -> List[TElementType]:
 		"""No Description
 
-		Returns:
-			List[TElementType]: 
+		Returns
+		--------
+			``List[TElementType]`` : 
 		"""
 		pass
 
@@ -118,8 +155,9 @@ class INetworkElements(Generic[TElementManagerType, TElementType, TUnitsType, TE
 	def Results(self) -> TElementsResultsType:
 		"""Access to results for this element list.
 
-		Returns:
-			INetworkElements: 
+		Returns
+		--------
+			``INetworkElements`` : 
 		"""
 		pass
 
@@ -127,8 +165,9 @@ class INetworkElements(Generic[TElementManagerType, TElementType, TUnitsType, TE
 	def Input(self) -> TElementsInputType:
 		"""Access to input for this elements list.
 
-		Returns:
-			INetworkElements: 
+		Returns
+		--------
+			``INetworkElements`` : 
 		"""
 		pass
 
@@ -136,8 +175,9 @@ class INetworkElements(Generic[TElementManagerType, TElementType, TUnitsType, TE
 	def ResultFields(self) -> IFieldManager:
 		"""Access to result fields for this manager
 
-		Returns:
-			INetworkElements: 
+		Returns
+		--------
+			``INetworkElements`` : 
 		"""
 		pass
 
@@ -147,8 +187,9 @@ class IActiveElementInput(IElementInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -157,8 +198,9 @@ class IActiveElementInput(IElementInput):
 	def IsActive(self) -> bool:
 		"""Specifies whether this element is active in the current scenario.
 
-		Returns:
-			IActiveElementInput: 
+		Returns
+		--------
+			``IActiveElementInput`` : 
 		"""
 		pass
 
@@ -172,8 +214,9 @@ class IActiveElementsInput(IElementsInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -182,8 +225,9 @@ class IActiveElementsInput(IElementsInput):
 	def IsActives(self) -> Dict[int,int]:
 		"""Gets all IsActive values for all elements of this type.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -191,11 +235,13 @@ class IActiveElementsInput(IElementsInput):
 	def IsActives(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -205,8 +251,9 @@ class IPointNodeInput(IActiveElementInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -214,19 +261,22 @@ class IPointNodeInput(IActiveElementInput):
 	def GetPoint(self) -> GeometryPoint:
 		"""Gets the geometry of the node.
 
-		Returns:
-			GeometryPoint: 
+		Returns
+		--------
+			``GeometryPoint`` : 
 		"""
 		pass
 
 	def SetPoint(self, point: GeometryPoint) -> None:
 		"""Sets the geometry of the node.
 
-		Args:
-			point(GeometryPoint): The point location of the node.
+		Args
+		--------
+			point (``GeometryPoint``) :  The point location of the node.
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
@@ -236,8 +286,9 @@ class IPointNodesInput(IActiveElementsInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -246,8 +297,9 @@ class IPointNodesInput(IActiveElementsInput):
 	def Geometries(self) -> Dict[int,int]:
 		"""Gets the geometry of all nodes of this type.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -255,11 +307,13 @@ class IPointNodesInput(IActiveElementsInput):
 	def Geometries(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -269,8 +323,9 @@ class IBaseLinkInput(IActiveElementInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -279,19 +334,22 @@ class IBaseLinkInput(IActiveElementInput):
 		"""Gets the list of geometry for the link.  The first point is the geometry of the start node.  The last point
             is the geometry of the stop node.
 
-		Returns:
-			List[GeometryPoint]: 
+		Returns
+		--------
+			``List[GeometryPoint]`` : 
 		"""
 		pass
 
 	def SetPoints(self, points: List[GeometryPoint]) -> None:
 		"""No Description
 
-		Args:
-			points(List[GeometryPoint]): points
+		Args
+		--------
+			points (``List[GeometryPoint]``) :  points
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
@@ -299,8 +357,9 @@ class IBaseLinkInput(IActiveElementInput):
 	def StartNode(self) -> IElement:
 		"""The ID of the start node of the link.
 
-		Returns:
-			IBaseLinkInput: 
+		Returns
+		--------
+			``IBaseLinkInput`` : 
 		"""
 		pass
 
@@ -312,8 +371,9 @@ class IBaseLinkInput(IActiveElementInput):
 	def StopNode(self) -> IElement:
 		"""The ID of the stop node of the link.
 
-		Returns:
-			IBaseLinkInput: 
+		Returns
+		--------
+			``IBaseLinkInput`` : 
 		"""
 		pass
 
@@ -325,8 +385,9 @@ class IBaseLinkInput(IActiveElementInput):
 	def IsUserDefinedLength(self) -> bool:
 		"""Determines if the length is defined by the user.
 
-		Returns:
-			IBaseLinkInput: 
+		Returns
+		--------
+			``IBaseLinkInput`` : 
 		"""
 		pass
 
@@ -339,8 +400,9 @@ class IBaseLinkInput(IActiveElementInput):
 		"""Returns the unified length - user defined, scaled or 3D in display units.
             If the value is set, Is User Defined Length is automatically set to true.
 
-		Returns:
-			IBaseLinkInput: 
+		Returns
+		--------
+			``IBaseLinkInput`` : 
 		"""
 		pass
 
@@ -354,8 +416,9 @@ class IBaseLinksInput(IActiveElementsInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -364,8 +427,9 @@ class IBaseLinksInput(IActiveElementsInput):
 	def Geometries(self) -> Dict[int,int]:
 		"""Gets the polyline geometries for all base links.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -373,11 +437,13 @@ class IBaseLinksInput(IActiveElementsInput):
 	def Geometries(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -385,8 +451,9 @@ class IBaseLinksInput(IActiveElementsInput):
 	def StartNodes(self) -> Dict[int,int]:
 		"""Gets start nodes for all base links.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -394,11 +461,13 @@ class IBaseLinksInput(IActiveElementsInput):
 	def StartNodes(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -406,8 +475,9 @@ class IBaseLinksInput(IActiveElementsInput):
 	def StopNodes(self) -> Dict[int,int]:
 		"""Gets stop nodes for all base links.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -415,11 +485,13 @@ class IBaseLinksInput(IActiveElementsInput):
 	def StopNodes(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -427,8 +499,9 @@ class IBaseLinksInput(IActiveElementsInput):
 	def IsUserDefinedLengths(self) -> Dict[int,int]:
 		"""Gets user defined lengths for all base links.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -436,11 +509,13 @@ class IBaseLinksInput(IActiveElementsInput):
 	def IsUserDefinedLengths(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -448,8 +523,9 @@ class IBaseLinksInput(IActiveElementsInput):
 	def Lengths(self) -> Dict[int,int]:
 		"""Gets lengths for all base links.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -457,11 +533,13 @@ class IBaseLinksInput(IActiveElementsInput):
 	def Lengths(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -471,8 +549,9 @@ class IBaseLinksResults(IElementsResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -483,8 +562,9 @@ class IBaseLinkResults(IElementResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -495,8 +575,9 @@ class IBaseLinkUnits(IGeometryUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -505,8 +586,9 @@ class IBaseLinkUnits(IGeometryUnits):
 	def LengthUnit(self) -> IUnit:
 		"""The formatter name for length.
 
-		Returns:
-			IBaseLinkUnits: 
+		Returns
+		--------
+			``IBaseLinkUnits`` : 
 		"""
 		pass
 
@@ -516,28 +598,32 @@ class IBasePolygonInput(IActiveElementInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
 
-	def GetRings(self) -> array(array(GeometryPoint)):
+	def GetRings(self) -> List[List[GeometryPoint]]:
 		"""Gets the rings of the polygon.
 
-		Returns:
-			array(array(GeometryPoint)): 
+		Returns
+		--------
+			``List[List[GeometryPoint]]`` : 
 		"""
 		pass
 
-	def SetRings(self, rings: array(array(GeometryPoint))) -> None:
+	def SetRings(self, rings: List[List[GeometryPoint]]) -> None:
 		"""Sets the rings of the polygon.
 
-		Args:
-			rings(array(array(GeometryPoint))): rings
+		Args
+		--------
+			rings (``List[List[GeometryPoint]]``) :  rings
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
@@ -547,8 +633,9 @@ class IBasePolygonsInput(IActiveElementsInput):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -557,8 +644,9 @@ class IBasePolygonsInput(IActiveElementsInput):
 	def Geometries(self) -> Dict[int,int]:
 		"""Gets ring geometry for all polygons.
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -566,11 +654,13 @@ class IBasePolygonsInput(IActiveElementsInput):
 	def Geometries(self, ids: List[int]) -> Dict[int,int]:
 		"""No Description
 
-		Args:
-			ids(List[int]): ids
+		Args
+		--------
+			ids (``List[int]``) :  ids
 
-		Returns:
-			Dict[int,int]: 
+		Returns
+		--------
+			``Dict[int,int]`` : 
 		"""
 		pass
 
@@ -580,8 +670,9 @@ class IBasePolygonsResults(IElementsResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -592,8 +683,9 @@ class IBasePolygonResults(IElementResults):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass

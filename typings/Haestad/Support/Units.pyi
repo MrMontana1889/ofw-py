@@ -1,8 +1,9 @@
 from Haestad.Support.Support import INamable, ILabeled
 from typing import List, overload, Dict
 from enum import Enum
+from System import TypeCode, ICloneable
 from datetime import datetime
-from array import array
+from System.Runtime.Serialization import SerializationInfo, StreamingContext, ISerializable
 
 class DimensionType(Enum):
 	Dimensionless = 0
@@ -1177,29 +1178,30 @@ class CurrencyBasedUnit(INamable):
 	def __init__(self, astringName: str, adimension: Dimension, aunitsystem: UnitSystem, adouble: float, aintEnumValue: int) -> None:
 		"""No Description
 
-		Args:
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			adouble(float): adouble
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			adouble(float): adouble
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			aiunitconverter(IUnitConverter): aiunitconverter
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			aiunitconverter(IUnitConverter): aiunitconverter
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
+		Args
+		--------
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			adouble (``float``) :  adouble
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			adouble (``float``) :  adouble
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			aiunitconverter (``IUnitConverter``) :  aiunitconverter
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			aiunitconverter (``IUnitConverter``) :  aiunitconverter
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
 		"""
 		pass
 
@@ -1207,29 +1209,30 @@ class CurrencyBasedUnit(INamable):
 	def __init__(self, astringName: str, adimension: Dimension, aunitsystem: UnitSystem, adouble: float, aintEnumValue: int, bentleyName: str) -> None:
 		"""No Description
 
-		Args:
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			adouble(float): adouble
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			adouble(float): adouble
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			aiunitconverter(IUnitConverter): aiunitconverter
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			aiunitconverter(IUnitConverter): aiunitconverter
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
+		Args
+		--------
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			adouble (``float``) :  adouble
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			adouble (``float``) :  adouble
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			aiunitconverter (``IUnitConverter``) :  aiunitconverter
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			aiunitconverter (``IUnitConverter``) :  aiunitconverter
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
 		"""
 		pass
 
@@ -1237,29 +1240,30 @@ class CurrencyBasedUnit(INamable):
 	def __init__(self, astringName: str, adimension: Dimension, aunitsystem: UnitSystem, aiunitconverter: IUnitConverter, aintEnumValue: int) -> None:
 		"""No Description
 
-		Args:
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			adouble(float): adouble
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			adouble(float): adouble
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			aiunitconverter(IUnitConverter): aiunitconverter
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			aiunitconverter(IUnitConverter): aiunitconverter
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
+		Args
+		--------
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			adouble (``float``) :  adouble
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			adouble (``float``) :  adouble
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			aiunitconverter (``IUnitConverter``) :  aiunitconverter
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			aiunitconverter (``IUnitConverter``) :  aiunitconverter
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
 		"""
 		pass
 
@@ -1267,60 +1271,66 @@ class CurrencyBasedUnit(INamable):
 	def __init__(self, astringName: str, adimension: Dimension, aunitsystem: UnitSystem, aiunitconverter: IUnitConverter, aintEnumValue: int, bentleyName: str) -> None:
 		"""No Description
 
-		Args:
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			adouble(float): adouble
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			adouble(float): adouble
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			aiunitconverter(IUnitConverter): aiunitconverter
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			aiunitconverter(IUnitConverter): aiunitconverter
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
+		Args
+		--------
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			adouble (``float``) :  adouble
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			adouble (``float``) :  adouble
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			aiunitconverter (``IUnitConverter``) :  aiunitconverter
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			aiunitconverter (``IUnitConverter``) :  aiunitconverter
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
 		"""
 		pass
 
 	def ConvertFrom(self, adouble: float, aunit: Unit) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
-			aunit(Unit): aunit
+		Args
+		--------
+			adouble (``float``) :  adouble
+			aunit (``Unit``) :  aunit
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ConversionFactor(self, aunit: Unit) -> float:
 		"""No Description
 
-		Args:
-			aunit(Unit): aunit
+		Args
+		--------
+			aunit (``Unit``) :  aunit
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ToSerializedString(self) -> str:
 		"""No Description
 
-		Returns:
-			str: 
+		Returns
+		--------
+			``str`` : 
 		"""
 		pass
 
@@ -1328,8 +1338,9 @@ class CurrencyBasedUnit(INamable):
 	def Dimension(self) -> Dimension:
 		"""No Description
 
-		Returns:
-			CurrencyBasedUnit: 
+		Returns
+		--------
+			``CurrencyBasedUnit`` : 
 		"""
 		pass
 
@@ -1337,8 +1348,9 @@ class CurrencyBasedUnit(INamable):
 	def EnumValue(self) -> int:
 		"""No Description
 
-		Returns:
-			CurrencyBasedUnit: 
+		Returns
+		--------
+			``CurrencyBasedUnit`` : 
 		"""
 		pass
 
@@ -1346,8 +1358,9 @@ class CurrencyBasedUnit(INamable):
 	def Label(self) -> str:
 		"""No Description
 
-		Returns:
-			CurrencyBasedUnit: 
+		Returns
+		--------
+			``CurrencyBasedUnit`` : 
 		"""
 		pass
 
@@ -1355,8 +1368,9 @@ class CurrencyBasedUnit(INamable):
 	def LabelKey(self) -> str:
 		"""No Description
 
-		Returns:
-			CurrencyBasedUnit: 
+		Returns
+		--------
+			``CurrencyBasedUnit`` : 
 		"""
 		pass
 
@@ -1364,8 +1378,9 @@ class CurrencyBasedUnit(INamable):
 	def Name(self) -> str:
 		"""No Description
 
-		Returns:
-			CurrencyBasedUnit: 
+		Returns
+		--------
+			``CurrencyBasedUnit`` : 
 		"""
 		pass
 
@@ -1373,8 +1388,9 @@ class CurrencyBasedUnit(INamable):
 	def BentleyName(self) -> str:
 		"""No Description
 
-		Returns:
-			CurrencyBasedUnit: 
+		Returns
+		--------
+			``CurrencyBasedUnit`` : 
 		"""
 		pass
 
@@ -1382,8 +1398,9 @@ class CurrencyBasedUnit(INamable):
 	def ShortLabel(self) -> str:
 		"""No Description
 
-		Returns:
-			CurrencyBasedUnit: 
+		Returns
+		--------
+			``CurrencyBasedUnit`` : 
 		"""
 		pass
 
@@ -1391,8 +1408,9 @@ class CurrencyBasedUnit(INamable):
 	def UnitSystem(self) -> UnitSystem:
 		"""No Description
 
-		Returns:
-			CurrencyBasedUnit: 
+		Returns
+		--------
+			``CurrencyBasedUnit`` : 
 		"""
 		pass
 
@@ -1402,18 +1420,19 @@ class WeirCoefficientParameterized(INamable):
 	def __init__(self, name: str, dimension: Dimension, aunitsystem: UnitSystem, converter: WeirCoefficientParameterizedUnitConverter, enumVal: int) -> None:
 		"""No Description
 
-		Args:
-			name(str): name
-			dimension(Dimension): dimension
-			aunitsystem(UnitSystem): aunitsystem
-			converter(WeirCoefficientParameterizedUnitConverter): converter
-			enumVal(int): enumVal
-			name(str): name
-			dimension(Dimension): dimension
-			aunitsystem(UnitSystem): aunitsystem
-			converter(WeirCoefficientParameterizedUnitConverter): converter
-			enumVal(int): enumVal
-			bentleyName(str): bentleyName
+		Args
+		--------
+			name (``str``) :  name
+			dimension (``Dimension``) :  dimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			converter (``WeirCoefficientParameterizedUnitConverter``) :  converter
+			enumVal (``int``) :  enumVal
+			name (``str``) :  name
+			dimension (``Dimension``) :  dimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			converter (``WeirCoefficientParameterizedUnitConverter``) :  converter
+			enumVal (``int``) :  enumVal
+			bentleyName (``str``) :  bentleyName
 		"""
 		pass
 
@@ -1421,49 +1440,55 @@ class WeirCoefficientParameterized(INamable):
 	def __init__(self, name: str, dimension: Dimension, aunitsystem: UnitSystem, converter: WeirCoefficientParameterizedUnitConverter, enumVal: int, bentleyName: str) -> None:
 		"""No Description
 
-		Args:
-			name(str): name
-			dimension(Dimension): dimension
-			aunitsystem(UnitSystem): aunitsystem
-			converter(WeirCoefficientParameterizedUnitConverter): converter
-			enumVal(int): enumVal
-			name(str): name
-			dimension(Dimension): dimension
-			aunitsystem(UnitSystem): aunitsystem
-			converter(WeirCoefficientParameterizedUnitConverter): converter
-			enumVal(int): enumVal
-			bentleyName(str): bentleyName
+		Args
+		--------
+			name (``str``) :  name
+			dimension (``Dimension``) :  dimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			converter (``WeirCoefficientParameterizedUnitConverter``) :  converter
+			enumVal (``int``) :  enumVal
+			name (``str``) :  name
+			dimension (``Dimension``) :  dimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			converter (``WeirCoefficientParameterizedUnitConverter``) :  converter
+			enumVal (``int``) :  enumVal
+			bentleyName (``str``) :  bentleyName
 		"""
 		pass
 
 	def ConvertFrom(self, adouble: float, aunit: Unit) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
-			aunit(Unit): aunit
+		Args
+		--------
+			adouble (``float``) :  adouble
+			aunit (``Unit``) :  aunit
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ConversionFactor(self, aunit: Unit) -> float:
 		"""No Description
 
-		Args:
-			aunit(Unit): aunit
+		Args
+		--------
+			aunit (``Unit``) :  aunit
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ToSerializedString(self) -> str:
 		"""No Description
 
-		Returns:
-			str: 
+		Returns
+		--------
+			``str`` : 
 		"""
 		pass
 
@@ -1471,8 +1496,9 @@ class WeirCoefficientParameterized(INamable):
 	def KExp(self) -> float:
 		"""No Description
 
-		Returns:
-			WeirCoefficientParameterized: 
+		Returns
+		--------
+			``WeirCoefficientParameterized`` : 
 		"""
 		pass
 
@@ -1484,8 +1510,9 @@ class WeirCoefficientParameterized(INamable):
 	def Dimension(self) -> Dimension:
 		"""No Description
 
-		Returns:
-			WeirCoefficientParameterized: 
+		Returns
+		--------
+			``WeirCoefficientParameterized`` : 
 		"""
 		pass
 
@@ -1493,8 +1520,9 @@ class WeirCoefficientParameterized(INamable):
 	def EnumValue(self) -> int:
 		"""No Description
 
-		Returns:
-			WeirCoefficientParameterized: 
+		Returns
+		--------
+			``WeirCoefficientParameterized`` : 
 		"""
 		pass
 
@@ -1502,8 +1530,9 @@ class WeirCoefficientParameterized(INamable):
 	def Label(self) -> str:
 		"""No Description
 
-		Returns:
-			WeirCoefficientParameterized: 
+		Returns
+		--------
+			``WeirCoefficientParameterized`` : 
 		"""
 		pass
 
@@ -1511,8 +1540,9 @@ class WeirCoefficientParameterized(INamable):
 	def LabelKey(self) -> str:
 		"""No Description
 
-		Returns:
-			WeirCoefficientParameterized: 
+		Returns
+		--------
+			``WeirCoefficientParameterized`` : 
 		"""
 		pass
 
@@ -1520,8 +1550,9 @@ class WeirCoefficientParameterized(INamable):
 	def Name(self) -> str:
 		"""No Description
 
-		Returns:
-			WeirCoefficientParameterized: 
+		Returns
+		--------
+			``WeirCoefficientParameterized`` : 
 		"""
 		pass
 
@@ -1529,8 +1560,9 @@ class WeirCoefficientParameterized(INamable):
 	def BentleyName(self) -> str:
 		"""No Description
 
-		Returns:
-			WeirCoefficientParameterized: 
+		Returns
+		--------
+			``WeirCoefficientParameterized`` : 
 		"""
 		pass
 
@@ -1538,8 +1570,9 @@ class WeirCoefficientParameterized(INamable):
 	def ShortLabel(self) -> str:
 		"""No Description
 
-		Returns:
-			WeirCoefficientParameterized: 
+		Returns
+		--------
+			``WeirCoefficientParameterized`` : 
 		"""
 		pass
 
@@ -1547,8 +1580,9 @@ class WeirCoefficientParameterized(INamable):
 	def UnitSystem(self) -> UnitSystem:
 		"""No Description
 
-		Returns:
-			WeirCoefficientParameterized: 
+		Returns
+		--------
+			``WeirCoefficientParameterized`` : 
 		"""
 		pass
 
@@ -1557,30 +1591,35 @@ class WeirCoefficientParameterizedUnitConverter(IUnitConverter):
 	def __init__(self, unitSystem: UnitSystemIndex) -> None:
 		"""No Description
 
-		Args:
-			unitSystem(UnitSystemIndex): unitSystem
+		Args
+		--------
+			unitSystem (``UnitSystemIndex``) :  unitSystem
 		"""
 		pass
 
 	def FromBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ToBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -1588,8 +1627,9 @@ class WeirCoefficientParameterizedUnitConverter(IUnitConverter):
 	def KExp(self) -> float:
 		"""No Description
 
-		Returns:
-			WeirCoefficientParameterizedUnitConverter: 
+		Returns
+		--------
+			``WeirCoefficientParameterizedUnitConverter`` : 
 		"""
 		pass
 
@@ -1603,18 +1643,19 @@ class InfiltrationPerUnitDepthUnit(INamable):
 	def __init__(self, name: str, dimension: Dimension, aunitsystem: UnitSystem, converter: InfiltrationPerUnitDepthConverter, enumVal: int) -> None:
 		"""No Description
 
-		Args:
-			name(str): name
-			dimension(Dimension): dimension
-			aunitsystem(UnitSystem): aunitsystem
-			converter(InfiltrationPerUnitDepthConverter): converter
-			enumVal(int): enumVal
-			name(str): name
-			dimension(Dimension): dimension
-			aunitsystem(UnitSystem): aunitsystem
-			converter(InfiltrationPerUnitDepthConverter): converter
-			enumVal(int): enumVal
-			bentleyName(str): bentleyName
+		Args
+		--------
+			name (``str``) :  name
+			dimension (``Dimension``) :  dimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			converter (``InfiltrationPerUnitDepthConverter``) :  converter
+			enumVal (``int``) :  enumVal
+			name (``str``) :  name
+			dimension (``Dimension``) :  dimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			converter (``InfiltrationPerUnitDepthConverter``) :  converter
+			enumVal (``int``) :  enumVal
+			bentleyName (``str``) :  bentleyName
 		"""
 		pass
 
@@ -1622,49 +1663,55 @@ class InfiltrationPerUnitDepthUnit(INamable):
 	def __init__(self, name: str, dimension: Dimension, aunitsystem: UnitSystem, converter: InfiltrationPerUnitDepthConverter, enumVal: int, bentleyName: str) -> None:
 		"""No Description
 
-		Args:
-			name(str): name
-			dimension(Dimension): dimension
-			aunitsystem(UnitSystem): aunitsystem
-			converter(InfiltrationPerUnitDepthConverter): converter
-			enumVal(int): enumVal
-			name(str): name
-			dimension(Dimension): dimension
-			aunitsystem(UnitSystem): aunitsystem
-			converter(InfiltrationPerUnitDepthConverter): converter
-			enumVal(int): enumVal
-			bentleyName(str): bentleyName
+		Args
+		--------
+			name (``str``) :  name
+			dimension (``Dimension``) :  dimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			converter (``InfiltrationPerUnitDepthConverter``) :  converter
+			enumVal (``int``) :  enumVal
+			name (``str``) :  name
+			dimension (``Dimension``) :  dimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			converter (``InfiltrationPerUnitDepthConverter``) :  converter
+			enumVal (``int``) :  enumVal
+			bentleyName (``str``) :  bentleyName
 		"""
 		pass
 
 	def ConvertFrom(self, adouble: float, aunit: Unit) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
-			aunit(Unit): aunit
+		Args
+		--------
+			adouble (``float``) :  adouble
+			aunit (``Unit``) :  aunit
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ConversionFactor(self, aunit: Unit) -> float:
 		"""No Description
 
-		Args:
-			aunit(Unit): aunit
+		Args
+		--------
+			aunit (``Unit``) :  aunit
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ToSerializedString(self) -> str:
 		"""No Description
 
-		Returns:
-			str: 
+		Returns
+		--------
+			``str`` : 
 		"""
 		pass
 
@@ -1672,8 +1719,9 @@ class InfiltrationPerUnitDepthUnit(INamable):
 	def KExp(self) -> float:
 		"""No Description
 
-		Returns:
-			InfiltrationPerUnitDepthUnit: 
+		Returns
+		--------
+			``InfiltrationPerUnitDepthUnit`` : 
 		"""
 		pass
 
@@ -1685,8 +1733,9 @@ class InfiltrationPerUnitDepthUnit(INamable):
 	def Dimension(self) -> Dimension:
 		"""No Description
 
-		Returns:
-			InfiltrationPerUnitDepthUnit: 
+		Returns
+		--------
+			``InfiltrationPerUnitDepthUnit`` : 
 		"""
 		pass
 
@@ -1694,8 +1743,9 @@ class InfiltrationPerUnitDepthUnit(INamable):
 	def EnumValue(self) -> int:
 		"""No Description
 
-		Returns:
-			InfiltrationPerUnitDepthUnit: 
+		Returns
+		--------
+			``InfiltrationPerUnitDepthUnit`` : 
 		"""
 		pass
 
@@ -1703,8 +1753,9 @@ class InfiltrationPerUnitDepthUnit(INamable):
 	def Label(self) -> str:
 		"""No Description
 
-		Returns:
-			InfiltrationPerUnitDepthUnit: 
+		Returns
+		--------
+			``InfiltrationPerUnitDepthUnit`` : 
 		"""
 		pass
 
@@ -1712,8 +1763,9 @@ class InfiltrationPerUnitDepthUnit(INamable):
 	def LabelKey(self) -> str:
 		"""No Description
 
-		Returns:
-			InfiltrationPerUnitDepthUnit: 
+		Returns
+		--------
+			``InfiltrationPerUnitDepthUnit`` : 
 		"""
 		pass
 
@@ -1721,8 +1773,9 @@ class InfiltrationPerUnitDepthUnit(INamable):
 	def Name(self) -> str:
 		"""No Description
 
-		Returns:
-			InfiltrationPerUnitDepthUnit: 
+		Returns
+		--------
+			``InfiltrationPerUnitDepthUnit`` : 
 		"""
 		pass
 
@@ -1730,8 +1783,9 @@ class InfiltrationPerUnitDepthUnit(INamable):
 	def BentleyName(self) -> str:
 		"""No Description
 
-		Returns:
-			InfiltrationPerUnitDepthUnit: 
+		Returns
+		--------
+			``InfiltrationPerUnitDepthUnit`` : 
 		"""
 		pass
 
@@ -1739,8 +1793,9 @@ class InfiltrationPerUnitDepthUnit(INamable):
 	def ShortLabel(self) -> str:
 		"""No Description
 
-		Returns:
-			InfiltrationPerUnitDepthUnit: 
+		Returns
+		--------
+			``InfiltrationPerUnitDepthUnit`` : 
 		"""
 		pass
 
@@ -1748,8 +1803,9 @@ class InfiltrationPerUnitDepthUnit(INamable):
 	def UnitSystem(self) -> UnitSystem:
 		"""No Description
 
-		Returns:
-			InfiltrationPerUnitDepthUnit: 
+		Returns
+		--------
+			``InfiltrationPerUnitDepthUnit`` : 
 		"""
 		pass
 
@@ -1758,31 +1814,36 @@ class InfiltrationPerUnitDepthConverter(IUnitConverter):
 	def __init__(self, infiltrationUnit: UnitIndex, depthUnit: UnitIndex) -> None:
 		"""No Description
 
-		Args:
-			infiltrationUnit(UnitIndex): infiltrationUnit
-			depthUnit(UnitIndex): depthUnit
+		Args
+		--------
+			infiltrationUnit (``UnitIndex``) :  infiltrationUnit
+			depthUnit (``UnitIndex``) :  depthUnit
 		"""
 		pass
 
 	def FromBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ToBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -1790,8 +1851,9 @@ class InfiltrationPerUnitDepthConverter(IUnitConverter):
 	def KExp(self) -> float:
 		"""No Description
 
-		Returns:
-			InfiltrationPerUnitDepthConverter: 
+		Returns
+		--------
+			``InfiltrationPerUnitDepthConverter`` : 
 		"""
 		pass
 
@@ -1803,8 +1865,9 @@ class InfiltrationPerUnitDepthConverter(IUnitConverter):
 	def BaseInfiltrationUnit(self) -> Unit:
 		"""No Description
 
-		Returns:
-			InfiltrationPerUnitDepthConverter: 
+		Returns
+		--------
+			``InfiltrationPerUnitDepthConverter`` : 
 		"""
 		pass
 
@@ -1812,8 +1875,9 @@ class InfiltrationPerUnitDepthConverter(IUnitConverter):
 	def BaseDepthUnit(self) -> Unit:
 		"""No Description
 
-		Returns:
-			InfiltrationPerUnitDepthConverter: 
+		Returns
+		--------
+			``InfiltrationPerUnitDepthConverter`` : 
 		"""
 		pass
 
@@ -1821,8 +1885,9 @@ class InfiltrationPerUnitDepthConverter(IUnitConverter):
 	def DepthUnit(self) -> Unit:
 		"""No Description
 
-		Returns:
-			InfiltrationPerUnitDepthConverter: 
+		Returns
+		--------
+			``InfiltrationPerUnitDepthConverter`` : 
 		"""
 		pass
 
@@ -1830,8 +1895,9 @@ class InfiltrationPerUnitDepthConverter(IUnitConverter):
 	def InfiltrationUnit(self) -> Unit:
 		"""No Description
 
-		Returns:
-			InfiltrationPerUnitDepthConverter: 
+		Returns
+		--------
+			``InfiltrationPerUnitDepthConverter`` : 
 		"""
 		pass
 
@@ -1841,18 +1907,19 @@ class DrainageCoefficientUnit(INamable):
 	def __init__(self, name: str, dimension: Dimension, aunitsystem: UnitSystem, converter: DrainageCoefficientUnitConverter, enumVal: int) -> None:
 		"""No Description
 
-		Args:
-			name(str): name
-			dimension(Dimension): dimension
-			aunitsystem(UnitSystem): aunitsystem
-			converter(DrainageCoefficientUnitConverter): converter
-			enumVal(int): enumVal
-			name(str): name
-			dimension(Dimension): dimension
-			aunitsystem(UnitSystem): aunitsystem
-			converter(DrainageCoefficientUnitConverter): converter
-			enumVal(int): enumVal
-			bentleyName(str): bentleyName
+		Args
+		--------
+			name (``str``) :  name
+			dimension (``Dimension``) :  dimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			converter (``DrainageCoefficientUnitConverter``) :  converter
+			enumVal (``int``) :  enumVal
+			name (``str``) :  name
+			dimension (``Dimension``) :  dimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			converter (``DrainageCoefficientUnitConverter``) :  converter
+			enumVal (``int``) :  enumVal
+			bentleyName (``str``) :  bentleyName
 		"""
 		pass
 
@@ -1860,49 +1927,55 @@ class DrainageCoefficientUnit(INamable):
 	def __init__(self, name: str, dimension: Dimension, aunitsystem: UnitSystem, converter: DrainageCoefficientUnitConverter, enumVal: int, bentleyName: str) -> None:
 		"""No Description
 
-		Args:
-			name(str): name
-			dimension(Dimension): dimension
-			aunitsystem(UnitSystem): aunitsystem
-			converter(DrainageCoefficientUnitConverter): converter
-			enumVal(int): enumVal
-			name(str): name
-			dimension(Dimension): dimension
-			aunitsystem(UnitSystem): aunitsystem
-			converter(DrainageCoefficientUnitConverter): converter
-			enumVal(int): enumVal
-			bentleyName(str): bentleyName
+		Args
+		--------
+			name (``str``) :  name
+			dimension (``Dimension``) :  dimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			converter (``DrainageCoefficientUnitConverter``) :  converter
+			enumVal (``int``) :  enumVal
+			name (``str``) :  name
+			dimension (``Dimension``) :  dimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			converter (``DrainageCoefficientUnitConverter``) :  converter
+			enumVal (``int``) :  enumVal
+			bentleyName (``str``) :  bentleyName
 		"""
 		pass
 
 	def ConvertFrom(self, adouble: float, aunit: Unit) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
-			aunit(Unit): aunit
+		Args
+		--------
+			adouble (``float``) :  adouble
+			aunit (``Unit``) :  aunit
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ConversionFactor(self, aunit: Unit) -> float:
 		"""No Description
 
-		Args:
-			aunit(Unit): aunit
+		Args
+		--------
+			aunit (``Unit``) :  aunit
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ToSerializedString(self) -> str:
 		"""No Description
 
-		Returns:
-			str: 
+		Returns
+		--------
+			``str`` : 
 		"""
 		pass
 
@@ -1910,8 +1983,9 @@ class DrainageCoefficientUnit(INamable):
 	def KExp(self) -> float:
 		"""No Description
 
-		Returns:
-			DrainageCoefficientUnit: 
+		Returns
+		--------
+			``DrainageCoefficientUnit`` : 
 		"""
 		pass
 
@@ -1923,8 +1997,9 @@ class DrainageCoefficientUnit(INamable):
 	def Dimension(self) -> Dimension:
 		"""No Description
 
-		Returns:
-			DrainageCoefficientUnit: 
+		Returns
+		--------
+			``DrainageCoefficientUnit`` : 
 		"""
 		pass
 
@@ -1932,8 +2007,9 @@ class DrainageCoefficientUnit(INamable):
 	def EnumValue(self) -> int:
 		"""No Description
 
-		Returns:
-			DrainageCoefficientUnit: 
+		Returns
+		--------
+			``DrainageCoefficientUnit`` : 
 		"""
 		pass
 
@@ -1941,8 +2017,9 @@ class DrainageCoefficientUnit(INamable):
 	def Label(self) -> str:
 		"""No Description
 
-		Returns:
-			DrainageCoefficientUnit: 
+		Returns
+		--------
+			``DrainageCoefficientUnit`` : 
 		"""
 		pass
 
@@ -1950,8 +2027,9 @@ class DrainageCoefficientUnit(INamable):
 	def LabelKey(self) -> str:
 		"""No Description
 
-		Returns:
-			DrainageCoefficientUnit: 
+		Returns
+		--------
+			``DrainageCoefficientUnit`` : 
 		"""
 		pass
 
@@ -1959,8 +2037,9 @@ class DrainageCoefficientUnit(INamable):
 	def Name(self) -> str:
 		"""No Description
 
-		Returns:
-			DrainageCoefficientUnit: 
+		Returns
+		--------
+			``DrainageCoefficientUnit`` : 
 		"""
 		pass
 
@@ -1968,8 +2047,9 @@ class DrainageCoefficientUnit(INamable):
 	def BentleyName(self) -> str:
 		"""No Description
 
-		Returns:
-			DrainageCoefficientUnit: 
+		Returns
+		--------
+			``DrainageCoefficientUnit`` : 
 		"""
 		pass
 
@@ -1977,8 +2057,9 @@ class DrainageCoefficientUnit(INamable):
 	def ShortLabel(self) -> str:
 		"""No Description
 
-		Returns:
-			DrainageCoefficientUnit: 
+		Returns
+		--------
+			``DrainageCoefficientUnit`` : 
 		"""
 		pass
 
@@ -1986,8 +2067,9 @@ class DrainageCoefficientUnit(INamable):
 	def UnitSystem(self) -> UnitSystem:
 		"""No Description
 
-		Returns:
-			DrainageCoefficientUnit: 
+		Returns
+		--------
+			``DrainageCoefficientUnit`` : 
 		"""
 		pass
 
@@ -1996,30 +2078,35 @@ class DrainageCoefficientUnitConverter(IUnitConverter):
 	def __init__(self, infiltrationUnit: UnitIndex) -> None:
 		"""No Description
 
-		Args:
-			infiltrationUnit(UnitIndex): infiltrationUnit
+		Args
+		--------
+			infiltrationUnit (``UnitIndex``) :  infiltrationUnit
 		"""
 		pass
 
 	def FromBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ToBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -2027,8 +2114,9 @@ class DrainageCoefficientUnitConverter(IUnitConverter):
 	def KExp(self) -> float:
 		"""No Description
 
-		Returns:
-			DrainageCoefficientUnitConverter: 
+		Returns
+		--------
+			``DrainageCoefficientUnitConverter`` : 
 		"""
 		pass
 
@@ -2040,8 +2128,9 @@ class DrainageCoefficientUnitConverter(IUnitConverter):
 	def BaseInfiltrationUnit(self) -> Unit:
 		"""No Description
 
-		Returns:
-			DrainageCoefficientUnitConverter: 
+		Returns
+		--------
+			``DrainageCoefficientUnitConverter`` : 
 		"""
 		pass
 
@@ -2049,8 +2138,9 @@ class DrainageCoefficientUnitConverter(IUnitConverter):
 	def InfiltrationUnit(self) -> Unit:
 		"""No Description
 
-		Returns:
-			DrainageCoefficientUnitConverter: 
+		Returns
+		--------
+			``DrainageCoefficientUnitConverter`` : 
 		"""
 		pass
 
@@ -2060,12 +2150,13 @@ class Dimension(INamable):
 	def __init__(self, astringName: str, aintEnumValue: int) -> None:
 		"""No Description
 
-		Args:
-			astringName(str): astringName
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
+		Args
+		--------
+			astringName (``str``) :  astringName
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
 		"""
 		pass
 
@@ -2073,12 +2164,13 @@ class Dimension(INamable):
 	def __init__(self, astringName: str, aintEnumValue: int, bentleyName: str) -> None:
 		"""No Description
 
-		Args:
-			astringName(str): astringName
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
+		Args
+		--------
+			astringName (``str``) :  astringName
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
 		"""
 		pass
 
@@ -2086,11 +2178,13 @@ class Dimension(INamable):
 	def FromIndex(aindex: DimensionIndex) -> Dimension:
 		"""No Description
 
-		Args:
-			aindex(DimensionIndex): aindex
+		Args
+		--------
+			aindex (``DimensionIndex``) :  aindex
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2099,11 +2193,13 @@ class Dimension(INamable):
 	def FromEnum(aint: int) -> Dimension:
 		"""No Description
 
-		Args:
-			aint(int): aint
+		Args
+		--------
+			aint (``int``) :  aint
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2112,11 +2208,13 @@ class Dimension(INamable):
 	def FromEnum(dimension: DimensionType) -> Dimension:
 		"""No Description
 
-		Args:
-			dimension(DimensionType): dimension
+		Args
+		--------
+			dimension (``DimensionType``) :  dimension
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2124,11 +2222,13 @@ class Dimension(INamable):
 	def FromName(asNameDimension: str) -> Dimension:
 		"""No Description
 
-		Args:
-			asNameDimension(str): asNameDimension
+		Args
+		--------
+			asNameDimension (``str``) :  asNameDimension
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2137,25 +2237,29 @@ class Dimension(INamable):
 	def Convert(adouble: float, dimensionType: DimensionType, aintFromUnit: int, aintToUnit: int) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
-			dimensionType(DimensionType): dimensionType
-			aintFromUnit(int): aintFromUnit
-			aintToUnit(int): aintToUnit
+		Args
+		--------
+			adouble (``float``) :  adouble
+			dimensionType (``DimensionType``) :  dimensionType
+			aintFromUnit (``int``) :  aintFromUnit
+			aintToUnit (``int``) :  aintToUnit
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def AvailableUnitsSortedEx(self, currentUnit: int) -> List:
 		"""No Description
 
-		Args:
-			currentUnit(int): currentUnit
+		Args
+		--------
+			currentUnit (``int``) :  currentUnit
 
-		Returns:
-			List: 
+		Returns
+		--------
+			``List`` : 
 		"""
 		pass
 
@@ -2163,24 +2267,28 @@ class Dimension(INamable):
 	def Convert(self, adouble: float, aintFromUnit: int, aintToUnit: int) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
-			aintFromUnit(int): aintFromUnit
-			aintToUnit(int): aintToUnit
+		Args
+		--------
+			adouble (``float``) :  adouble
+			aintFromUnit (``int``) :  aintFromUnit
+			aintToUnit (``int``) :  aintToUnit
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def UnitFromEnum(self, aiEnumValue: int) -> Unit:
 		"""No Description
 
-		Args:
-			aiEnumValue(int): aiEnumValue
+		Args
+		--------
+			aiEnumValue (``int``) :  aiEnumValue
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -2189,8 +2297,9 @@ class Dimension(INamable):
 	def Angle() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2199,8 +2308,9 @@ class Dimension(INamable):
 	def Area() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2209,8 +2319,9 @@ class Dimension(INamable):
 	def Concentration() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2219,8 +2330,9 @@ class Dimension(INamable):
 	def Currency() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2229,8 +2341,9 @@ class Dimension(INamable):
 	def CurrencyPerEnergy() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2239,8 +2352,9 @@ class Dimension(INamable):
 	def CurrencyPerLength() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2249,8 +2363,9 @@ class Dimension(INamable):
 	def Diffusivity() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2259,8 +2374,9 @@ class Dimension(INamable):
 	def ElectricalFrequency() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2269,8 +2385,9 @@ class Dimension(INamable):
 	def EmitterCoefficient() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2279,8 +2396,9 @@ class Dimension(INamable):
 	def Energy() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2289,8 +2407,9 @@ class Dimension(INamable):
 	def EnergyPerPower() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2299,8 +2418,9 @@ class Dimension(INamable):
 	def Flow() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2309,8 +2429,9 @@ class Dimension(INamable):
 	def FlowDensityPerArea() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2319,8 +2440,9 @@ class Dimension(INamable):
 	def FlowDensityPerCapita() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2329,8 +2451,9 @@ class Dimension(INamable):
 	def InfiltrationRate() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2339,8 +2462,9 @@ class Dimension(INamable):
 	def Length() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2349,8 +2473,9 @@ class Dimension(INamable):
 	def Mass() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2359,8 +2484,9 @@ class Dimension(INamable):
 	def MassPerEnergy() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2369,8 +2495,9 @@ class Dimension(INamable):
 	def MassRate() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2379,8 +2506,9 @@ class Dimension(INamable):
 	def _None() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2389,8 +2517,9 @@ class Dimension(INamable):
 	def NthOrderBulkReactionRate() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2399,8 +2528,9 @@ class Dimension(INamable):
 	def Percent() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2409,8 +2539,9 @@ class Dimension(INamable):
 	def Population() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2419,8 +2550,9 @@ class Dimension(INamable):
 	def PopulationDensityPerArea() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2429,8 +2561,9 @@ class Dimension(INamable):
 	def Pressure() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2439,8 +2572,9 @@ class Dimension(INamable):
 	def Power() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2449,8 +2583,9 @@ class Dimension(INamable):
 	def RainfallIntensity() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2459,8 +2594,9 @@ class Dimension(INamable):
 	def ReactionRate() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2469,8 +2605,9 @@ class Dimension(INamable):
 	def RotationalFrequency() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2479,8 +2616,9 @@ class Dimension(INamable):
 	def Scale() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2489,8 +2627,9 @@ class Dimension(INamable):
 	def Slope() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2499,8 +2638,9 @@ class Dimension(INamable):
 	def SpecificWeight() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2509,8 +2649,9 @@ class Dimension(INamable):
 	def SurfaceReactionRate() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2519,8 +2660,9 @@ class Dimension(INamable):
 	def Temperature() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2529,8 +2671,9 @@ class Dimension(INamable):
 	def Time() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2539,8 +2682,9 @@ class Dimension(INamable):
 	def Unitless() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2549,8 +2693,9 @@ class Dimension(INamable):
 	def Velocity() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2559,8 +2704,9 @@ class Dimension(INamable):
 	def Volume() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2569,8 +2715,9 @@ class Dimension(INamable):
 	def WeirCoefficient() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2579,8 +2726,9 @@ class Dimension(INamable):
 	def ZeroOrderSurfaceReactionRate() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2589,8 +2737,9 @@ class Dimension(INamable):
 	def DiameterLength() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2599,8 +2748,9 @@ class Dimension(INamable):
 	def MassPerArea() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2609,8 +2759,9 @@ class Dimension(INamable):
 	def Inertia() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2619,8 +2770,9 @@ class Dimension(INamable):
 	def CurrencyPerPower() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2629,8 +2781,9 @@ class Dimension(INamable):
 	def CostPerUnitVolume() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2639,8 +2792,9 @@ class Dimension(INamable):
 	def EnergyPerUnitVolume() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2649,8 +2803,9 @@ class Dimension(INamable):
 	def Torque() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2659,8 +2814,9 @@ class Dimension(INamable):
 	def SpringConstant() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2669,8 +2825,9 @@ class Dimension(INamable):
 	def Force() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2679,8 +2836,9 @@ class Dimension(INamable):
 	def Density() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2689,8 +2847,9 @@ class Dimension(INamable):
 	def DischargePerPressureDrop() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2699,8 +2858,9 @@ class Dimension(INamable):
 	def VolumePerLength() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2709,8 +2869,9 @@ class Dimension(INamable):
 	def SideWeirCoefficient() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2719,8 +2880,9 @@ class Dimension(INamable):
 	def InfiltrationPerUnitDepth() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2729,8 +2891,9 @@ class Dimension(INamable):
 	def PressurePerLength() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2739,8 +2902,9 @@ class Dimension(INamable):
 	def MassPerLength() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2749,8 +2913,9 @@ class Dimension(INamable):
 	def PerLength() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2759,8 +2924,9 @@ class Dimension(INamable):
 	def PerPressure() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2769,8 +2935,9 @@ class Dimension(INamable):
 	def DynamicViscosity() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2779,8 +2946,9 @@ class Dimension(INamable):
 	def CalorificValue() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2789,8 +2957,9 @@ class Dimension(INamable):
 	def WeirCoefficientParameterized() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2799,8 +2968,9 @@ class Dimension(INamable):
 	def SnowMeltCoefficient() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2809,8 +2979,9 @@ class Dimension(INamable):
 	def BreakRate() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2819,8 +2990,9 @@ class Dimension(INamable):
 	def ValveOpenCloseRateCoefficient() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2829,8 +3001,9 @@ class Dimension(INamable):
 	def DrainCoefficientUnit() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2839,8 +3012,9 @@ class Dimension(INamable):
 	def NumberPerVolumeUnit() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2849,8 +3023,9 @@ class Dimension(INamable):
 	def NumberPerAreaUnit() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2859,8 +3034,9 @@ class Dimension(INamable):
 	def MolesPerVolumeUnit() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2869,8 +3045,9 @@ class Dimension(INamable):
 	def MolesPerAreaUnit() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2879,8 +3056,9 @@ class Dimension(INamable):
 	def ValveOpenCloseRateCoefficientPerFlow() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2889,8 +3067,9 @@ class Dimension(INamable):
 	def FlowPerUnitLength() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2899,8 +3078,9 @@ class Dimension(INamable):
 	def Acceleration() -> Dimension:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2908,8 +3088,9 @@ class Dimension(INamable):
 	def AvailableUnitsSorted(self) -> List:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2917,8 +3098,9 @@ class Dimension(INamable):
 	def EnumValue(self) -> int:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2926,8 +3108,9 @@ class Dimension(INamable):
 	def Label(self) -> str:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2935,8 +3118,9 @@ class Dimension(INamable):
 	def LabelKey(self) -> str:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2944,8 +3128,9 @@ class Dimension(INamable):
 	def Name(self) -> str:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2953,8 +3138,9 @@ class Dimension(INamable):
 	def BentleyName(self) -> str:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2962,8 +3148,9 @@ class Dimension(INamable):
 	def ShortLabel(self) -> str:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2971,8 +3158,9 @@ class Dimension(INamable):
 	def Units(self) -> ISet:
 		"""No Description
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
@@ -2982,8 +3170,9 @@ class IUnitConverter:
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -2991,22 +3180,26 @@ class IUnitConverter:
 	def FromBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ToBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -3015,72 +3208,84 @@ class NumericConversionHandler:
 	def __init__(self, aunitStorage: Unit, anf: NumericFormatter) -> None:
 		"""No Description
 
-		Args:
-			aunitStorage(Unit): aunitStorage
-			anf(NumericFormatter): anf
+		Args
+		--------
+			aunitStorage (``Unit``) :  aunitStorage
+			anf (``NumericFormatter``) :  anf
 		"""
 		pass
 
 	def DependsOn(self, anf: NumericFormatter) -> bool:
 		"""No Description
 
-		Args:
-			anf(NumericFormatter): anf
+		Args
+		--------
+			anf (``NumericFormatter``) :  anf
 
-		Returns:
-			bool: 
+		Returns
+		--------
+			``bool`` : 
 		"""
 		pass
 
 	def StorageDoubleFromViewDouble(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def StorageDoubleFromViewString(self, astring: str) -> float:
 		"""No Description
 
-		Args:
-			astring(str): astring
+		Args
+		--------
+			astring (``str``) :  astring
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def StorageToViewFactor(self) -> float:
 		"""No Description
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ViewDoubleFromStorageDouble(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ViewStringFromStorageDouble(self, adouble: float) -> str:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			str: 
+		Returns
+		--------
+			``str`` : 
 		"""
 		pass
 
@@ -3088,8 +3293,9 @@ class NumericConversionHandler:
 	def Formatter(self) -> NumericFormatter:
 		"""No Description
 
-		Returns:
-			NumericConversionHandler: 
+		Returns
+		--------
+			``NumericConversionHandler`` : 
 		"""
 		pass
 
@@ -3097,8 +3303,9 @@ class NumericConversionHandler:
 	def StorageUnit(self) -> Unit:
 		"""No Description
 
-		Returns:
-			NumericConversionHandler: 
+		Returns
+		--------
+			``NumericConversionHandler`` : 
 		"""
 		pass
 
@@ -3107,79 +3314,91 @@ class BaseDateTimeDelegate(ICloneable, ISerializable):
 	def __init__(self, object: object, method: IntPtr) -> None:
 		"""No Description
 
-		Args:
-			object(object): object
-			method(IntPtr): method
+		Args
+		--------
+			object (``object``) :  object
+			method (``IntPtr``) :  method
 		"""
 		pass
 
 	def Invoke(self) -> datetime:
 		"""No Description
 
-		Returns:
-			datetime: 
+		Returns
+		--------
+			``datetime`` : 
 		"""
 		pass
 
 	def BeginInvoke(self, callback: AsyncCallback, object: object) -> IAsyncResult:
 		"""No Description
 
-		Args:
-			callback(AsyncCallback): callback
-			object(object): object
+		Args
+		--------
+			callback (``AsyncCallback``) :  callback
+			object (``object``) :  object
 
-		Returns:
-			IAsyncResult: 
+		Returns
+		--------
+			``IAsyncResult`` : 
 		"""
 		pass
 
 	def EndInvoke(self, result: IAsyncResult) -> datetime:
 		"""No Description
 
-		Args:
-			result(IAsyncResult): result
+		Args
+		--------
+			result (``IAsyncResult``) :  result
 
-		Returns:
-			datetime: 
+		Returns
+		--------
+			``datetime`` : 
 		"""
 		pass
 
 	def GetObjectData(self, info: SerializationInfo, context: StreamingContext) -> None:
 		"""No Description
 
-		Args:
-			info(SerializationInfo): info
-			context(StreamingContext): context
+		Args
+		--------
+			info (``SerializationInfo``) :  info
+			context (``StreamingContext``) :  context
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
-	def GetInvocationList(self) -> array(Delegate):
+	def GetInvocationList(self) -> List[Delegate]:
 		"""No Description
 
-		Returns:
-			array(Delegate): 
+		Returns
+		--------
+			``List[Delegate]`` : 
 		"""
 		pass
 
-	def DynamicInvoke(self, args: array(object)) -> object:
+	def DynamicInvoke(self, args: List[object]) -> object:
 		"""No Description
 
-		Args:
-			args(array(object)): args
+		Args
+		--------
+			args (``List[object]``) :  args
 
-		Returns:
-			object: 
+		Returns
+		--------
+			``object`` : 
 		"""
 		pass
 
 	def Clone(self) -> object:
 		"""No Description
 
-		Returns:
-			object: 
+		Returns
+		--------
+			``object`` : 
 		"""
 		pass
 
@@ -3187,8 +3406,9 @@ class BaseDateTimeDelegate(ICloneable, ISerializable):
 	def Method(self) -> MethodInfo:
 		"""No Description
 
-		Returns:
-			BaseDateTimeDelegate: 
+		Returns
+		--------
+			``BaseDateTimeDelegate`` : 
 		"""
 		pass
 
@@ -3196,8 +3416,9 @@ class BaseDateTimeDelegate(ICloneable, ISerializable):
 	def Target(self) -> object:
 		"""No Description
 
-		Returns:
-			BaseDateTimeDelegate: 
+		Returns
+		--------
+			``BaseDateTimeDelegate`` : 
 		"""
 		pass
 
@@ -3212,8 +3433,9 @@ class NumberFormatInfoLibrary:
 	def CurrentNumberFormatInfo(self) -> NumberFormatInfo:
 		"""No Description
 
-		Returns:
-			NumberFormatInfoLibrary: 
+		Returns
+		--------
+			``NumberFormatInfoLibrary`` : 
 		"""
 		pass
 
@@ -3221,8 +3443,9 @@ class NumberFormatInfoLibrary:
 	def CurrentCultureInfo(self) -> CultureInfo:
 		"""No Description
 
-		Returns:
-			NumberFormatInfoLibrary: 
+		Returns
+		--------
+			``NumberFormatInfoLibrary`` : 
 		"""
 		pass
 
@@ -3231,8 +3454,9 @@ class NumberFormatInfoLibrary:
 	def Current() -> NumberFormatInfoLibrary:
 		"""No Description
 
-		Returns:
-			NumberFormatInfoLibrary: 
+		Returns
+		--------
+			``NumberFormatInfoLibrary`` : 
 		"""
 		pass
 
@@ -3242,49 +3466,50 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def __init__(self) -> None:
 		"""No Description
 
-		Args:
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
+		Args
+		--------
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
 		"""
 		pass
 
@@ -3292,49 +3517,50 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def __init__(self, aintId: int, asName: str, aunit: Unit, asFormatCode: str, aintDecimalDigits: int) -> None:
 		"""No Description
 
-		Args:
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
+		Args
+		--------
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
 		"""
 		pass
 
@@ -3342,49 +3568,50 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def __init__(self, aintId: int, asName: str, aunit: Unit, asFormatCode: str, aintDecimalDigits: int, aboolIsStandardFormatter: bool, astringLabel: str) -> None:
 		"""No Description
 
-		Args:
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
+		Args
+		--------
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
 		"""
 		pass
 
@@ -3392,49 +3619,50 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def __init__(self, aintId: int, asName: str, asFormatCode: str, aintDecimalDigits: int, aunitDisplayDefaultSi: Unit, aunitDisplayDefaultUs: Unit) -> None:
 		"""No Description
 
-		Args:
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
+		Args
+		--------
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
 		"""
 		pass
 
@@ -3442,49 +3670,50 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def __init__(self, aintId: int, asName: str, asFormatCode: str, aintDecimalDigits: int, aunitDisplayDefaultSi: Unit, aunitDisplayDefaultUs: Unit, aboolIsStandardFormatter: bool, astringLabel: str) -> None:
 		"""No Description
 
-		Args:
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
+		Args
+		--------
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
 		"""
 		pass
 
@@ -3492,49 +3721,50 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def __init__(self, aintId: int, asName: str, aunit: Unit, asFormatCode: str, aintDecimalDigits: int, aunitDisplayDefaultSi: Unit, aunitDisplayDefaultUs: Unit) -> None:
 		"""No Description
 
-		Args:
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
+		Args
+		--------
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
 		"""
 		pass
 
@@ -3542,215 +3772,245 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def __init__(self, aintId: int, asName: str, aunit: Unit, asFormatCode: str, aintDecimalDigits: int, aunitDisplayDefaultSi: Unit, aunitDisplayDefaultUs: Unit, aboolIsStandardFormatter: bool, astringLabel: str) -> None:
 		"""No Description
 
-		Args:
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aboolIsStandardFormatter(bool): aboolIsStandardFormatter
-			astringLabel(str): astringLabel
+		Args
+		--------
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aboolIsStandardFormatter (``bool``) :  aboolIsStandardFormatter
+			astringLabel (``str``) :  astringLabel
 		"""
 		pass
 
 	def add_DecimalDigitsChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def remove_DecimalDigitsChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def add_DisplayUnitChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def remove_DisplayUnitChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def add_FormatCodeChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def remove_FormatCodeChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def CreateMemento(self) -> IMemento:
 		"""No Description
 
-		Returns:
-			IMemento: 
+		Returns
+		--------
+			``IMemento`` : 
 		"""
 		pass
 
 	def DoubleFromDoubleUnit(self, adouble: float, aunit: Unit) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
-			aunit(Unit): aunit
+		Args
+		--------
+			adouble (``float``) :  adouble
+			aunit (``Unit``) :  aunit
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def DoubleUnitFromDouble(self, aunit: Unit, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			aunit(Unit): aunit
-			adouble(float): adouble
+		Args
+		--------
+			aunit (``Unit``) :  aunit
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def DoubleUnitFromString(self, aunit: Unit, astring: str) -> float:
 		"""No Description
 
-		Args:
-			aunit(Unit): aunit
-			astring(str): astring
+		Args
+		--------
+			aunit (``Unit``) :  aunit
+			astring (``str``) :  astring
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def InitializeDefaultsFrom(self, anf: NumericFormatter) -> None:
 		"""No Description
 
-		Args:
-			anf(NumericFormatter): anf
+		Args
+		--------
+			anf (``NumericFormatter``) :  anf
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def InitializeFrom(self, anf: NumericFormatter) -> None:
 		"""No Description
 
-		Args:
-			anf(NumericFormatter): anf
+		Args
+		--------
+			anf (``NumericFormatter``) :  anf
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def ResetDefault(self, aunitsystem: UnitSystem) -> None:
 		"""No Description
 
-		Args:
-			aunitsystem(UnitSystem): aunitsystem
+		Args
+		--------
+			aunitsystem (``UnitSystem``) :  aunitsystem
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def SetMemento(self, aimemento: IMemento) -> bool:
 		"""No Description
 
-		Args:
-			aimemento(IMemento): aimemento
+		Args
+		--------
+			aimemento (``IMemento``) :  aimemento
 
-		Returns:
-			bool: 
+		Returns
+		--------
+			``bool`` : 
 		"""
 		pass
 
 	def StringFromDoubleUnit(self, adouble: float, aunit: Unit) -> str:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
-			aunit(Unit): aunit
+		Args
+		--------
+			adouble (``float``) :  adouble
+			aunit (``Unit``) :  aunit
 
-		Returns:
-			str: 
+		Returns
+		--------
+			``str`` : 
 		"""
 		pass
 
@@ -3758,8 +4018,9 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def DecimalDigits(self) -> int:
 		"""No Description
 
-		Returns:
-			NumericFormatter: 
+		Returns
+		--------
+			``NumericFormatter`` : 
 		"""
 		pass
 
@@ -3771,8 +4032,9 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def Dimension(self) -> Dimension:
 		"""No Description
 
-		Returns:
-			NumericFormatter: 
+		Returns
+		--------
+			``NumericFormatter`` : 
 		"""
 		pass
 
@@ -3780,8 +4042,9 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def DisplayUnit(self) -> Unit:
 		"""No Description
 
-		Returns:
-			NumericFormatter: 
+		Returns
+		--------
+			``NumericFormatter`` : 
 		"""
 		pass
 
@@ -3793,8 +4056,9 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def DisplayUnitLabel(self) -> str:
 		"""No Description
 
-		Returns:
-			NumericFormatter: 
+		Returns
+		--------
+			``NumericFormatter`` : 
 		"""
 		pass
 
@@ -3802,8 +4066,9 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def FormatCode(self) -> str:
 		"""No Description
 
-		Returns:
-			NumericFormatter: 
+		Returns
+		--------
+			``NumericFormatter`` : 
 		"""
 		pass
 
@@ -3815,8 +4080,9 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def Label(self) -> str:
 		"""No Description
 
-		Returns:
-			NumericFormatter: 
+		Returns
+		--------
+			``NumericFormatter`` : 
 		"""
 		pass
 
@@ -3824,8 +4090,9 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def LabelKey(self) -> str:
 		"""No Description
 
-		Returns:
-			NumericFormatter: 
+		Returns
+		--------
+			``NumericFormatter`` : 
 		"""
 		pass
 
@@ -3833,8 +4100,9 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def Name(self) -> str:
 		"""No Description
 
-		Returns:
-			NumericFormatter: 
+		Returns
+		--------
+			``NumericFormatter`` : 
 		"""
 		pass
 
@@ -3846,8 +4114,9 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def NumericFormatterId(self) -> int:
 		"""No Description
 
-		Returns:
-			NumericFormatter: 
+		Returns
+		--------
+			``NumericFormatter`` : 
 		"""
 		pass
 
@@ -3859,8 +4128,9 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def IsStandardFormatter(self) -> bool:
 		"""No Description
 
-		Returns:
-			NumericFormatter: 
+		Returns
+		--------
+			``NumericFormatter`` : 
 		"""
 		pass
 
@@ -3868,8 +4138,9 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def Places(self) -> int:
 		"""No Description
 
-		Returns:
-			NumericFormatter: 
+		Returns
+		--------
+			``NumericFormatter`` : 
 		"""
 		pass
 
@@ -3881,8 +4152,9 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def DateTimeFormatForBinding(self) -> int:
 		"""No Description
 
-		Returns:
-			NumericFormatter: 
+		Returns
+		--------
+			``NumericFormatter`` : 
 		"""
 		pass
 
@@ -3894,8 +4166,9 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def ShortLabel(self) -> str:
 		"""No Description
 
-		Returns:
-			NumericFormatter: 
+		Returns
+		--------
+			``NumericFormatter`` : 
 		"""
 		pass
 
@@ -3903,8 +4176,9 @@ class NumericFormatter(INamable, IMementoable, ILabeled):
 	def XmlDisplayUnit(self) -> str:
 		"""No Description
 
-		Returns:
-			NumericFormatter: 
+		Returns
+		--------
+			``NumericFormatter`` : 
 		"""
 		pass
 
@@ -3918,25 +4192,26 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def __init__(self) -> None:
 		"""No Description
 
-		Args:
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
+		Args
+		--------
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
 		"""
 		pass
 
@@ -3944,25 +4219,26 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def __init__(self, aintId: int, asName: str, aunit: Unit, asFormatCode: str, aintDecimalDigits: int) -> None:
 		"""No Description
 
-		Args:
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
+		Args
+		--------
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
 		"""
 		pass
 
@@ -3970,25 +4246,26 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def __init__(self, aintId: int, asName: str, asFormatCode: str, aintDecimalDigits: int, aunitDisplayDefaultSi: Unit, aunitDisplayDefaultUs: Unit) -> None:
 		"""No Description
 
-		Args:
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
+		Args
+		--------
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
 		"""
 		pass
 
@@ -3996,191 +4273,221 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def __init__(self, aintId: int, asName: str, aunit: Unit, asFormatCode: str, aintDecimalDigits: int, aunitDisplayDefaultSi: Unit, aunitDisplayDefaultUs: Unit) -> None:
 		"""No Description
 
-		Args:
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
+		Args
+		--------
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
 		"""
 		pass
 
 	def DoubleUnitFromString(self, aunit: Unit, astring: str) -> float:
 		"""No Description
 
-		Args:
-			aunit(Unit): aunit
-			astring(str): astring
+		Args
+		--------
+			aunit (``Unit``) :  aunit
+			astring (``str``) :  astring
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def InitializeFrom(self, anf: NumericFormatter) -> None:
 		"""No Description
 
-		Args:
-			anf(NumericFormatter): anf
+		Args
+		--------
+			anf (``NumericFormatter``) :  anf
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def StringFromDoubleUnit(self, adouble: float, aunit: Unit) -> str:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
-			aunit(Unit): aunit
+		Args
+		--------
+			adouble (``float``) :  adouble
+			aunit (``Unit``) :  aunit
 
-		Returns:
-			str: 
+		Returns
+		--------
+			``str`` : 
 		"""
 		pass
 
 	def add_DecimalDigitsChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def remove_DecimalDigitsChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def add_DisplayUnitChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def remove_DisplayUnitChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def add_FormatCodeChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def remove_FormatCodeChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def CreateMemento(self) -> IMemento:
 		"""No Description
 
-		Returns:
-			IMemento: 
+		Returns
+		--------
+			``IMemento`` : 
 		"""
 		pass
 
 	def DoubleFromDoubleUnit(self, adouble: float, aunit: Unit) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
-			aunit(Unit): aunit
+		Args
+		--------
+			adouble (``float``) :  adouble
+			aunit (``Unit``) :  aunit
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def DoubleUnitFromDouble(self, aunit: Unit, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			aunit(Unit): aunit
-			adouble(float): adouble
+		Args
+		--------
+			aunit (``Unit``) :  aunit
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def InitializeDefaultsFrom(self, anf: NumericFormatter) -> None:
 		"""No Description
 
-		Args:
-			anf(NumericFormatter): anf
+		Args
+		--------
+			anf (``NumericFormatter``) :  anf
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def ResetDefault(self, aunitsystem: UnitSystem) -> None:
 		"""No Description
 
-		Args:
-			aunitsystem(UnitSystem): aunitsystem
+		Args
+		--------
+			aunitsystem (``UnitSystem``) :  aunitsystem
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def SetMemento(self, aimemento: IMemento) -> bool:
 		"""No Description
 
-		Args:
-			aimemento(IMemento): aimemento
+		Args
+		--------
+			aimemento (``IMemento``) :  aimemento
 
-		Returns:
-			bool: 
+		Returns
+		--------
+			``bool`` : 
 		"""
 		pass
 
@@ -4188,8 +4495,9 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def Places(self) -> int:
 		"""No Description
 
-		Returns:
-			StationFormatter: 
+		Returns
+		--------
+			``StationFormatter`` : 
 		"""
 		pass
 
@@ -4201,8 +4509,9 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def DecimalDigits(self) -> int:
 		"""No Description
 
-		Returns:
-			StationFormatter: 
+		Returns
+		--------
+			``StationFormatter`` : 
 		"""
 		pass
 
@@ -4214,8 +4523,9 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def Dimension(self) -> Dimension:
 		"""No Description
 
-		Returns:
-			StationFormatter: 
+		Returns
+		--------
+			``StationFormatter`` : 
 		"""
 		pass
 
@@ -4223,8 +4533,9 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def DisplayUnit(self) -> Unit:
 		"""No Description
 
-		Returns:
-			StationFormatter: 
+		Returns
+		--------
+			``StationFormatter`` : 
 		"""
 		pass
 
@@ -4236,8 +4547,9 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def DisplayUnitLabel(self) -> str:
 		"""No Description
 
-		Returns:
-			StationFormatter: 
+		Returns
+		--------
+			``StationFormatter`` : 
 		"""
 		pass
 
@@ -4245,8 +4557,9 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def FormatCode(self) -> str:
 		"""No Description
 
-		Returns:
-			StationFormatter: 
+		Returns
+		--------
+			``StationFormatter`` : 
 		"""
 		pass
 
@@ -4258,8 +4571,9 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def Label(self) -> str:
 		"""No Description
 
-		Returns:
-			StationFormatter: 
+		Returns
+		--------
+			``StationFormatter`` : 
 		"""
 		pass
 
@@ -4267,8 +4581,9 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def LabelKey(self) -> str:
 		"""No Description
 
-		Returns:
-			StationFormatter: 
+		Returns
+		--------
+			``StationFormatter`` : 
 		"""
 		pass
 
@@ -4276,8 +4591,9 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def Name(self) -> str:
 		"""No Description
 
-		Returns:
-			StationFormatter: 
+		Returns
+		--------
+			``StationFormatter`` : 
 		"""
 		pass
 
@@ -4289,8 +4605,9 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def NumericFormatterId(self) -> int:
 		"""No Description
 
-		Returns:
-			StationFormatter: 
+		Returns
+		--------
+			``StationFormatter`` : 
 		"""
 		pass
 
@@ -4302,8 +4619,9 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def IsStandardFormatter(self) -> bool:
 		"""No Description
 
-		Returns:
-			StationFormatter: 
+		Returns
+		--------
+			``StationFormatter`` : 
 		"""
 		pass
 
@@ -4311,8 +4629,9 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def DateTimeFormatForBinding(self) -> int:
 		"""No Description
 
-		Returns:
-			StationFormatter: 
+		Returns
+		--------
+			``StationFormatter`` : 
 		"""
 		pass
 
@@ -4324,8 +4643,9 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def ShortLabel(self) -> str:
 		"""No Description
 
-		Returns:
-			StationFormatter: 
+		Returns
+		--------
+			``StationFormatter`` : 
 		"""
 		pass
 
@@ -4333,8 +4653,9 @@ class StationFormatter(INamable, IMementoable, ILabeled):
 	def XmlDisplayUnit(self) -> str:
 		"""No Description
 
-		Returns:
-			StationFormatter: 
+		Returns
+		--------
+			``StationFormatter`` : 
 		"""
 		pass
 
@@ -4348,28 +4669,29 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def __init__(self) -> None:
 		"""No Description
 
-		Args:
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			baseDateTimeDelegate(BaseDateTimeDelegate): baseDateTimeDelegate
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			baseDateTimeDelegate(BaseDateTimeDelegate): baseDateTimeDelegate
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			baseDateTimeDelegate(BaseDateTimeDelegate): baseDateTimeDelegate
+		Args
+		--------
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			baseDateTimeDelegate (``BaseDateTimeDelegate``) :  baseDateTimeDelegate
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			baseDateTimeDelegate (``BaseDateTimeDelegate``) :  baseDateTimeDelegate
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			baseDateTimeDelegate (``BaseDateTimeDelegate``) :  baseDateTimeDelegate
 		"""
 		pass
 
@@ -4377,28 +4699,29 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def __init__(self, aintId: int, asName: str, aunit: Unit, asFormatCode: str, aintDecimalDigits: int, baseDateTimeDelegate: BaseDateTimeDelegate) -> None:
 		"""No Description
 
-		Args:
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			baseDateTimeDelegate(BaseDateTimeDelegate): baseDateTimeDelegate
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			baseDateTimeDelegate(BaseDateTimeDelegate): baseDateTimeDelegate
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			baseDateTimeDelegate(BaseDateTimeDelegate): baseDateTimeDelegate
+		Args
+		--------
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			baseDateTimeDelegate (``BaseDateTimeDelegate``) :  baseDateTimeDelegate
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			baseDateTimeDelegate (``BaseDateTimeDelegate``) :  baseDateTimeDelegate
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			baseDateTimeDelegate (``BaseDateTimeDelegate``) :  baseDateTimeDelegate
 		"""
 		pass
 
@@ -4406,28 +4729,29 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def __init__(self, aintId: int, asName: str, asFormatCode: str, aintDecimalDigits: int, aunitDisplayDefaultSi: Unit, aunitDisplayDefaultUs: Unit, baseDateTimeDelegate: BaseDateTimeDelegate) -> None:
 		"""No Description
 
-		Args:
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			baseDateTimeDelegate(BaseDateTimeDelegate): baseDateTimeDelegate
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			baseDateTimeDelegate(BaseDateTimeDelegate): baseDateTimeDelegate
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			baseDateTimeDelegate(BaseDateTimeDelegate): baseDateTimeDelegate
+		Args
+		--------
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			baseDateTimeDelegate (``BaseDateTimeDelegate``) :  baseDateTimeDelegate
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			baseDateTimeDelegate (``BaseDateTimeDelegate``) :  baseDateTimeDelegate
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			baseDateTimeDelegate (``BaseDateTimeDelegate``) :  baseDateTimeDelegate
 		"""
 		pass
 
@@ -4435,218 +4759,252 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def __init__(self, aintId: int, asName: str, aunit: Unit, asFormatCode: str, aintDecimalDigits: int, aunitDisplayDefaultSi: Unit, aunitDisplayDefaultUs: Unit, baseDateTimeDelegate: BaseDateTimeDelegate) -> None:
 		"""No Description
 
-		Args:
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			baseDateTimeDelegate(BaseDateTimeDelegate): baseDateTimeDelegate
-			aintId(int): aintId
-			asName(str): asName
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			baseDateTimeDelegate(BaseDateTimeDelegate): baseDateTimeDelegate
-			aintId(int): aintId
-			asName(str): asName
-			aunit(Unit): aunit
-			asFormatCode(str): asFormatCode
-			aintDecimalDigits(int): aintDecimalDigits
-			aunitDisplayDefaultSi(Unit): aunitDisplayDefaultSi
-			aunitDisplayDefaultUs(Unit): aunitDisplayDefaultUs
-			baseDateTimeDelegate(BaseDateTimeDelegate): baseDateTimeDelegate
+		Args
+		--------
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			baseDateTimeDelegate (``BaseDateTimeDelegate``) :  baseDateTimeDelegate
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			baseDateTimeDelegate (``BaseDateTimeDelegate``) :  baseDateTimeDelegate
+			aintId (``int``) :  aintId
+			asName (``str``) :  asName
+			aunit (``Unit``) :  aunit
+			asFormatCode (``str``) :  asFormatCode
+			aintDecimalDigits (``int``) :  aintDecimalDigits
+			aunitDisplayDefaultSi (``Unit``) :  aunitDisplayDefaultSi
+			aunitDisplayDefaultUs (``Unit``) :  aunitDisplayDefaultUs
+			baseDateTimeDelegate (``BaseDateTimeDelegate``) :  baseDateTimeDelegate
 		"""
 		pass
 
 	def DoubleUnitFromString(self, aunit: Unit, astring: str) -> float:
 		"""No Description
 
-		Args:
-			aunit(Unit): aunit
-			astring(str): astring
+		Args
+		--------
+			aunit (``Unit``) :  aunit
+			astring (``str``) :  astring
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def InitializeFrom(self, anf: NumericFormatter) -> None:
 		"""No Description
 
-		Args:
-			anf(NumericFormatter): anf
+		Args
+		--------
+			anf (``NumericFormatter``) :  anf
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def StringFromDoubleUnit(self, adouble: float, aunit: Unit) -> str:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
-			aunit(Unit): aunit
+		Args
+		--------
+			adouble (``float``) :  adouble
+			aunit (``Unit``) :  aunit
 
-		Returns:
-			str: 
+		Returns
+		--------
+			``str`` : 
 		"""
 		pass
 
 	def SetDateTimeFormat(self, dateTimeFormat: DateTimeFormats) -> None:
 		"""No Description
 
-		Args:
-			dateTimeFormat(DateTimeFormats): dateTimeFormat
+		Args
+		--------
+			dateTimeFormat (``DateTimeFormats``) :  dateTimeFormat
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def SetDateTimeFormatString(self, formatString: str, formatIncludesDate: bool, formatIncludesTime: bool) -> None:
 		"""No Description
 
-		Args:
-			formatString(str): formatString
-			formatIncludesDate(bool): formatIncludesDate
-			formatIncludesTime(bool): formatIncludesTime
+		Args
+		--------
+			formatString (``str``) :  formatString
+			formatIncludesDate (``bool``) :  formatIncludesDate
+			formatIncludesTime (``bool``) :  formatIncludesTime
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def add_DecimalDigitsChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def remove_DecimalDigitsChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def add_DisplayUnitChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def remove_DisplayUnitChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def add_FormatCodeChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def remove_FormatCodeChanged(self, value: EventHandler) -> None:
 		"""No Description
 
-		Args:
-			value(EventHandler): value
+		Args
+		--------
+			value (``EventHandler``) :  value
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def CreateMemento(self) -> IMemento:
 		"""No Description
 
-		Returns:
-			IMemento: 
+		Returns
+		--------
+			``IMemento`` : 
 		"""
 		pass
 
 	def DoubleFromDoubleUnit(self, adouble: float, aunit: Unit) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
-			aunit(Unit): aunit
+		Args
+		--------
+			adouble (``float``) :  adouble
+			aunit (``Unit``) :  aunit
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def DoubleUnitFromDouble(self, aunit: Unit, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			aunit(Unit): aunit
-			adouble(float): adouble
+		Args
+		--------
+			aunit (``Unit``) :  aunit
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def InitializeDefaultsFrom(self, anf: NumericFormatter) -> None:
 		"""No Description
 
-		Args:
-			anf(NumericFormatter): anf
+		Args
+		--------
+			anf (``NumericFormatter``) :  anf
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def ResetDefault(self, aunitsystem: UnitSystem) -> None:
 		"""No Description
 
-		Args:
-			aunitsystem(UnitSystem): aunitsystem
+		Args
+		--------
+			aunitsystem (``UnitSystem``) :  aunitsystem
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def SetMemento(self, aimemento: IMemento) -> bool:
 		"""No Description
 
-		Args:
-			aimemento(IMemento): aimemento
+		Args
+		--------
+			aimemento (``IMemento``) :  aimemento
 
-		Returns:
-			bool: 
+		Returns
+		--------
+			``bool`` : 
 		"""
 		pass
 
@@ -4654,8 +5012,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def DateTimeFormatString(self) -> str:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4663,8 +5022,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def FullDateTimeFormatString(self) -> str:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4672,8 +5032,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def DateTimeFormatForBinding(self) -> int:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4685,8 +5046,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def DateTimeFormat(self) -> DateTimeFormats:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4698,8 +5060,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def HasUnitToDisplay(self) -> bool:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4707,8 +5070,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def FormatCode(self) -> str:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4720,8 +5084,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def DecimalDigits(self) -> int:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4733,8 +5098,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def Dimension(self) -> Dimension:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4742,8 +5108,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def DisplayUnit(self) -> Unit:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4755,8 +5122,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def DisplayUnitLabel(self) -> str:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4764,8 +5132,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def Label(self) -> str:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4773,8 +5142,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def LabelKey(self) -> str:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4782,8 +5152,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def Name(self) -> str:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4795,8 +5166,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def NumericFormatterId(self) -> int:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4808,8 +5180,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def IsStandardFormatter(self) -> bool:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4817,8 +5190,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def Places(self) -> int:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4830,8 +5204,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def ShortLabel(self) -> str:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4839,8 +5214,9 @@ class DateTimeFormatter(INamable, IMementoable, ILabeled):
 	def XmlDisplayUnit(self) -> str:
 		"""No Description
 
-		Returns:
-			DateTimeFormatter: 
+		Returns
+		--------
+			``DateTimeFormatter`` : 
 		"""
 		pass
 
@@ -4854,29 +5230,30 @@ class Unit(INamable):
 	def __init__(self, astringName: str, adimension: Dimension, aunitsystem: UnitSystem, adouble: float, aintEnumValue: int) -> None:
 		"""No Description
 
-		Args:
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			adouble(float): adouble
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			adouble(float): adouble
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			aiunitconverter(IUnitConverter): aiunitconverter
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			aiunitconverter(IUnitConverter): aiunitconverter
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
+		Args
+		--------
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			adouble (``float``) :  adouble
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			adouble (``float``) :  adouble
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			aiunitconverter (``IUnitConverter``) :  aiunitconverter
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			aiunitconverter (``IUnitConverter``) :  aiunitconverter
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
 		"""
 		pass
 
@@ -4884,29 +5261,30 @@ class Unit(INamable):
 	def __init__(self, astringName: str, adimension: Dimension, aunitsystem: UnitSystem, adouble: float, aintEnumValue: int, bentleyName: str) -> None:
 		"""No Description
 
-		Args:
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			adouble(float): adouble
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			adouble(float): adouble
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			aiunitconverter(IUnitConverter): aiunitconverter
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			aiunitconverter(IUnitConverter): aiunitconverter
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
+		Args
+		--------
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			adouble (``float``) :  adouble
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			adouble (``float``) :  adouble
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			aiunitconverter (``IUnitConverter``) :  aiunitconverter
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			aiunitconverter (``IUnitConverter``) :  aiunitconverter
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
 		"""
 		pass
 
@@ -4914,29 +5292,30 @@ class Unit(INamable):
 	def __init__(self, astringName: str, adimension: Dimension, aunitsystem: UnitSystem, aiunitconverter: IUnitConverter, aintEnumValue: int) -> None:
 		"""No Description
 
-		Args:
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			adouble(float): adouble
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			adouble(float): adouble
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			aiunitconverter(IUnitConverter): aiunitconverter
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			aiunitconverter(IUnitConverter): aiunitconverter
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
+		Args
+		--------
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			adouble (``float``) :  adouble
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			adouble (``float``) :  adouble
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			aiunitconverter (``IUnitConverter``) :  aiunitconverter
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			aiunitconverter (``IUnitConverter``) :  aiunitconverter
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
 		"""
 		pass
 
@@ -4944,29 +5323,30 @@ class Unit(INamable):
 	def __init__(self, astringName: str, adimension: Dimension, aunitsystem: UnitSystem, aiunitconverter: IUnitConverter, aintEnumValue: int, bentleyName: str) -> None:
 		"""No Description
 
-		Args:
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			adouble(float): adouble
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			adouble(float): adouble
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			aiunitconverter(IUnitConverter): aiunitconverter
-			aintEnumValue(int): aintEnumValue
-			astringName(str): astringName
-			adimension(Dimension): adimension
-			aunitsystem(UnitSystem): aunitsystem
-			aiunitconverter(IUnitConverter): aiunitconverter
-			aintEnumValue(int): aintEnumValue
-			bentleyName(str): bentleyName
+		Args
+		--------
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			adouble (``float``) :  adouble
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			adouble (``float``) :  adouble
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			aiunitconverter (``IUnitConverter``) :  aiunitconverter
+			aintEnumValue (``int``) :  aintEnumValue
+			astringName (``str``) :  astringName
+			adimension (``Dimension``) :  adimension
+			aunitsystem (``UnitSystem``) :  aunitsystem
+			aiunitconverter (``IUnitConverter``) :  aiunitconverter
+			aintEnumValue (``int``) :  aintEnumValue
+			bentleyName (``str``) :  bentleyName
 		"""
 		pass
 
@@ -4974,12 +5354,14 @@ class Unit(INamable):
 	def FromDimensionEnum(adimension: Dimension, aint: int) -> Unit:
 		"""No Description
 
-		Args:
-			adimension(Dimension): adimension
-			aint(int): aint
+		Args
+		--------
+			adimension (``Dimension``) :  adimension
+			aint (``int``) :  aint
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -4987,12 +5369,14 @@ class Unit(INamable):
 	def FromDimensionName(adimension: Dimension, asNameUnit: str) -> Unit:
 		"""No Description
 
-		Args:
-			adimension(Dimension): adimension
-			asNameUnit(str): asNameUnit
+		Args
+		--------
+			adimension (``Dimension``) :  adimension
+			asNameUnit (``str``) :  asNameUnit
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5000,12 +5384,14 @@ class Unit(INamable):
 	def FromLabel(adimension: Dimension, aUnitLabel: str) -> Unit:
 		"""No Description
 
-		Args:
-			adimension(Dimension): adimension
-			aUnitLabel(str): aUnitLabel
+		Args
+		--------
+			adimension (``Dimension``) :  adimension
+			aUnitLabel (``str``) :  aUnitLabel
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5013,11 +5399,13 @@ class Unit(INamable):
 	def FromIndex(aindex: UnitIndex) -> Unit:
 		"""No Description
 
-		Args:
-			aindex(UnitIndex): aindex
+		Args
+		--------
+			aindex (``UnitIndex``) :  aindex
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5025,42 +5413,49 @@ class Unit(INamable):
 	def FromSerializedString(astring: str) -> Unit:
 		"""No Description
 
-		Args:
-			astring(str): astring
+		Args
+		--------
+			astring (``str``) :  astring
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
 	def ConvertFrom(self, adouble: float, aunit: Unit) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
-			aunit(Unit): aunit
+		Args
+		--------
+			adouble (``float``) :  adouble
+			aunit (``Unit``) :  aunit
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ConversionFactor(self, aunit: Unit) -> float:
 		"""No Description
 
-		Args:
-			aunit(Unit): aunit
+		Args
+		--------
+			aunit (``Unit``) :  aunit
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ToSerializedString(self) -> str:
 		"""No Description
 
-		Returns:
-			str: 
+		Returns
+		--------
+			``str`` : 
 		"""
 		pass
 
@@ -5069,8 +5464,9 @@ class Unit(INamable):
 	def AcreFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5079,8 +5475,9 @@ class Unit(INamable):
 	def AcreFeetPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5089,8 +5486,9 @@ class Unit(INamable):
 	def AcreFeetPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5099,8 +5497,9 @@ class Unit(INamable):
 	def AcreFeetPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5109,8 +5508,9 @@ class Unit(INamable):
 	def AcreInches() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5119,8 +5519,9 @@ class Unit(INamable):
 	def AcreInchPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5129,8 +5530,9 @@ class Unit(INamable):
 	def AcreInchPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5139,8 +5541,9 @@ class Unit(INamable):
 	def Acres() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5149,8 +5552,9 @@ class Unit(INamable):
 	def AngleDegrees() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5159,8 +5563,9 @@ class Unit(INamable):
 	def AngleMinutes() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5169,8 +5574,9 @@ class Unit(INamable):
 	def AngleQuadrants() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5179,8 +5585,9 @@ class Unit(INamable):
 	def AngleRadians() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5189,8 +5596,9 @@ class Unit(INamable):
 	def AngleRevolutions() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5199,8 +5607,9 @@ class Unit(INamable):
 	def AngleSeconds() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5209,8 +5618,9 @@ class Unit(INamable):
 	def Atmospheres() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5219,8 +5629,9 @@ class Unit(INamable):
 	def Bars() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5229,8 +5640,9 @@ class Unit(INamable):
 	def Capita() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5239,8 +5651,9 @@ class Unit(INamable):
 	def Celsius() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5249,8 +5662,9 @@ class Unit(INamable):
 	def CentimeterPerMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5259,8 +5673,9 @@ class Unit(INamable):
 	def Centimeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5269,8 +5684,9 @@ class Unit(INamable):
 	def CentimetersPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5279,8 +5695,9 @@ class Unit(INamable):
 	def CentimetersPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5289,8 +5706,9 @@ class Unit(INamable):
 	def CentimetersPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5299,8 +5717,9 @@ class Unit(INamable):
 	def Centistokes() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5309,8 +5728,9 @@ class Unit(INamable):
 	def CFM() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5319,8 +5739,9 @@ class Unit(INamable):
 	def CFMPerPSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5329,8 +5750,9 @@ class Unit(INamable):
 	def CFS() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5339,8 +5761,9 @@ class Unit(INamable):
 	def CFSPerPSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5349,8 +5772,9 @@ class Unit(INamable):
 	def CFSPerAcres() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5359,8 +5783,9 @@ class Unit(INamable):
 	def CFSPerSquareFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5369,8 +5794,9 @@ class Unit(INamable):
 	def CFSPerSquareMiles() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5379,8 +5805,9 @@ class Unit(INamable):
 	def CubicCentimeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5389,8 +5816,9 @@ class Unit(INamable):
 	def CubicFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5399,8 +5827,9 @@ class Unit(INamable):
 	def CubicFeetPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5409,8 +5838,9 @@ class Unit(INamable):
 	def CubicFeetPerDayPerPSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5419,8 +5849,9 @@ class Unit(INamable):
 	def CubicFeetPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5429,8 +5860,9 @@ class Unit(INamable):
 	def CubicFeetPerMinutePerPSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5439,8 +5871,9 @@ class Unit(INamable):
 	def CubicFeetPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5449,8 +5882,9 @@ class Unit(INamable):
 	def CubicFeetPerSecondPerPSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5459,8 +5893,9 @@ class Unit(INamable):
 	def CubicInches() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5469,8 +5904,9 @@ class Unit(INamable):
 	def CubicMeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5479,8 +5915,9 @@ class Unit(INamable):
 	def CubicMetersPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5489,8 +5926,9 @@ class Unit(INamable):
 	def CubicMetersPerDayPerMetersOfH2O() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5499,8 +5937,9 @@ class Unit(INamable):
 	def CubicMetersPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5509,8 +5948,9 @@ class Unit(INamable):
 	def CubicMetersPerHourPerMetersOfH2O() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5519,8 +5959,9 @@ class Unit(INamable):
 	def CubicMetersPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5529,8 +5970,9 @@ class Unit(INamable):
 	def CubicMetersPerMinutePerMetersOfH2O() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5539,8 +5981,9 @@ class Unit(INamable):
 	def CubicMetersPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5549,8 +5992,9 @@ class Unit(INamable):
 	def CubicMetersPerSecondPerMetersOfH2O() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5559,8 +6003,9 @@ class Unit(INamable):
 	def CubicMetersPerHectaresPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5569,8 +6014,9 @@ class Unit(INamable):
 	def CubicMetersPerSquareKilometerPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5579,8 +6025,9 @@ class Unit(INamable):
 	def CubicMetersPerSquareMeterPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5589,8 +6036,9 @@ class Unit(INamable):
 	def CubicYards() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5599,8 +6047,9 @@ class Unit(INamable):
 	def Customer() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5609,8 +6058,9 @@ class Unit(INamable):
 	def Days() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5619,8 +6069,9 @@ class Unit(INamable):
 	def Decimeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5629,8 +6080,9 @@ class Unit(INamable):
 	def Dollars() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5639,8 +6091,9 @@ class Unit(INamable):
 	def DollarsPerFoot() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5649,8 +6102,9 @@ class Unit(INamable):
 	def DollarsPerMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5659,8 +6113,9 @@ class Unit(INamable):
 	def DollarsPerKiloWattHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5669,8 +6124,9 @@ class Unit(INamable):
 	def Employee() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5679,8 +6135,9 @@ class Unit(INamable):
 	def Fahrenheit() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5689,8 +6146,9 @@ class Unit(INamable):
 	def Feet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5699,8 +6157,9 @@ class Unit(INamable):
 	def FeetOfH2O() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5709,8 +6168,9 @@ class Unit(INamable):
 	def FeetPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5719,8 +6179,9 @@ class Unit(INamable):
 	def FeetPerInch() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5729,8 +6190,9 @@ class Unit(INamable):
 	def FootHorizontalPerFootVertical() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5739,8 +6201,9 @@ class Unit(INamable):
 	def FootPer1000Feet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5749,8 +6212,9 @@ class Unit(INamable):
 	def FootPerFoot() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5759,8 +6223,9 @@ class Unit(INamable):
 	def FootPerMile() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5769,8 +6234,9 @@ class Unit(INamable):
 	def FootPoundals() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5779,8 +6245,9 @@ class Unit(INamable):
 	def FootVerticalPerFootHorizontal() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5789,8 +6256,9 @@ class Unit(INamable):
 	def Gallons() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5799,8 +6267,9 @@ class Unit(INamable):
 	def GallonsPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5809,8 +6278,9 @@ class Unit(INamable):
 	def GallonsPerDayPerPSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5819,8 +6289,9 @@ class Unit(INamable):
 	def GallonsPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5829,8 +6300,9 @@ class Unit(INamable):
 	def GallonsPerMinutePerPSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5839,8 +6311,9 @@ class Unit(INamable):
 	def GallonsPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5849,8 +6322,9 @@ class Unit(INamable):
 	def GallonsPerSecondPerPSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5859,8 +6333,9 @@ class Unit(INamable):
 	def GPD() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5869,8 +6344,9 @@ class Unit(INamable):
 	def GPDPerAcres() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5879,8 +6355,9 @@ class Unit(INamable):
 	def GPDPerCapita() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5889,8 +6366,9 @@ class Unit(INamable):
 	def GPDPerSquareFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5899,8 +6377,9 @@ class Unit(INamable):
 	def GPDPerSquareMile() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5909,8 +6388,9 @@ class Unit(INamable):
 	def GPM() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5919,8 +6399,9 @@ class Unit(INamable):
 	def GPMPerAcres() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5929,8 +6410,9 @@ class Unit(INamable):
 	def GPMPerPSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5939,8 +6421,9 @@ class Unit(INamable):
 	def GPMPerSquareFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5949,8 +6432,9 @@ class Unit(INamable):
 	def GPMPerSquareMile() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5959,8 +6443,9 @@ class Unit(INamable):
 	def Gram() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5969,8 +6454,9 @@ class Unit(INamable):
 	def GramsPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5979,8 +6465,9 @@ class Unit(INamable):
 	def GramsPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5989,8 +6476,9 @@ class Unit(INamable):
 	def GramsPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -5999,8 +6487,9 @@ class Unit(INamable):
 	def GramsPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6009,8 +6498,9 @@ class Unit(INamable):
 	def Guest() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6019,8 +6509,9 @@ class Unit(INamable):
 	def Hectares() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6029,8 +6520,9 @@ class Unit(INamable):
 	def Hertz() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6039,8 +6531,9 @@ class Unit(INamable):
 	def HorizontalPerVertical() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6049,8 +6542,9 @@ class Unit(INamable):
 	def Horsepower() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6059,8 +6553,9 @@ class Unit(INamable):
 	def Hours() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6069,8 +6564,9 @@ class Unit(INamable):
 	def HundredCapita() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6079,8 +6575,9 @@ class Unit(INamable):
 	def ImperialGallonsPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6089,8 +6586,9 @@ class Unit(INamable):
 	def ImperialGallonsPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6099,8 +6597,9 @@ class Unit(INamable):
 	def ImperialGallonsPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6109,8 +6608,9 @@ class Unit(INamable):
 	def ImpGallons() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6119,8 +6619,9 @@ class Unit(INamable):
 	def ImperialGallonsPerDayPerPSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6129,8 +6630,9 @@ class Unit(INamable):
 	def ImperialGallonsPerMinutePerPSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6139,8 +6641,9 @@ class Unit(INamable):
 	def ImperialGallonsPerSecondPerPSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6149,8 +6652,9 @@ class Unit(INamable):
 	def Inches() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6159,8 +6663,9 @@ class Unit(INamable):
 	def InchesPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6169,8 +6674,9 @@ class Unit(INamable):
 	def InchesPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6179,8 +6685,9 @@ class Unit(INamable):
 	def InchesPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6189,8 +6696,9 @@ class Unit(INamable):
 	def InchPerFoot() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6199,8 +6707,9 @@ class Unit(INamable):
 	def InfiltrationRateCentimetersPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6209,8 +6718,9 @@ class Unit(INamable):
 	def InfiltrationRateCentimetersPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6219,8 +6729,9 @@ class Unit(INamable):
 	def InfiltrationRateCentimetersPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6229,8 +6740,9 @@ class Unit(INamable):
 	def InfiltrationRateInchesPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6239,8 +6751,9 @@ class Unit(INamable):
 	def InfiltrationRateInchesPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6249,8 +6762,9 @@ class Unit(INamable):
 	def InfiltrationRateInchesPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6259,8 +6773,9 @@ class Unit(INamable):
 	def InfiltrationRateMillimetersPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6269,8 +6784,9 @@ class Unit(INamable):
 	def InfiltrationRateMillimetersPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6279,8 +6795,9 @@ class Unit(INamable):
 	def InfiltrationRateMillimetersPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6289,8 +6806,9 @@ class Unit(INamable):
 	def Joules() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6299,8 +6817,9 @@ class Unit(INamable):
 	def Kilograms() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6309,8 +6828,9 @@ class Unit(INamable):
 	def KilogramsPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6319,8 +6839,9 @@ class Unit(INamable):
 	def KilogramsPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6329,8 +6850,9 @@ class Unit(INamable):
 	def KilogramsPerKilowattHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6339,8 +6861,9 @@ class Unit(INamable):
 	def KilogramsPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6349,8 +6872,9 @@ class Unit(INamable):
 	def KilogramsPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6359,8 +6883,9 @@ class Unit(INamable):
 	def KilogramsPerSquareCentimeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6369,8 +6894,9 @@ class Unit(INamable):
 	def KilogramsPerSquareMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6379,8 +6905,9 @@ class Unit(INamable):
 	def KiloJoules() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6389,8 +6916,9 @@ class Unit(INamable):
 	def Kilometers() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6399,8 +6927,9 @@ class Unit(INamable):
 	def KiloNewtonsPerCubicMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6409,8 +6938,9 @@ class Unit(INamable):
 	def KiloPascals() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6419,8 +6949,9 @@ class Unit(INamable):
 	def KiloWattHours() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6429,8 +6960,9 @@ class Unit(INamable):
 	def KilowattHoursPerKilowatt() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6439,8 +6971,9 @@ class Unit(INamable):
 	def Kilowatts() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6449,8 +6982,9 @@ class Unit(INamable):
 	def Liters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6459,8 +6993,9 @@ class Unit(INamable):
 	def LitersPerCapitaPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6469,8 +7004,9 @@ class Unit(INamable):
 	def LitersPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6479,8 +7015,9 @@ class Unit(INamable):
 	def LitersPerDayPerMetersOfH2O() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6489,8 +7026,9 @@ class Unit(INamable):
 	def LitersPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6499,8 +7037,9 @@ class Unit(INamable):
 	def LitersPerMinutePerMetersOfH2O() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6509,8 +7048,9 @@ class Unit(INamable):
 	def LitersPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6519,8 +7059,9 @@ class Unit(INamable):
 	def LitersPerSecondPerMetersOfH2O() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6529,8 +7070,9 @@ class Unit(INamable):
 	def LitersPerHectaresPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6539,8 +7081,9 @@ class Unit(INamable):
 	def LitersPerHectaresPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6549,8 +7092,9 @@ class Unit(INamable):
 	def LitersPerSquareKilometerPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6559,8 +7103,9 @@ class Unit(INamable):
 	def LitersPerSquareMeterPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6569,8 +7114,9 @@ class Unit(INamable):
 	def MegaLitersPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6579,8 +7125,9 @@ class Unit(INamable):
 	def MegaLitersPerDayPerMetersOfH2O() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6589,8 +7136,9 @@ class Unit(INamable):
 	def MeterHorizontalPerMeterVertical() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6599,8 +7147,9 @@ class Unit(INamable):
 	def MeterPerKilometer() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6609,8 +7158,9 @@ class Unit(INamable):
 	def MeterPerMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6619,8 +7169,9 @@ class Unit(INamable):
 	def Meters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6629,8 +7180,9 @@ class Unit(INamable):
 	def MetersOfH2O() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6639,8 +7191,9 @@ class Unit(INamable):
 	def MetersPerCm() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6649,8 +7202,9 @@ class Unit(INamable):
 	def MetersPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6659,8 +7213,9 @@ class Unit(INamable):
 	def MetersPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6669,8 +7224,9 @@ class Unit(INamable):
 	def MeterVerticalPerMeterHorizontal() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6679,8 +7235,9 @@ class Unit(INamable):
 	def Mfeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6689,8 +7246,9 @@ class Unit(INamable):
 	def MGD() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6699,8 +7257,9 @@ class Unit(INamable):
 	def MGDPerPSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6709,8 +7268,9 @@ class Unit(INamable):
 	def MGDImperial() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6719,8 +7279,9 @@ class Unit(INamable):
 	def MGDImperialPerPSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6729,8 +7290,9 @@ class Unit(INamable):
 	def MicrogramsPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6739,8 +7301,9 @@ class Unit(INamable):
 	def MicrogramsPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6749,8 +7312,9 @@ class Unit(INamable):
 	def MicrogramsPerLiter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6759,8 +7323,9 @@ class Unit(INamable):
 	def MicrogramsPerLiterNPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6769,8 +7334,9 @@ class Unit(INamable):
 	def MicrogramsPerLiterNPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6779,8 +7345,9 @@ class Unit(INamable):
 	def MicrogramsPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6789,8 +7356,9 @@ class Unit(INamable):
 	def MicrogramsPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6799,8 +7367,9 @@ class Unit(INamable):
 	def MicrogramsPerSquareFeetPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6809,8 +7378,9 @@ class Unit(INamable):
 	def MicrogramsPerSquareMeterPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6819,8 +7389,9 @@ class Unit(INamable):
 	def MicrogramsPerSquareMeterPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6829,8 +7400,9 @@ class Unit(INamable):
 	def Miles() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6839,8 +7411,9 @@ class Unit(INamable):
 	def Millifeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6849,8 +7422,9 @@ class Unit(INamable):
 	def Milligram() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6859,8 +7433,9 @@ class Unit(INamable):
 	def MilliGramsPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6869,8 +7444,9 @@ class Unit(INamable):
 	def MilliGramsPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6879,8 +7455,9 @@ class Unit(INamable):
 	def MilligramsPerLiter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6889,8 +7466,9 @@ class Unit(INamable):
 	def MilligramsPerLiterNPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6899,8 +7477,9 @@ class Unit(INamable):
 	def MilligramsPerLiterNPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6909,8 +7488,9 @@ class Unit(INamable):
 	def MilliGramsPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6919,8 +7499,9 @@ class Unit(INamable):
 	def MilliGramsPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6929,8 +7510,9 @@ class Unit(INamable):
 	def MilliGramsPerSquareFeetPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6939,8 +7521,9 @@ class Unit(INamable):
 	def MilliGramsPerSquareMeterPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6949,8 +7532,9 @@ class Unit(INamable):
 	def MilliGramsPerSquareMeterPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6959,8 +7543,9 @@ class Unit(INamable):
 	def MillimeterHorizontalPerMeterVertical() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6969,8 +7554,9 @@ class Unit(INamable):
 	def MillimeterPerMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6979,8 +7565,9 @@ class Unit(INamable):
 	def Millimeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6989,8 +7576,9 @@ class Unit(INamable):
 	def MillimetersOfH2O() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -6999,8 +7587,9 @@ class Unit(INamable):
 	def MilliMetersPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7009,8 +7598,9 @@ class Unit(INamable):
 	def MilliMetersPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7019,8 +7609,9 @@ class Unit(INamable):
 	def MillimetersPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7029,8 +7620,9 @@ class Unit(INamable):
 	def MillimeterVerticalPerMeterHorizontal() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7039,8 +7631,9 @@ class Unit(INamable):
 	def MillionGallons() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7049,8 +7642,9 @@ class Unit(INamable):
 	def MillionLiters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7059,8 +7653,9 @@ class Unit(INamable):
 	def MillionLitersPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7069,8 +7664,9 @@ class Unit(INamable):
 	def Milliseconds() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7079,8 +7675,9 @@ class Unit(INamable):
 	def Minutes() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7089,8 +7686,9 @@ class Unit(INamable):
 	def NewtonsPerCubicMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7099,8 +7697,9 @@ class Unit(INamable):
 	def NewtonsPerSquareMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7109,8 +7708,9 @@ class Unit(INamable):
 	def OneOverSlope() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7119,8 +7719,9 @@ class Unit(INamable):
 	def _None() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7129,8 +7730,9 @@ class Unit(INamable):
 	def PartsPerBillion() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7139,8 +7741,9 @@ class Unit(INamable):
 	def PartsPerBillionNPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7149,8 +7752,9 @@ class Unit(INamable):
 	def PartsPerBillionNPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7159,8 +7763,9 @@ class Unit(INamable):
 	def PartsPerMillion() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7169,8 +7774,9 @@ class Unit(INamable):
 	def PartsPerMillionNPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7179,8 +7785,9 @@ class Unit(INamable):
 	def PartsPerMillionNPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7189,8 +7796,9 @@ class Unit(INamable):
 	def Passenger() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7199,8 +7807,9 @@ class Unit(INamable):
 	def PerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7209,8 +7818,9 @@ class Unit(INamable):
 	def PercentPercent() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7219,8 +7829,9 @@ class Unit(INamable):
 	def PercentSlope() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7229,8 +7840,9 @@ class Unit(INamable):
 	def PerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7239,8 +7851,9 @@ class Unit(INamable):
 	def PerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7249,8 +7862,9 @@ class Unit(INamable):
 	def Person() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7259,8 +7873,9 @@ class Unit(INamable):
 	def PersonsPerAcre() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7269,8 +7884,9 @@ class Unit(INamable):
 	def PersonsPerSquareFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7279,8 +7895,9 @@ class Unit(INamable):
 	def PersonsPerSquareKilometer() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7289,8 +7906,9 @@ class Unit(INamable):
 	def PersonsPerHectares() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7299,8 +7917,9 @@ class Unit(INamable):
 	def PersonsPerSquareMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7309,8 +7928,9 @@ class Unit(INamable):
 	def PersonsPerSquareMile() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7319,8 +7939,9 @@ class Unit(INamable):
 	def Pounds() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7329,8 +7950,9 @@ class Unit(INamable):
 	def PoundsForcePerCubicFoot() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7339,8 +7961,9 @@ class Unit(INamable):
 	def PoundsPerCubicFoot() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7349,8 +7972,9 @@ class Unit(INamable):
 	def PoundsPerCubicFootNPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7359,8 +7983,9 @@ class Unit(INamable):
 	def PoundsPerCubicFootNPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7369,8 +7994,9 @@ class Unit(INamable):
 	def PoundsPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7379,8 +8005,9 @@ class Unit(INamable):
 	def PoundsPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7389,8 +8016,9 @@ class Unit(INamable):
 	def PoundsPerKilowattHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7399,8 +8027,9 @@ class Unit(INamable):
 	def PoundsPerMillionGallons() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7409,8 +8038,9 @@ class Unit(INamable):
 	def PoundsPerMillionGallonsNPerDay() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7419,8 +8049,9 @@ class Unit(INamable):
 	def PoundsPerMillionGallonsNPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7429,8 +8060,9 @@ class Unit(INamable):
 	def PoundsPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7439,8 +8071,9 @@ class Unit(INamable):
 	def PoundsPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7449,8 +8082,9 @@ class Unit(INamable):
 	def PoundsPerSquareFoot() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7459,8 +8093,9 @@ class Unit(INamable):
 	def PoundsPerSquareInch() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7469,8 +8104,9 @@ class Unit(INamable):
 	def PSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7479,8 +8115,9 @@ class Unit(INamable):
 	def Resident() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7489,8 +8126,9 @@ class Unit(INamable):
 	def RPM() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7499,8 +8137,9 @@ class Unit(INamable):
 	def Seconds() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7509,8 +8148,9 @@ class Unit(INamable):
 	def SquareCentimeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7519,8 +8159,9 @@ class Unit(INamable):
 	def SquareFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7529,8 +8170,9 @@ class Unit(INamable):
 	def SquareFeetPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7539,8 +8181,9 @@ class Unit(INamable):
 	def SquareInches() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7549,8 +8192,9 @@ class Unit(INamable):
 	def SquareKilometers() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7559,8 +8203,9 @@ class Unit(INamable):
 	def SquareMeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7569,8 +8214,9 @@ class Unit(INamable):
 	def SquareMetersPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7579,8 +8225,9 @@ class Unit(INamable):
 	def SquareMiles() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7589,8 +8236,9 @@ class Unit(INamable):
 	def SquareMillimeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7599,8 +8247,9 @@ class Unit(INamable):
 	def SquareYards() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7609,8 +8258,9 @@ class Unit(INamable):
 	def Stokes() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7619,8 +8269,9 @@ class Unit(INamable):
 	def Student() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7629,8 +8280,9 @@ class Unit(INamable):
 	def ThousandCapita() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7639,8 +8291,9 @@ class Unit(INamable):
 	def ThousandGallons() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7649,8 +8302,9 @@ class Unit(INamable):
 	def ThousandLiters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7659,8 +8313,9 @@ class Unit(INamable):
 	def ThousandSquareFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7669,8 +8324,9 @@ class Unit(INamable):
 	def TonnesPerMegaJoule() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7679,8 +8335,9 @@ class Unit(INamable):
 	def TonnesPerYear() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7689,8 +8346,9 @@ class Unit(INamable):
 	def UnitlessPercent() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7699,8 +8357,9 @@ class Unit(INamable):
 	def UnitlessUnit() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7709,8 +8368,9 @@ class Unit(INamable):
 	def USSurveyFoot() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7719,8 +8379,9 @@ class Unit(INamable):
 	def VelocityCentimetersPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7729,8 +8390,9 @@ class Unit(INamable):
 	def VelocityCentimetersPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7739,8 +8401,9 @@ class Unit(INamable):
 	def VelocityCentimetersPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7749,8 +8412,9 @@ class Unit(INamable):
 	def VelocityFeetPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7759,8 +8423,9 @@ class Unit(INamable):
 	def VelocityFeetPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7769,8 +8434,9 @@ class Unit(INamable):
 	def VelocityFeetPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7779,8 +8445,9 @@ class Unit(INamable):
 	def VelocityInchesPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7789,8 +8456,9 @@ class Unit(INamable):
 	def VelocityInchesPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7799,8 +8467,9 @@ class Unit(INamable):
 	def VelocityInchesPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7809,8 +8478,9 @@ class Unit(INamable):
 	def VelocityKilometersPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7819,8 +8489,9 @@ class Unit(INamable):
 	def VelocityKnot() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7829,8 +8500,9 @@ class Unit(INamable):
 	def VelocityKnotInternational() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7839,8 +8511,9 @@ class Unit(INamable):
 	def VelocityMetersPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7849,8 +8522,9 @@ class Unit(INamable):
 	def VelocityMetersPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7859,8 +8533,9 @@ class Unit(INamable):
 	def VelocityMetersPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7869,8 +8544,9 @@ class Unit(INamable):
 	def VelocityMilePerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7879,8 +8555,9 @@ class Unit(INamable):
 	def VerticalPerHorizontal() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7889,8 +8566,9 @@ class Unit(INamable):
 	def Watts() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7899,8 +8577,9 @@ class Unit(INamable):
 	def WeirCoefficientSi() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7909,8 +8588,9 @@ class Unit(INamable):
 	def WeirCoefficientUs() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7919,8 +8599,9 @@ class Unit(INamable):
 	def Yards() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7929,8 +8610,9 @@ class Unit(INamable):
 	def Years() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7939,8 +8621,9 @@ class Unit(INamable):
 	def InchMiles() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7949,8 +8632,9 @@ class Unit(INamable):
 	def InchFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7959,8 +8643,9 @@ class Unit(INamable):
 	def FootMiles() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7969,8 +8654,9 @@ class Unit(INamable):
 	def FootFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7979,8 +8665,9 @@ class Unit(INamable):
 	def MillimeterMeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7989,8 +8676,9 @@ class Unit(INamable):
 	def MillimeterKilometers() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -7999,8 +8687,9 @@ class Unit(INamable):
 	def MeterMeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8009,8 +8698,9 @@ class Unit(INamable):
 	def MeterKilometers() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8019,8 +8709,9 @@ class Unit(INamable):
 	def InchMeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8029,8 +8720,9 @@ class Unit(INamable):
 	def MillimeterMiles() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8039,8 +8731,9 @@ class Unit(INamable):
 	def PoundsPerAcre() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8049,8 +8742,9 @@ class Unit(INamable):
 	def KilogramsPerHectare() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8059,8 +8753,9 @@ class Unit(INamable):
 	def DollarsPerKiloWatt() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8069,8 +8764,9 @@ class Unit(INamable):
 	def DollarsPerHorsepower() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8079,8 +8775,9 @@ class Unit(INamable):
 	def DollarsPerCubicCentimeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8089,8 +8786,9 @@ class Unit(INamable):
 	def DollarsPerLiters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8099,8 +8797,9 @@ class Unit(INamable):
 	def DollarsPerCubicMeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8109,8 +8808,9 @@ class Unit(INamable):
 	def DollarsPerCubicInches() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8119,8 +8819,9 @@ class Unit(INamable):
 	def DollarsPerGallons() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8129,8 +8830,9 @@ class Unit(INamable):
 	def DollarsPerImpGallons() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8139,8 +8841,9 @@ class Unit(INamable):
 	def DollarsPerCubicFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8149,8 +8852,9 @@ class Unit(INamable):
 	def DollarsPerCubicYards() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8159,8 +8863,9 @@ class Unit(INamable):
 	def DollarsPerAcreInches() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8169,8 +8874,9 @@ class Unit(INamable):
 	def DollarsPerAcreFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8179,8 +8885,9 @@ class Unit(INamable):
 	def DollarsPerMillionGallons() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8189,8 +8896,9 @@ class Unit(INamable):
 	def DollarsPerThousandGallons() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8199,8 +8907,9 @@ class Unit(INamable):
 	def DollarsPerThousandLiters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8209,8 +8918,9 @@ class Unit(INamable):
 	def DollarsPerMillionLiters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8219,8 +8929,9 @@ class Unit(INamable):
 	def PoundSquareFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8229,8 +8940,9 @@ class Unit(INamable):
 	def NewtonSquareMeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8239,8 +8951,9 @@ class Unit(INamable):
 	def KilogramSquareMeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8249,8 +8962,9 @@ class Unit(INamable):
 	def KiloWattHourPerMillionGallons() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8259,8 +8973,9 @@ class Unit(INamable):
 	def KiloWattHourPerMillionLiters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8269,8 +8984,9 @@ class Unit(INamable):
 	def KiloWattHourPerCubicMeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8279,8 +8995,9 @@ class Unit(INamable):
 	def KiloWattHourPerCubicFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8289,8 +9006,9 @@ class Unit(INamable):
 	def PerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8299,8 +9017,9 @@ class Unit(INamable):
 	def NewtonMeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8309,8 +9028,9 @@ class Unit(INamable):
 	def PoundFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8319,8 +9039,9 @@ class Unit(INamable):
 	def PoundPerInch() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8329,8 +9050,9 @@ class Unit(INamable):
 	def NewtonPerMillimeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8339,8 +9061,9 @@ class Unit(INamable):
 	def PoundForce() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8349,8 +9072,9 @@ class Unit(INamable):
 	def KiloPoundForce() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8359,8 +9083,9 @@ class Unit(INamable):
 	def Newton() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8369,8 +9094,9 @@ class Unit(INamable):
 	def KiloNewton() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8379,8 +9105,9 @@ class Unit(INamable):
 	def SlugPerCubicFoot() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8389,8 +9116,9 @@ class Unit(INamable):
 	def PoundPerCubicFoot() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8399,8 +9127,9 @@ class Unit(INamable):
 	def KilogramPerCubicMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8409,8 +9138,9 @@ class Unit(INamable):
 	def CfsPerSquareRootFooH20() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8419,8 +9149,9 @@ class Unit(INamable):
 	def CmsPerSquareRootMeterH20() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8429,8 +9160,9 @@ class Unit(INamable):
 	def LPerSecPerSquareRootKpa() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8439,8 +9171,9 @@ class Unit(INamable):
 	def GpmPerSquareRootPsi() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8449,8 +9182,9 @@ class Unit(INamable):
 	def Pascals() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8459,8 +9193,9 @@ class Unit(INamable):
 	def HektoPascals() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8469,8 +9204,9 @@ class Unit(INamable):
 	def MegaPascals() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8479,8 +9215,9 @@ class Unit(INamable):
 	def MilliBars() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8489,8 +9226,9 @@ class Unit(INamable):
 	def SideWeirCoefficientSi() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8499,8 +9237,9 @@ class Unit(INamable):
 	def SideWeirCoefficientUs() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8509,8 +9248,9 @@ class Unit(INamable):
 	def CubicFeetPerFoot() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8519,8 +9259,9 @@ class Unit(INamable):
 	def CubicMetersPerMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8529,8 +9270,9 @@ class Unit(INamable):
 	def InchesPerHourPerFeetToKexp() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8539,8 +9281,9 @@ class Unit(INamable):
 	def CentimeterPerHourPerMeterToKexp() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8549,8 +9292,9 @@ class Unit(INamable):
 	def Kelvin() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8559,8 +9303,9 @@ class Unit(INamable):
 	def LitersPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8569,8 +9314,9 @@ class Unit(INamable):
 	def Tons() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8579,8 +9325,9 @@ class Unit(INamable):
 	def MegaWatts() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8589,8 +9336,9 @@ class Unit(INamable):
 	def GigaWatts() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8599,8 +9347,9 @@ class Unit(INamable):
 	def MegaJoules() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8609,8 +9358,9 @@ class Unit(INamable):
 	def GigaJoules() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8619,8 +9369,9 @@ class Unit(INamable):
 	def WattSeconds() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8629,8 +9380,9 @@ class Unit(INamable):
 	def MegaWattHours() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8639,8 +9391,9 @@ class Unit(INamable):
 	def GigaWattHours() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8649,8 +9402,9 @@ class Unit(INamable):
 	def PascalsPerMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8659,8 +9413,9 @@ class Unit(INamable):
 	def BarsPerKilometer() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8669,8 +9424,9 @@ class Unit(INamable):
 	def PSIPerFoot() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8679,8 +9435,9 @@ class Unit(INamable):
 	def PSIPerInch() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8689,8 +9446,9 @@ class Unit(INamable):
 	def KilogramsPerMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8699,8 +9457,9 @@ class Unit(INamable):
 	def PoundsPerFoot() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8709,8 +9468,9 @@ class Unit(INamable):
 	def PerMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8719,8 +9479,9 @@ class Unit(INamable):
 	def PerMillimeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8729,8 +9490,9 @@ class Unit(INamable):
 	def PerPascals() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8739,8 +9501,9 @@ class Unit(INamable):
 	def PerBars() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8749,8 +9512,9 @@ class Unit(INamable):
 	def PerPSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8759,8 +9523,9 @@ class Unit(INamable):
 	def KilogramsPerMeterPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8769,8 +9534,9 @@ class Unit(INamable):
 	def PoundSecondPerSquareFoot() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8779,8 +9545,9 @@ class Unit(INamable):
 	def JoulesPerCubicMeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8789,8 +9556,9 @@ class Unit(INamable):
 	def KiloJoulesPerCubicMeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8799,8 +9567,9 @@ class Unit(INamable):
 	def MegaJoulesPerCubicMeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8809,8 +9578,9 @@ class Unit(INamable):
 	def KiloWattHoursPerCubicMeters() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8819,8 +9589,9 @@ class Unit(INamable):
 	def WeirCoefficientParameterizedSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8829,8 +9600,9 @@ class Unit(INamable):
 	def WeirCoefficientParameterizedUS() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8839,8 +9611,9 @@ class Unit(INamable):
 	def MillimetersPerHourPerDegreeCelsius() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8849,8 +9622,9 @@ class Unit(INamable):
 	def InchesPerHourPerDegreeFahrenheit() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8859,8 +9633,9 @@ class Unit(INamable):
 	def BreaksPerYrPerKm() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8869,8 +9644,9 @@ class Unit(INamable):
 	def BreaksPerYrPerMi() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8879,8 +9655,9 @@ class Unit(INamable):
 	def BreaksPerYrPer1000Ft() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8889,8 +9666,9 @@ class Unit(INamable):
 	def BreaksPerYrPer100Mi() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8899,8 +9677,9 @@ class Unit(INamable):
 	def PercentPerSecondPerMeterH2O() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8909,8 +9688,9 @@ class Unit(INamable):
 	def PercentPerSecondPerFtH2O() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8919,8 +9699,9 @@ class Unit(INamable):
 	def PercentPerSecondPerKiloPascal() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8929,8 +9710,9 @@ class Unit(INamable):
 	def PercentPerSecondPerPSI() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8939,8 +9721,9 @@ class Unit(INamable):
 	def PercentPerSecondPerCubicFeetPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8949,8 +9732,9 @@ class Unit(INamable):
 	def PercentPerSecondPerCubicFeetPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8959,8 +9743,9 @@ class Unit(INamable):
 	def PercentPerSecondPerCubicMeterPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8969,8 +9754,9 @@ class Unit(INamable):
 	def PercentPerSecondPerCubicMeterPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8979,8 +9765,9 @@ class Unit(INamable):
 	def PercentPerSecondPerLiterPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8989,8 +9776,9 @@ class Unit(INamable):
 	def PercentPerSecondPerLiterPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -8999,8 +9787,9 @@ class Unit(INamable):
 	def PercentPerSecondPerGalPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9009,8 +9798,9 @@ class Unit(INamable):
 	def PercentPerSecondPerGalPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9019,8 +9809,9 @@ class Unit(INamable):
 	def MetersPerSquareSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9029,8 +9820,9 @@ class Unit(INamable):
 	def FeetPerSquareSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9039,8 +9831,9 @@ class Unit(INamable):
 	def DrainCoeffInchesPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9049,8 +9842,9 @@ class Unit(INamable):
 	def DrainCoeffMMPerHour() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9059,8 +9853,9 @@ class Unit(INamable):
 	def MilligramsPerSquareCentimeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9069,8 +9864,9 @@ class Unit(INamable):
 	def MilligramsPerSquareFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9079,8 +9875,9 @@ class Unit(INamable):
 	def MilligramsPerSquareMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9089,8 +9886,9 @@ class Unit(INamable):
 	def MicrogramsPerSquareCentimeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9099,8 +9897,9 @@ class Unit(INamable):
 	def MicrogramsPerSquareFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9109,8 +9908,9 @@ class Unit(INamable):
 	def MicrogramsPerSquareMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9119,8 +9919,9 @@ class Unit(INamable):
 	def MolesPerLiter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9129,8 +9930,9 @@ class Unit(INamable):
 	def MilliMolesPerLiter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9139,8 +9941,9 @@ class Unit(INamable):
 	def NumbersPerLiter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9149,8 +9952,9 @@ class Unit(INamable):
 	def ThousandNumbersPerLiter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9159,8 +9963,9 @@ class Unit(INamable):
 	def MillionNumbersPerLiter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9169,8 +9974,9 @@ class Unit(INamable):
 	def MolesPerSquareMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9179,8 +9985,9 @@ class Unit(INamable):
 	def MolesPerSquareCentimeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9189,8 +9996,9 @@ class Unit(INamable):
 	def MolesPerSquareFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9199,8 +10007,9 @@ class Unit(INamable):
 	def MilliMolesPerSquareMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9209,8 +10018,9 @@ class Unit(INamable):
 	def MilliMolesPerSquareCentimeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9219,8 +10029,9 @@ class Unit(INamable):
 	def MilliMolesPerSquareFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9229,8 +10040,9 @@ class Unit(INamable):
 	def NumbersPerSquareMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9239,8 +10051,9 @@ class Unit(INamable):
 	def NumbersPerSquareCentimeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9249,8 +10062,9 @@ class Unit(INamable):
 	def NumbersPerSquareFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9259,8 +10073,9 @@ class Unit(INamable):
 	def ThousandNumbersPerSquareMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9269,8 +10084,9 @@ class Unit(INamable):
 	def ThousandNumbersPerSquareCentimeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9279,8 +10095,9 @@ class Unit(INamable):
 	def ThousandNumbersPerSquareFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9289,8 +10106,9 @@ class Unit(INamable):
 	def MillionNumbersPerSquareMeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9299,8 +10117,9 @@ class Unit(INamable):
 	def MillionNumbersPerSquareCentimeter() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9309,8 +10128,9 @@ class Unit(INamable):
 	def MillionNumbersPerSquareFeet() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9319,8 +10139,9 @@ class Unit(INamable):
 	def CubicFeetPerMilePerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9329,8 +10150,9 @@ class Unit(INamable):
 	def LitersPerKilometerPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9339,8 +10161,9 @@ class Unit(INamable):
 	def QuadFootPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9349,8 +10172,9 @@ class Unit(INamable):
 	def GallonsPerFootPerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9359,8 +10183,9 @@ class Unit(INamable):
 	def GallonsPerMilePerMinute() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9369,8 +10194,9 @@ class Unit(INamable):
 	def QuadMetersPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9379,8 +10205,9 @@ class Unit(INamable):
 	def CubicMetersPerKilometerPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9389,8 +10216,9 @@ class Unit(INamable):
 	def LitersPerMetersPerSecond() -> Unit:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9398,8 +10226,9 @@ class Unit(INamable):
 	def Dimension(self) -> Dimension:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9407,8 +10236,9 @@ class Unit(INamable):
 	def EnumValue(self) -> int:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9416,8 +10246,9 @@ class Unit(INamable):
 	def Label(self) -> str:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9425,8 +10256,9 @@ class Unit(INamable):
 	def LabelKey(self) -> str:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9434,8 +10266,9 @@ class Unit(INamable):
 	def Name(self) -> str:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9443,8 +10276,9 @@ class Unit(INamable):
 	def BentleyName(self) -> str:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9452,8 +10286,9 @@ class Unit(INamable):
 	def ShortLabel(self) -> str:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9461,8 +10296,9 @@ class Unit(INamable):
 	def UnitSystem(self) -> UnitSystem:
 		"""No Description
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
@@ -9476,52 +10312,61 @@ class UnitConversionManager:
 	def AvailableDimensions(self) -> List:
 		"""No Description
 
-		Returns:
-			List: 
+		Returns
+		--------
+			``List`` : 
 		"""
 		pass
 
 	def DimensionAt(self, adimensionindex: DimensionIndex) -> Dimension:
 		"""No Description
 
-		Args:
-			adimensionindex(DimensionIndex): adimensionindex
+		Args
+		--------
+			adimensionindex (``DimensionIndex``) :  adimensionindex
 
-		Returns:
-			Dimension: 
+		Returns
+		--------
+			``Dimension`` : 
 		"""
 		pass
 
 	def UnitIndexFor(self, unit: Unit) -> UnitIndex:
 		"""No Description
 
-		Args:
-			unit(Unit): unit
+		Args
+		--------
+			unit (``Unit``) :  unit
 
-		Returns:
-			UnitIndex: 
+		Returns
+		--------
+			``UnitIndex`` : 
 		"""
 		pass
 
 	def UnitAt(self, aunitindex: UnitIndex) -> Unit:
 		"""No Description
 
-		Args:
-			aunitindex(UnitIndex): aunitindex
+		Args
+		--------
+			aunitindex (``UnitIndex``) :  aunitindex
 
-		Returns:
-			Unit: 
+		Returns
+		--------
+			``Unit`` : 
 		"""
 		pass
 
 	def UnitSystemAt(self, aunitsystemindex: UnitSystemIndex) -> UnitSystem:
 		"""No Description
 
-		Args:
-			aunitsystemindex(UnitSystemIndex): aunitsystemindex
+		Args
+		--------
+			aunitsystemindex (``UnitSystemIndex``) :  aunitsystemindex
 
-		Returns:
-			UnitSystem: 
+		Returns
+		--------
+			``UnitSystem`` : 
 		"""
 		pass
 
@@ -9530,8 +10375,9 @@ class UnitConversionManager:
 	def Current() -> UnitConversionManager:
 		"""No Description
 
-		Returns:
-			UnitConversionManager: 
+		Returns
+		--------
+			``UnitConversionManager`` : 
 		"""
 		pass
 
@@ -9540,8 +10386,9 @@ class UnitConversionManager:
 	def EmitterExponent() -> float:
 		"""No Description
 
-		Returns:
-			UnitConversionManager: 
+		Returns
+		--------
+			``UnitConversionManager`` : 
 		"""
 		pass
 
@@ -9555,8 +10402,9 @@ class UnitSystem(INamable):
 	def __init__(self, astringName: str) -> None:
 		"""No Description
 
-		Args:
-			astringName(str): astringName
+		Args
+		--------
+			astringName (``str``) :  astringName
 		"""
 		pass
 
@@ -9564,19 +10412,22 @@ class UnitSystem(INamable):
 	def FromSerializedString(astring: str) -> UnitSystem:
 		"""No Description
 
-		Args:
-			astring(str): astring
+		Args
+		--------
+			astring (``str``) :  astring
 
-		Returns:
-			UnitSystem: 
+		Returns
+		--------
+			``UnitSystem`` : 
 		"""
 		pass
 
 	def ToSerializedString(self) -> str:
 		"""No Description
 
-		Returns:
-			str: 
+		Returns
+		--------
+			``str`` : 
 		"""
 		pass
 
@@ -9585,8 +10436,9 @@ class UnitSystem(INamable):
 	def _None() -> UnitSystem:
 		"""No Description
 
-		Returns:
-			UnitSystem: 
+		Returns
+		--------
+			``UnitSystem`` : 
 		"""
 		pass
 
@@ -9595,8 +10447,9 @@ class UnitSystem(INamable):
 	def Si() -> UnitSystem:
 		"""No Description
 
-		Returns:
-			UnitSystem: 
+		Returns
+		--------
+			``UnitSystem`` : 
 		"""
 		pass
 
@@ -9605,8 +10458,9 @@ class UnitSystem(INamable):
 	def UsCustomary() -> UnitSystem:
 		"""No Description
 
-		Returns:
-			UnitSystem: 
+		Returns
+		--------
+			``UnitSystem`` : 
 		"""
 		pass
 
@@ -9615,8 +10469,9 @@ class UnitSystem(INamable):
 	def Both() -> UnitSystem:
 		"""No Description
 
-		Returns:
-			UnitSystem: 
+		Returns
+		--------
+			``UnitSystem`` : 
 		"""
 		pass
 
@@ -9624,8 +10479,9 @@ class UnitSystem(INamable):
 	def Label(self) -> str:
 		"""No Description
 
-		Returns:
-			UnitSystem: 
+		Returns
+		--------
+			``UnitSystem`` : 
 		"""
 		pass
 
@@ -9633,8 +10489,9 @@ class UnitSystem(INamable):
 	def LabelKey(self) -> str:
 		"""No Description
 
-		Returns:
-			UnitSystem: 
+		Returns
+		--------
+			``UnitSystem`` : 
 		"""
 		pass
 
@@ -9642,8 +10499,9 @@ class UnitSystem(INamable):
 	def Name(self) -> str:
 		"""No Description
 
-		Returns:
-			UnitSystem: 
+		Returns
+		--------
+			``UnitSystem`` : 
 		"""
 		pass
 
@@ -9651,8 +10509,9 @@ class UnitSystem(INamable):
 	def ShortLabel(self) -> str:
 		"""No Description
 
-		Returns:
-			UnitSystem: 
+		Returns
+		--------
+			``UnitSystem`` : 
 		"""
 		pass
 
@@ -9661,28 +10520,32 @@ class ConversionException(ISerializable, _Exception):
 	def __init__(self, asMessage: str) -> None:
 		"""No Description
 
-		Args:
-			asMessage(str): asMessage
+		Args
+		--------
+			asMessage (``str``) :  asMessage
 		"""
 		pass
 
 	def GetBaseException(self) -> Exception:
 		"""No Description
 
-		Returns:
-			Exception: 
+		Returns
+		--------
+			``Exception`` : 
 		"""
 		pass
 
 	def GetObjectData(self, info: SerializationInfo, context: StreamingContext) -> None:
 		"""No Description
 
-		Args:
-			info(SerializationInfo): info
-			context(StreamingContext): context
+		Args
+		--------
+			info (``SerializationInfo``) :  info
+			context (``StreamingContext``) :  context
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
@@ -9690,8 +10553,9 @@ class ConversionException(ISerializable, _Exception):
 	def Message(self) -> str:
 		"""No Description
 
-		Returns:
-			ConversionException: 
+		Returns
+		--------
+			``ConversionException`` : 
 		"""
 		pass
 
@@ -9699,8 +10563,9 @@ class ConversionException(ISerializable, _Exception):
 	def Data(self) -> Dict:
 		"""No Description
 
-		Returns:
-			ConversionException: 
+		Returns
+		--------
+			``ConversionException`` : 
 		"""
 		pass
 
@@ -9708,8 +10573,9 @@ class ConversionException(ISerializable, _Exception):
 	def InnerException(self) -> Exception:
 		"""No Description
 
-		Returns:
-			ConversionException: 
+		Returns
+		--------
+			``ConversionException`` : 
 		"""
 		pass
 
@@ -9717,8 +10583,9 @@ class ConversionException(ISerializable, _Exception):
 	def TargetSite(self) -> MethodBase:
 		"""No Description
 
-		Returns:
-			ConversionException: 
+		Returns
+		--------
+			``ConversionException`` : 
 		"""
 		pass
 
@@ -9726,8 +10593,9 @@ class ConversionException(ISerializable, _Exception):
 	def StackTrace(self) -> str:
 		"""No Description
 
-		Returns:
-			ConversionException: 
+		Returns
+		--------
+			``ConversionException`` : 
 		"""
 		pass
 
@@ -9735,8 +10603,9 @@ class ConversionException(ISerializable, _Exception):
 	def HelpLink(self) -> str:
 		"""No Description
 
-		Returns:
-			ConversionException: 
+		Returns
+		--------
+			``ConversionException`` : 
 		"""
 		pass
 
@@ -9748,8 +10617,9 @@ class ConversionException(ISerializable, _Exception):
 	def Source(self) -> str:
 		"""No Description
 
-		Returns:
-			ConversionException: 
+		Returns
+		--------
+			``ConversionException`` : 
 		"""
 		pass
 
@@ -9761,8 +10631,9 @@ class ConversionException(ISerializable, _Exception):
 	def HResult(self) -> int:
 		"""No Description
 
-		Returns:
-			ConversionException: 
+		Returns
+		--------
+			``ConversionException`` : 
 		"""
 		pass
 
@@ -9775,30 +10646,35 @@ class FactorConverter(IUnitConverter):
 	def __init__(self, adouble: float) -> None:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 		"""
 		pass
 
 	def FromBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ToBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -9812,22 +10688,26 @@ class BaseUnitConverter(IUnitConverter):
 	def FromBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ToBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -9842,11 +10722,13 @@ class DegreesFahrenheitConverter(IUnitConverter):
 	def FromBaseUnit(self, adoubleCelsius: float) -> float:
 		"""No Description
 
-		Args:
-			adoubleCelsius(float): adoubleCelsius
+		Args
+		--------
+			adoubleCelsius (``float``) :  adoubleCelsius
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -9854,11 +10736,13 @@ class DegreesFahrenheitConverter(IUnitConverter):
 	def ToBaseUnit(self, adoubleFahrenheit: float) -> float:
 		"""No Description
 
-		Args:
-			adoubleFahrenheit(float): adoubleFahrenheit
+		Args
+		--------
+			adoubleFahrenheit (``float``) :  adoubleFahrenheit
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -9866,11 +10750,13 @@ class DegreesFahrenheitConverter(IUnitConverter):
 	def FromBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -9878,11 +10764,13 @@ class DegreesFahrenheitConverter(IUnitConverter):
 	def ToBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -9897,11 +10785,13 @@ class KelvinConverter(IUnitConverter):
 	def FromBaseUnit(self, adoubleCelsius: float) -> float:
 		"""No Description
 
-		Args:
-			adoubleCelsius(float): adoubleCelsius
+		Args
+		--------
+			adoubleCelsius (``float``) :  adoubleCelsius
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -9909,11 +10799,13 @@ class KelvinConverter(IUnitConverter):
 	def ToBaseUnit(self, adoubleKelvin: float) -> float:
 		"""No Description
 
-		Args:
-			adoubleKelvin(float): adoubleKelvin
+		Args
+		--------
+			adoubleKelvin (``float``) :  adoubleKelvin
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -9921,11 +10813,13 @@ class KelvinConverter(IUnitConverter):
 	def FromBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -9933,11 +10827,13 @@ class KelvinConverter(IUnitConverter):
 	def ToBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -9951,22 +10847,26 @@ class SlopeConverter(IUnitConverter):
 	def FromBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
 	def ToBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -9975,8 +10875,9 @@ class EmitterCoefficientConverterUS(IUnitConverter):
 	def __init__(self, aTargetUnitFlowFactor: float) -> None:
 		"""No Description
 
-		Args:
-			aTargetUnitFlowFactor(float): aTargetUnitFlowFactor
+		Args
+		--------
+			aTargetUnitFlowFactor (``float``) :  aTargetUnitFlowFactor
 		"""
 		pass
 
@@ -9984,11 +10885,13 @@ class EmitterCoefficientConverterUS(IUnitConverter):
 	def FromBaseUnit(self, aDouble: float) -> float:
 		"""No Description
 
-		Args:
-			aDouble(float): aDouble
+		Args
+		--------
+			aDouble (``float``) :  aDouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -9996,11 +10899,13 @@ class EmitterCoefficientConverterUS(IUnitConverter):
 	def ToBaseUnit(self, aDouble: float) -> float:
 		"""No Description
 
-		Args:
-			aDouble(float): aDouble
+		Args
+		--------
+			aDouble (``float``) :  aDouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -10008,11 +10913,13 @@ class EmitterCoefficientConverterUS(IUnitConverter):
 	def FromBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -10020,11 +10927,13 @@ class EmitterCoefficientConverterUS(IUnitConverter):
 	def ToBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -10033,8 +10942,9 @@ class EmitterCoefficientConverterSI(IUnitConverter):
 	def __init__(self, aTargetUnitFlowFactor: float) -> None:
 		"""No Description
 
-		Args:
-			aTargetUnitFlowFactor(float): aTargetUnitFlowFactor
+		Args
+		--------
+			aTargetUnitFlowFactor (``float``) :  aTargetUnitFlowFactor
 		"""
 		pass
 
@@ -10042,11 +10952,13 @@ class EmitterCoefficientConverterSI(IUnitConverter):
 	def FromBaseUnit(self, aDouble: float) -> float:
 		"""No Description
 
-		Args:
-			aDouble(float): aDouble
+		Args
+		--------
+			aDouble (``float``) :  aDouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -10054,11 +10966,13 @@ class EmitterCoefficientConverterSI(IUnitConverter):
 	def ToBaseUnit(self, aDouble: float) -> float:
 		"""No Description
 
-		Args:
-			aDouble(float): aDouble
+		Args
+		--------
+			aDouble (``float``) :  aDouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -10066,11 +10980,13 @@ class EmitterCoefficientConverterSI(IUnitConverter):
 	def FromBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 
@@ -10078,11 +10994,13 @@ class EmitterCoefficientConverterSI(IUnitConverter):
 	def ToBaseUnit(self, adouble: float) -> float:
 		"""No Description
 
-		Args:
-			adouble(float): adouble
+		Args
+		--------
+			adouble (``float``) :  adouble
 
-		Returns:
-			float: 
+		Returns
+		--------
+			``float`` : 
 		"""
 		pass
 

@@ -1,11 +1,13 @@
 from OpenFlows.Domain.ModelingElements.Collections import ICollectionElements, ICollection, ICollectionElement
-from OpenFlows.Domain.ModelingElements import IElementUnits, IScenarioOptions
+from OpenFlows.Domain.ModelingElements import IElementUnits, IScenarioOptions, IElement
 from OpenFlows.Water.Domain.ModelingElements import IWaterSelectionSet
 from OpenFlows.Water.Domain.ModelingElements.Components import IPattern, IUnitDemandLoad
 from OpenFlows.Water.Domain import AdjustmentOperationType, CalculationType, DemandAdjustmentsType, UnitDemandAdjustmentType, RoughnessAdjustmentType
-from typing import overload
+from typing import overload, Iterator
+from Haestad.Domain.ModelingObjects.Water.Enumerations import EpaNetEngine_FrictionMethodEnum, EpaNetEngine_TimeAnalysisTypeEnum
 from datetime import datetime
 from OpenFlows.Units import IUnit
+from Haestad.Support.Support import IEditLabeled, ILabeled
 
 class IActiveDemandAdjustmentsCollection(ICollectionElements[IActiveDemandAdjustments, IActiveDemandAdjustment, IElementUnits]):
 
@@ -13,8 +15,9 @@ class IActiveDemandAdjustmentsCollection(ICollectionElements[IActiveDemandAdjust
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -25,8 +28,9 @@ class IActiveDemandAdjustments(ICollection[IActiveDemandAdjustment]):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -35,14 +39,16 @@ class IActiveDemandAdjustments(ICollection[IActiveDemandAdjustment]):
 	def Add(self, scope: IWaterSelectionSet, demandPattern: IPattern, operation: AdjustmentOperationType, value: float) -> IActiveDemandAdjustment:
 		"""Adds a new demand adjustment and assigns the values.
 
-		Args:
-			scope(IWaterSelectionSet): scope
-			demandPattern(IPattern): demandPattern
-			operation(AdjustmentOperationType): operation
-			value(float): value
+		Args
+		--------
+			scope (``IWaterSelectionSet``) :  scope
+			demandPattern (``IPattern``) :  demandPattern
+			operation (``AdjustmentOperationType``) :  operation
+			value (``float``) :  value
 
-		Returns:
-			IActiveDemandAdjustment: 
+		Returns
+		--------
+			``IActiveDemandAdjustment`` : 
 		"""
 		pass
 
@@ -50,8 +56,9 @@ class IActiveDemandAdjustments(ICollection[IActiveDemandAdjustment]):
 	def Add(self) -> IActiveDemandAdjustment:
 		"""No Description
 
-		Returns:
-			IActiveDemandAdjustment: 
+		Returns
+		--------
+			``IActiveDemandAdjustment`` : 
 		"""
 		pass
 
@@ -61,8 +68,9 @@ class IActiveDemandAdjustment(ICollectionElement):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -71,8 +79,9 @@ class IActiveDemandAdjustment(ICollectionElement):
 	def Scope(self) -> IWaterSelectionSet:
 		"""If null, applies to appropriate elements in entire network
 
-		Returns:
-			IActiveDemandAdjustment: 
+		Returns
+		--------
+			``IActiveDemandAdjustment`` : 
 		"""
 		pass
 
@@ -84,8 +93,9 @@ class IActiveDemandAdjustment(ICollectionElement):
 	def DemandPattern(self) -> IPattern:
 		"""The pattern to use for the adjustment.
 
-		Returns:
-			IActiveDemandAdjustment: 
+		Returns
+		--------
+			``IActiveDemandAdjustment`` : 
 		"""
 		pass
 
@@ -97,8 +107,9 @@ class IActiveDemandAdjustment(ICollectionElement):
 	def Value(self) -> float:
 		"""The value to apply
 
-		Returns:
-			IActiveDemandAdjustment: 
+		Returns
+		--------
+			``IActiveDemandAdjustment`` : 
 		"""
 		pass
 
@@ -110,8 +121,9 @@ class IActiveDemandAdjustment(ICollectionElement):
 	def Operation(self) -> AdjustmentOperationType:
 		"""The operation to apply the value.
 
-		Returns:
-			IActiveDemandAdjustment: 
+		Returns
+		--------
+			``IActiveDemandAdjustment`` : 
 		"""
 		pass
 
@@ -125,8 +137,9 @@ class IActiveRoughnessAdjustmentCollection(ICollectionElements[IActiveRoughnessA
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -137,8 +150,9 @@ class IActiveRoughnessAdjustments(ICollection[IActiveRoughnessAdjustment]):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -147,13 +161,15 @@ class IActiveRoughnessAdjustments(ICollection[IActiveRoughnessAdjustment]):
 	def Add(self, scope: IWaterSelectionSet, operation: AdjustmentOperationType, value: float) -> IActiveRoughnessAdjustment:
 		"""Adds a new roughness adjustment.
 
-		Args:
-			scope(IWaterSelectionSet): scope
-			operation(AdjustmentOperationType): operation
-			value(float): value
+		Args
+		--------
+			scope (``IWaterSelectionSet``) :  scope
+			operation (``AdjustmentOperationType``) :  operation
+			value (``float``) :  value
 
-		Returns:
-			IActiveRoughnessAdjustment: 
+		Returns
+		--------
+			``IActiveRoughnessAdjustment`` : 
 		"""
 		pass
 
@@ -161,8 +177,9 @@ class IActiveRoughnessAdjustments(ICollection[IActiveRoughnessAdjustment]):
 	def Add(self) -> IActiveRoughnessAdjustment:
 		"""No Description
 
-		Returns:
-			IActiveRoughnessAdjustment: 
+		Returns
+		--------
+			``IActiveRoughnessAdjustment`` : 
 		"""
 		pass
 
@@ -172,8 +189,9 @@ class IActiveRoughnessAdjustment(ICollectionElement):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -182,8 +200,9 @@ class IActiveRoughnessAdjustment(ICollectionElement):
 	def Scope(self) -> IWaterSelectionSet:
 		"""The scope of pipes to apply adjustments
 
-		Returns:
-			IActiveRoughnessAdjustment: 
+		Returns
+		--------
+			``IActiveRoughnessAdjustment`` : 
 		"""
 		pass
 
@@ -195,8 +214,9 @@ class IActiveRoughnessAdjustment(ICollectionElement):
 	def Value(self) -> float:
 		"""The value to use to apply the adjustment
 
-		Returns:
-			IActiveRoughnessAdjustment: 
+		Returns
+		--------
+			``IActiveRoughnessAdjustment`` : 
 		"""
 		pass
 
@@ -208,8 +228,9 @@ class IActiveRoughnessAdjustment(ICollectionElement):
 	def Operation(self) -> AdjustmentOperationType:
 		"""The operation to use to apply the adjustment
 
-		Returns:
-			IActiveRoughnessAdjustment: 
+		Returns
+		--------
+			``IActiveRoughnessAdjustment`` : 
 		"""
 		pass
 
@@ -223,8 +244,9 @@ class IActiveUnitDemandAdjustmentCollection(ICollectionElements[IActiveUnitDeman
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -235,8 +257,9 @@ class IActiveUnitDemandAdjustments(ICollection[IActiveUnitDemandAdjustment]):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -245,14 +268,16 @@ class IActiveUnitDemandAdjustments(ICollection[IActiveUnitDemandAdjustment]):
 	def Add(self, scope: IWaterSelectionSet, unitDemandLoad: IUnitDemandLoad, operation: AdjustmentOperationType, value: float) -> IActiveUnitDemandAdjustment:
 		"""Add a new unit demand adjustment.
 
-		Args:
-			scope(IWaterSelectionSet): scope
-			unitDemandLoad(IUnitDemandLoad): unitDemandLoad
-			operation(AdjustmentOperationType): operation
-			value(float): value
+		Args
+		--------
+			scope (``IWaterSelectionSet``) :  scope
+			unitDemandLoad (``IUnitDemandLoad``) :  unitDemandLoad
+			operation (``AdjustmentOperationType``) :  operation
+			value (``float``) :  value
 
-		Returns:
-			IActiveUnitDemandAdjustment: 
+		Returns
+		--------
+			``IActiveUnitDemandAdjustment`` : 
 		"""
 		pass
 
@@ -260,8 +285,9 @@ class IActiveUnitDemandAdjustments(ICollection[IActiveUnitDemandAdjustment]):
 	def Add(self) -> IActiveUnitDemandAdjustment:
 		"""No Description
 
-		Returns:
-			IActiveUnitDemandAdjustment: 
+		Returns
+		--------
+			``IActiveUnitDemandAdjustment`` : 
 		"""
 		pass
 
@@ -271,8 +297,9 @@ class IActiveUnitDemandAdjustment(ICollectionElement):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -281,8 +308,9 @@ class IActiveUnitDemandAdjustment(ICollectionElement):
 	def Scope(self) -> IWaterSelectionSet:
 		"""The scope to apply the adjustment to
 
-		Returns:
-			IActiveUnitDemandAdjustment: 
+		Returns
+		--------
+			``IActiveUnitDemandAdjustment`` : 
 		"""
 		pass
 
@@ -294,8 +322,9 @@ class IActiveUnitDemandAdjustment(ICollectionElement):
 	def UnitLoadDemand(self) -> IUnitDemandLoad:
 		"""The unit load demand to use.
 
-		Returns:
-			IActiveUnitDemandAdjustment: 
+		Returns
+		--------
+			``IActiveUnitDemandAdjustment`` : 
 		"""
 		pass
 
@@ -307,8 +336,9 @@ class IActiveUnitDemandAdjustment(ICollectionElement):
 	def Value(self) -> float:
 		"""The value to apply the adjustment
 
-		Returns:
-			IActiveUnitDemandAdjustment: 
+		Returns
+		--------
+			``IActiveUnitDemandAdjustment`` : 
 		"""
 		pass
 
@@ -320,8 +350,9 @@ class IActiveUnitDemandAdjustment(ICollectionElement):
 	def Operation(self) -> AdjustmentOperationType:
 		"""How to apply the adjustment to the scope.
 
-		Returns:
-			IActiveUnitDemandAdjustment: 
+		Returns
+		--------
+			``IActiveUnitDemandAdjustment`` : 
 		"""
 		pass
 
@@ -335,8 +366,9 @@ class IWaterScenarioOptions(IScenarioOptions[IWaterScenarioOptionsUnits]):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -345,8 +377,9 @@ class IWaterScenarioOptions(IScenarioOptions[IWaterScenarioOptionsUnits]):
 	def CalculationType(self) -> CalculationType:
 		"""The type of calculation to perform.
 
-		Returns:
-			IWaterScenarioOptions: 
+		Returns
+		--------
+			``IWaterScenarioOptions`` : 
 		"""
 		pass
 
@@ -358,8 +391,9 @@ class IWaterScenarioOptions(IScenarioOptions[IWaterScenarioOptionsUnits]):
 	def FrictionMethod(self) -> EpaNetEngine_FrictionMethodEnum:
 		"""The friction method to use on pipes.
 
-		Returns:
-			IWaterScenarioOptions: 
+		Returns
+		--------
+			``IWaterScenarioOptions`` : 
 		"""
 		pass
 
@@ -371,8 +405,9 @@ class IWaterScenarioOptions(IScenarioOptions[IWaterScenarioOptionsUnits]):
 	def SimulationStartDate(self) -> datetime:
 		"""The simulation start date.
 
-		Returns:
-			IWaterScenarioOptions: 
+		Returns
+		--------
+			``IWaterScenarioOptions`` : 
 		"""
 		pass
 
@@ -384,8 +419,9 @@ class IWaterScenarioOptions(IScenarioOptions[IWaterScenarioOptionsUnits]):
 	def TimeAnalysisType(self) -> EpaNetEngine_TimeAnalysisTypeEnum:
 		"""The analysis type - EPS or Steady-state.
 
-		Returns:
-			IWaterScenarioOptions: 
+		Returns
+		--------
+			``IWaterScenarioOptions`` : 
 		"""
 		pass
 
@@ -397,8 +433,9 @@ class IWaterScenarioOptions(IScenarioOptions[IWaterScenarioOptionsUnits]):
 	def StartTime(self) -> datetime:
 		"""The start time of the analysis.
 
-		Returns:
-			IWaterScenarioOptions: 
+		Returns
+		--------
+			``IWaterScenarioOptions`` : 
 		"""
 		pass
 
@@ -410,8 +447,9 @@ class IWaterScenarioOptions(IScenarioOptions[IWaterScenarioOptionsUnits]):
 	def Duration(self) -> float:
 		"""The length of the simulation.
 
-		Returns:
-			IWaterScenarioOptions: 
+		Returns
+		--------
+			``IWaterScenarioOptions`` : 
 		"""
 		pass
 
@@ -423,8 +461,9 @@ class IWaterScenarioOptions(IScenarioOptions[IWaterScenarioOptionsUnits]):
 	def HydraulicTimeStep(self) -> float:
 		"""The time step to use when calculating.
 
-		Returns:
-			IWaterScenarioOptions: 
+		Returns
+		--------
+			``IWaterScenarioOptions`` : 
 		"""
 		pass
 
@@ -436,8 +475,9 @@ class IWaterScenarioOptions(IScenarioOptions[IWaterScenarioOptionsUnits]):
 	def DemandAdjustments(self) -> DemandAdjustmentsType:
 		"""Select whether or not to apply adjustment factors to standard demands.
 
-		Returns:
-			IWaterScenarioOptions: 
+		Returns
+		--------
+			``IWaterScenarioOptions`` : 
 		"""
 		pass
 
@@ -449,8 +489,9 @@ class IWaterScenarioOptions(IScenarioOptions[IWaterScenarioOptionsUnits]):
 	def ActiveDemandAdjustments(self) -> IActiveDemandAdjustmentsCollection:
 		"""The collection of demand adjustment which are applied to the analysis.
 
-		Returns:
-			IWaterScenarioOptions: 
+		Returns
+		--------
+			``IWaterScenarioOptions`` : 
 		"""
 		pass
 
@@ -458,8 +499,9 @@ class IWaterScenarioOptions(IScenarioOptions[IWaterScenarioOptionsUnits]):
 	def UnitDemandAdjustments(self) -> UnitDemandAdjustmentType:
 		"""Select whether or not to apply adjustment factors to unit demands.
 
-		Returns:
-			IWaterScenarioOptions: 
+		Returns
+		--------
+			``IWaterScenarioOptions`` : 
 		"""
 		pass
 
@@ -471,8 +513,9 @@ class IWaterScenarioOptions(IScenarioOptions[IWaterScenarioOptionsUnits]):
 	def ActiveUnitLoadDemandAdjustments(self) -> IActiveUnitDemandAdjustmentCollection:
 		"""The collection of unit demand adjustments which are applied to the analysis.
 
-		Returns:
-			IWaterScenarioOptions: 
+		Returns
+		--------
+			``IWaterScenarioOptions`` : 
 		"""
 		pass
 
@@ -480,8 +523,9 @@ class IWaterScenarioOptions(IScenarioOptions[IWaterScenarioOptionsUnits]):
 	def RoughnessAdjustments(self) -> RoughnessAdjustmentType:
 		"""Select whether or not to apply adjustment factors to roughnesses.
 
-		Returns:
-			IWaterScenarioOptions: 
+		Returns
+		--------
+			``IWaterScenarioOptions`` : 
 		"""
 		pass
 
@@ -493,8 +537,9 @@ class IWaterScenarioOptions(IScenarioOptions[IWaterScenarioOptionsUnits]):
 	def ActiveRoughnessAdjustments(self) -> IActiveRoughnessAdjustmentCollection:
 		"""The collection of pipe roughness adjustments which are applied to the analysis.
 
-		Returns:
-			IWaterScenarioOptions: 
+		Returns
+		--------
+			``IWaterScenarioOptions`` : 
 		"""
 		pass
 
@@ -504,8 +549,9 @@ class IWaterScenarioOptionsUnits(IElementUnits):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -514,8 +560,9 @@ class IWaterScenarioOptionsUnits(IElementUnits):
 	def DurationUnit(self) -> IUnit:
 		"""The units and formatter information for duration
 
-		Returns:
-			IWaterScenarioOptionsUnits: 
+		Returns
+		--------
+			``IWaterScenarioOptionsUnits`` : 
 		"""
 		pass
 
@@ -523,8 +570,9 @@ class IWaterScenarioOptionsUnits(IElementUnits):
 	def HydraulicTimeStepUnit(self) -> IUnit:
 		"""The units and formatter information for hydraulic time step
 
-		Returns:
-			IWaterScenarioOptionsUnits: 
+		Returns
+		--------
+			``IWaterScenarioOptionsUnits`` : 
 		"""
 		pass
 

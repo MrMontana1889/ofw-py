@@ -1,4 +1,5 @@
 from enum import Enum
+from System import TypeCode
 from typing import overload, Dict
 from datetime import datetime
 from Haestad.LicensingFacade import LicenseRunStatusEnum
@@ -78,6 +79,7 @@ class ProductId(Enum):
 	Bentley_OpenRailUltimateChina = 3210
 	Bentley_OpenRoadsUltimateChina = 3211
 	Bentley_OpenRoadsChina = 3216
+	Bentley_OpenFlows_Entitlement = 3276
 
 class LicensePlatformType(Enum):
 	Unknown = 0
@@ -104,8 +106,9 @@ class ILicense:
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -113,32 +116,36 @@ class ILicense:
 	def Initialize(self) -> bool:
 		"""No Description
 
-		Returns:
-			bool: 
+		Returns
+		--------
+			``bool`` : 
 		"""
 		pass
 
 	def GetLicenseStatus(self) -> LicenseStatus:
 		"""No Description
 
-		Returns:
-			LicenseStatus: 
+		Returns
+		--------
+			``LicenseStatus`` : 
 		"""
 		pass
 
 	def StartDesktop(self) -> LicenseRunStatusEnum:
 		"""No Description
 
-		Returns:
-			LicenseRunStatusEnum: 
+		Returns
+		--------
+			``LicenseRunStatusEnum`` : 
 		"""
 		pass
 
 	def StopDesktop(self) -> None:
 		"""No Description
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
@@ -146,13 +153,15 @@ class ILicense:
 	def StartFeatureTracking(self, featureID: Guid, featureUserDataMap: Dict[str,str], instanceID: int) -> bool:
 		"""No Description
 
-		Args:
-			featureID(Guid): featureID
-			featureUserDataMap(Dict[str,str]): featureUserDataMap
-			instanceID(int): instanceID
+		Args
+		--------
+			featureID (``Guid``) :  featureID
+			featureUserDataMap (``Dict[str,str]``) :  featureUserDataMap
+			instanceID (``int``) :  instanceID
 
-		Returns:
-			bool: 
+		Returns
+		--------
+			``bool`` : 
 		"""
 		pass
 
@@ -160,23 +169,27 @@ class ILicense:
 	def StartFeatureTracking(self, featureID: Guid, instanceID: int) -> bool:
 		"""No Description
 
-		Args:
-			featureID(Guid): featureID
-			instanceID(int): instanceID
+		Args
+		--------
+			featureID (``Guid``) :  featureID
+			instanceID (``int``) :  instanceID
 
-		Returns:
-			bool: 
+		Returns
+		--------
+			``bool`` : 
 		"""
 		pass
 
 	def StopFeatureTracking(self, instanceID: int) -> bool:
 		"""No Description
 
-		Args:
-			instanceID(int): instanceID
+		Args
+		--------
+			instanceID (``int``) :  instanceID
 
-		Returns:
-			bool: 
+		Returns
+		--------
+			``bool`` : 
 		"""
 		pass
 
@@ -184,12 +197,14 @@ class ILicense:
 	def FeatureTrackingMark(self, featureID: Guid, featureUserDataKeyValMap: Dict[str,str]) -> bool:
 		"""No Description
 
-		Args:
-			featureID(Guid): featureID
-			featureUserDataKeyValMap(Dict[str,str]): featureUserDataKeyValMap
+		Args
+		--------
+			featureID (``Guid``) :  featureID
+			featureUserDataKeyValMap (``Dict[str,str]``) :  featureUserDataKeyValMap
 
-		Returns:
-			bool: 
+		Returns
+		--------
+			``bool`` : 
 		"""
 		pass
 
@@ -197,135 +212,155 @@ class ILicense:
 	def FeatureTrackingMark(self, featureID: Guid) -> bool:
 		"""No Description
 
-		Args:
-			featureID(Guid): featureID
+		Args
+		--------
+			featureID (``Guid``) :  featureID
 
-		Returns:
-			bool: 
+		Returns
+		--------
+			``bool`` : 
 		"""
 		pass
 
 	def StartDesktopProject(self, projectID: str) -> bool:
 		"""No Description
 
-		Args:
-			projectID(str): projectID
+		Args
+		--------
+			projectID (``str``) :  projectID
 
-		Returns:
-			bool: 
+		Returns
+		--------
+			``bool`` : 
 		"""
 		pass
 
 	def StopDesktopProject(self) -> bool:
 		"""No Description
 
-		Returns:
-			bool: 
+		Returns
+		--------
+			``bool`` : 
 		"""
 		pass
 
 	def StartMLA(self, apProduct: ProductRelease, waitForExit: bool) -> None:
 		"""No Description
 
-		Args:
-			apProduct(ProductRelease): apProduct
-			waitForExit(bool): waitForExit
+		Args
+		--------
+			apProduct (``ProductRelease``) :  apProduct
+			waitForExit (``bool``) :  waitForExit
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
 	def IsAnalysisEnabledMessage(self, showMessage: bool) -> bool:
 		"""No Description
 
-		Args:
-			showMessage(bool): showMessage
+		Args
+		--------
+			showMessage (``bool``) :  showMessage
 
-		Returns:
-			bool: 
+		Returns
+		--------
+			``bool`` : 
 		"""
 		pass
 
 	def IsPrintingEnabledMessage(self, showMessage: bool) -> bool:
 		"""No Description
 
-		Args:
-			showMessage(bool): showMessage
+		Args
+		--------
+			showMessage (``bool``) :  showMessage
 
-		Returns:
-			bool: 
+		Returns
+		--------
+			``bool`` : 
 		"""
 		pass
 
 	def GetProxyInformation(self, proxyName: str, proxyNeedsAuth: bool, proxyUserName: str, proxyPw: str, handshake: str) -> bool:
 		"""No Description
 
-		Args:
-			proxyName(str): proxyName
-			proxyNeedsAuth(bool): proxyNeedsAuth
-			proxyUserName(str): proxyUserName
-			proxyPw(str): proxyPw
-			handshake(str): handshake
+		Args
+		--------
+			proxyName (``str``) :  proxyName
+			proxyNeedsAuth (``bool``) :  proxyNeedsAuth
+			proxyUserName (``str``) :  proxyUserName
+			proxyPw (``str``) :  proxyPw
+			handshake (``str``) :  handshake
 
-		Returns:
-			bool: 
+		Returns
+		--------
+			``bool`` : 
 		"""
 		pass
 
 	def GetComputerName(self) -> str:
 		"""No Description
 
-		Returns:
-			str: 
+		Returns
+		--------
+			``str`` : 
 		"""
 		pass
 
 	def GetDaysUntilDisabled(self) -> int:
 		"""No Description
 
-		Returns:
-			int: 
+		Returns
+		--------
+			``int`` : 
 		"""
 		pass
 
 	def GetOrganizationName(self) -> str:
 		"""No Description
 
-		Returns:
-			str: 
+		Returns
+		--------
+			``str`` : 
 		"""
 		pass
 
 	def GetUsername(self) -> str:
 		"""No Description
 
-		Returns:
-			str: 
+		Returns
+		--------
+			``str`` : 
 		"""
 		pass
 
 	def GetLicenseType(self) -> LicenseType:
 		"""No Description
 
-		Returns:
-			LicenseType: 
+		Returns
+		--------
+			``LicenseType`` : 
 		"""
 		pass
 
 	def GetExpirationDate(self) -> datetime:
 		"""No Description
 
-		Returns:
-			datetime: 
+		Returns
+		--------
+			``datetime`` : 
 		"""
 		pass
 
 	def ClearDefaultFeatureString(self) -> bool:
 		"""No Description
 
-		Returns:
-			bool: 
+		Returns
+		--------
+			``bool`` : 
 		"""
 		pass
 
@@ -333,8 +368,9 @@ class ILicense:
 	def IsTemporaryLicense(self) -> bool:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -342,8 +378,9 @@ class ILicense:
 	def RunStatus(self) -> LicenseRunStatusEnum:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -351,8 +388,9 @@ class ILicense:
 	def SizeEnabled(self) -> int:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -360,8 +398,9 @@ class ILicense:
 	def IsSUDAEnabled(self) -> bool:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -373,8 +412,9 @@ class ILicense:
 	def IsMicroStationEnabled(self) -> bool:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -382,8 +422,9 @@ class ILicense:
 	def IsArcGISEnabled(self) -> bool:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -391,8 +432,9 @@ class ILicense:
 	def IsAutoCADEnabled(self) -> bool:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -400,8 +442,9 @@ class ILicense:
 	def IsPrintingEnabled(self) -> bool:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -409,8 +452,9 @@ class ILicense:
 	def IsAnalysisEnabled(self) -> bool:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -418,8 +462,9 @@ class ILicense:
 	def IsDefaultFeatureSet(self) -> bool:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -427,8 +472,9 @@ class ILicense:
 	def ReadableType(self) -> str:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -436,8 +482,9 @@ class ILicense:
 	def ReadableFeatureStringType(self) -> str:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -445,8 +492,9 @@ class ILicense:
 	def FeatureString(self) -> str:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -454,8 +502,9 @@ class ILicense:
 	def Features(self) -> FeatureMap:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -463,8 +512,9 @@ class ILicense:
 	def DefaultFeatureString(self) -> str:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -476,8 +526,9 @@ class ILicense:
 	def IsCheckedOutLicense(self) -> bool:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -485,8 +536,9 @@ class ILicense:
 	def IsInitialized(self) -> bool:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -494,8 +546,9 @@ class ILicense:
 	def Product(self) -> ProductRelease:
 		"""No Description
 
-		Returns:
-			ILicense: 
+		Returns
+		--------
+			``ILicense`` : 
 		"""
 		pass
 
@@ -505,8 +558,9 @@ class ILicenseProvider:
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -514,36 +568,41 @@ class ILicenseProvider:
 	def GetActiveLicense(self) -> License:
 		"""No Description
 
-		Returns:
-			License: 
+		Returns
+		--------
+			``License`` : 
 		"""
 		pass
 
 	def GetComputeTrackingID(self) -> Guid:
 		"""No Description
 
-		Returns:
-			Guid: 
+		Returns
+		--------
+			``Guid`` : 
 		"""
 		pass
 
 	def GetComputeSCADATrackingID(self) -> Guid:
 		"""No Description
 
-		Returns:
-			Guid: 
+		Returns
+		--------
+			``Guid`` : 
 		"""
 		pass
 
 	def AddFeatureUserData(self, userKey: str, userValue: str) -> None:
 		"""No Description
 
-		Args:
-			userKey(str): userKey
-			userValue(str): userValue
+		Args
+		--------
+			userKey (``str``) :  userKey
+			userValue (``str``) :  userValue
 
-		Returns:
-			None: 
+		Returns
+		--------
+			``None`` : 
 		"""
 		pass
 
@@ -551,8 +610,9 @@ class ILicenseProvider:
 	def FeatureDataMap(self) -> Dict[str,str]:
 		"""No Description
 
-		Returns:
-			ILicenseProvider: 
+		Returns
+		--------
+			``ILicenseProvider`` : 
 		"""
 		pass
 
@@ -562,8 +622,9 @@ class IFeatureTrackingProvider(ILicenseProvider):
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -571,8 +632,9 @@ class IFeatureTrackingProvider(ILicenseProvider):
 	def IsFeatureTracked(self) -> bool:
 		"""No Description
 
-		Returns:
-			bool: 
+		Returns
+		--------
+			``bool`` : 
 		"""
 		pass
 

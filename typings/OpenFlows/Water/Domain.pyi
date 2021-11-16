@@ -1,10 +1,12 @@
 from enum import Enum
-from OpenFlows.Domain.DataObjects import IModel
+from System import TypeCode
+from OpenFlows.Domain.DataObjects import IModel, IModelElementManager, IModelIOOperations, IModelScenarioManagement, IDomainModel, IModelSelectionSetManagement
 from OpenFlows.Water.Units import INetworkElementUnits, IComponentElementUnits
 from OpenFlows.Water.Domain.ModelingElements.NetworkElements import IWaterNetwork, IWaterElement
 from OpenFlows.Water.Domain.ModelingElements.Components import IWaterModelSupport, IWaterComponent
 from OpenFlows.Water.Domain.ModelingElements import IWaterScenarios, IWaterScenario, IWaterSelectionSets, IWaterSelectionSet
 from OpenFlows.Water.Domain.ModelingElements.CalculationOptions import IWaterScenarioOptions, IWaterScenarioOptionsUnits
+from OpenFlows.Units import IModelUnits
 from OpenFlows.Water.Analysis import IAnalysisTools
 
 class CalculationType(Enum):
@@ -72,8 +74,9 @@ class IWaterModel(IModel[IWaterNetwork, IWaterModelSupport, IWaterScenarios, IWa
 		"""Creating a new Instance of this class is not allowed
 
 
-		Raises:
-			Exception: if this class is instanciated
+		Raises
+		--------
+			Exception: if this class is instantiated
 		"""
 		raise Exception("Creating a new Instance of this class is not allowed")
 		pass
@@ -82,8 +85,9 @@ class IWaterModel(IModel[IWaterNetwork, IWaterModelSupport, IWaterScenarios, IWa
 	def AnalysisTools(self) -> IAnalysisTools:
 		"""Analysis tools available in OpenFlows
 
-		Returns:
-			IWaterModel: 
+		Returns
+		--------
+			``IWaterModel`` : 
 		"""
 		pass
 
